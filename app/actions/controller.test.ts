@@ -19,6 +19,7 @@ describe('Kinkdom routes', () => {
     assert.match(html, /src="\/kinkdom-day\.avif"/)
     assert.match(html, /src="\/kinkdom-night\.avif"/)
     assert.doesNotMatch(html, /<canvas/)
+    assert.doesNotMatch(html, /data-clock|依你的手機時間自動切換/)
     assert.match(html, /made with love/)
     assert.match(html, /台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造/)
     assert.match(html, /TinaTea 緹/)

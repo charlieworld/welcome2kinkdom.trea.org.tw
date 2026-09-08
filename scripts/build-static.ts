@@ -32,6 +32,14 @@ const pagePaths = [
 const assetPattern = /\/assets\/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+/g
 const assetQueue = new Set<string>()
 
+function publishedAssetPath(assetPath: string) {
+  return assetPath.endsWith('.ts') ? `${assetPath.slice(0, -3)}.js` : assetPath
+}
+
+function rewriteAssetPaths(source: string) {
+  return source.replace(assetPattern, publishedAssetPath)
+}
+
 function pageFile(urlPath: string) {
   return urlPath === '/'
     ? path.join(outputDir, 'index.html')
@@ -46,13 +54,14 @@ function redirectDocument(location: string) {
 async function writePage(urlPath: string) {
   const response = await router.fetch(new Request(`https://welcome2kinkdom.trea.org.tw${urlPath}`))
   const location = response.headers.get('location')
-  const html = location ? redirectDocument(location) : await response.text()
+  const sourceHtml = location ? redirectDocument(location) : await response.text()
 
   if (!location && !response.ok) {
     throw new Error(`${urlPath} returned ${response.status}`)
   }
 
-  for (const match of html.matchAll(assetPattern)) assetQueue.add(match[0])
+  for (const match of sourceHtml.matchAll(assetPattern)) assetQueue.add(match[0])
+  const html = rewriteAssetPaths(sourceHtml)
   const destination = pageFile(urlPath)
   await mkdir(path.dirname(destination), { recursive: true })
   await writeFile(destination, html)
@@ -63,15 +72,17 @@ async function writeAssets() {
     const response = await router.fetch(new Request(`https://welcome2kinkdom.trea.org.tw${assetPath}`))
     if (!response.ok) throw new Error(`${assetPath} returned ${response.status}`)
 
-    const source = new Uint8Array(await response.arrayBuffer())
-    const destination = path.join(outputDir, assetPath.slice(1))
+    let source = new Uint8Array(await response.arrayBuffer())
+    const destination = path.join(outputDir, publishedAssetPath(assetPath).slice(1))
     await mkdir(path.dirname(destination), { recursive: true })
-    await writeFile(destination, source)
 
     if (response.headers.get('content-type')?.includes('javascript')) {
       const text = new TextDecoder().decode(source)
       for (const match of text.matchAll(assetPattern)) assetQueue.add(match[0])
+      source = new TextEncoder().encode(rewriteAssetPaths(text))
     }
+
+    await writeFile(destination, source)
   }
 }
 

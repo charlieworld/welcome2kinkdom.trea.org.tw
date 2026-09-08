@@ -27,7 +27,6 @@ export function HomePage() {
           <div className="eyebrow"><i></i><span data-copy="eyebrow">Day District</span></div>
           <h1><span data-copy="h1">白天街區</span><small data-copy="h1en">• Day</small></h1>
           <p className="lede" data-copy="lede">一座白天與夜晚各有樣貌的城市。走進便利商店、學校、咖啡廳與市集，認識禁羈社群。</p>
-          <div className="clock"><span data-clock>--:--</span> · <span data-clock-note>依你的手機時間自動切換</span></div>
         </section>
         <div className="kv phase-transition">
           <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt="歡迎入境基地樂園，白天街區主視覺" width="2742" height="3840" />

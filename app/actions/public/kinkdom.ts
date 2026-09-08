@@ -17,7 +17,6 @@ function apply() {
   const current = copy[phase]
   root.dataset.phase = phase
   for (const key of ['eyebrow', 'h1', 'h1en', 'lede'] as const) setText(`[data-copy="${key}"]`, current[key])
-  setText('[data-clock-note]', manuallySelected ? `已暫時切換為${current.label}` : '依你的手機時間自動切換')
   setText('[data-phase-note]', manuallySelected ? `已暫時切換為「${current.label}」，重新進入頁面時會再次偵測時間。` : '每次進入頁面會依手機時間顯示，也可以暫時切換。')
   document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === phase)))
   window.dispatchEvent(new CustomEvent('kinkdom:phase', { detail: phase }))
@@ -25,7 +24,6 @@ function apply() {
 
 function tick() {
   const date = new Date()
-  setText('[data-clock]', `${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`)
   if (!manuallySelected && phase !== phaseByHour(date.getHours())) { phase = phaseByHour(date.getHours()); apply() }
 }
 
