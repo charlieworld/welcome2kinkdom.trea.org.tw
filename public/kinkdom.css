@@ -28,5 +28,7 @@
 .footer-signature{display:flex;align-items:center;justify-content:center;gap:9px;margin:32px 0 0;color:var(--ink-3);font-family:Syne,"Noto Sans TC",sans-serif;font-size:13px;letter-spacing:.12em}
 .footer-signature em{font-family:"Noto Serif TC","Songti TC",serif;font-style:italic;letter-spacing:.08em}
 .footer-signature i{color:var(--accent);font-size:10px;font-style:normal}
+html,body{max-width:100%;overflow-x:hidden}
+@supports(overflow:clip){html,body{overflow-x:clip}}
 @media(min-width:768px){.site-footer{margin-top:72px}.footer-inner{padding-top:38px}.footer-credits{max-width:760px}.footer-signature{margin-top:38px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
