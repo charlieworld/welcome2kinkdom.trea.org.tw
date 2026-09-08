@@ -20,7 +20,7 @@ const navGroups = [
 
 export function HomePage() {
   return () => (
-    <Document description="白天與夜晚的社群在城市中的樣貌">
+    <Document description="走進白天與夜晚各有樣貌的禁羈街區，認識台灣 kink 社群的故事、團體、節目、空間與活動。">
       <TopBar />
       <main id="top" className="wrap">
         <section className="hero phase-transition">
@@ -54,11 +54,11 @@ export function HomePage() {
   )
 }
 
-export function ContentPage(handle: Handle<{ page: readonly [string, string, string] }>) {
+export function ContentPage(handle: Handle<{ page: readonly [string, string, string, string] }>) {
   return () => {
-    const [place, title, english] = handle.props.page
+    const [place, title, english, urlPath] = handle.props.page
     return (
-      <Document title={`${title} · 禁羈街區`} description={`${title}，禁羈街區 ${place}。`}>
+      <Document title={`${title} · 禁羈街區`} description={`${title}，禁羈街區 ${place}。`} urlPath={urlPath}>
         <TopBar />
         <main className="wrap content-page">
           <section className="hero">

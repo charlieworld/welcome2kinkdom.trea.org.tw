@@ -6,14 +6,14 @@ import { routes } from '../routes.ts'
 import { HomePage, ContentPage } from '../ui/pages.tsx'
 
 const pages = {
-  storeAbout: ['Store', '禁羈介紹', 'About'],
-  storeWeb: ['Store', '禁羈友站', 'Web'],
-  schoolGrowing: ['School', '禁羈發展', 'Growing'],
-  schoolOrganize: ['School', '禁羈團體', 'Organize'],
-  cafePodcast: ['Cafe', '禁羈節目', 'Podcast'],
-  cafeSpace: ['Cafe', '禁羈空間', 'Space'],
-  marketPride: ['Market', '遊行', 'Pride'],
-  marketFusion: ['Market', '蛻變', 'Fusion'],
+  storeAbout: ['Store', '禁羈介紹', 'About', routes.storeAbout.href()],
+  storeWeb: ['Store', '禁羈友站', 'Web', routes.storeWeb.href()],
+  schoolGrowing: ['School', '禁羈發展', 'Growing', routes.schoolGrowing.href()],
+  schoolOrganize: ['School', '禁羈團體', 'Organize', routes.schoolOrganize.href()],
+  cafePodcast: ['Cafe', '禁羈節目', 'Podcast', routes.cafePodcast.href()],
+  cafeSpace: ['Cafe', '禁羈空間', 'Space', routes.cafeSpace.href()],
+  marketPride: ['Market', '遊行', 'Pride', routes.marketPride.href()],
+  marketFusion: ['Market', '蛻變', 'Fusion', routes.marketFusion.href()],
 } as const
 
 export default createController(routes, {

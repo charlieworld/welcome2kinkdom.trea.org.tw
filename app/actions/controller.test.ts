@@ -22,6 +22,10 @@ describe('Kinkdom routes', () => {
     assert.match(html, /made with love/)
     assert.match(html, /台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造/)
     assert.match(html, /TinaTea 緹/)
+    assert.match(html, /property="og:title" content="禁羈街區 Kinkdom"/)
+    assert.match(html, /property="og:image" content="https:\/\/welcome2kinkdom\.trea\.org\.tw\/og-day\.jpg"/)
+    assert.match(html, /property="og:image" content="https:\/\/welcome2kinkdom\.trea\.org\.tw\/og-night\.jpg"/)
+    assert.match(html, /name="twitter:card" content="summary_large_image"/)
   })
 
   it('renders every content route', async () => {
@@ -30,6 +34,13 @@ describe('Kinkdom routes', () => {
       const response = await router.fetch(new Request(`http://kinkdom.test${path}`))
       assert.equal(response.status, 200, path)
     }
+  })
+
+  it('renders a canonical URL for content pages', async () => {
+    const response = await router.fetch(new Request('http://kinkdom.test/market/pride'))
+    const html = await response.text()
+    assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/market\/pride"/)
+    assert.match(html, /property="og:url" content="https:\/\/welcome2kinkdom\.trea\.org\.tw\/market\/pride"/)
   })
 
   it('preserves permanent Wix redirects', async () => {
