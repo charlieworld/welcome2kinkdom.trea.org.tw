@@ -5,6 +5,7 @@ import { assets } from '../assets.ts'
 import { routes } from '../routes.ts'
 import { AboutPage, CategoryPage, HomePage, StatementPage } from '../ui/pages.tsx'
 import { KinkSpacePage } from '../ui/kink-space.tsx'
+import { ChroniclePage } from '../ui/chronicle.tsx'
 
 export default createController(routes, {
   actions: {
@@ -20,6 +21,7 @@ export default createController(routes, {
     statementCd(context) { return context.render(<StatementPage lang="zh" />) },
     about(context) { return context.render(<AboutPage lang="zh" />) },
     kinkSpace(context) { return context.render(<KinkSpacePage lang="zh" />) },
+    chronicle(context) { return context.render(<ChroniclePage lang="zh" />) },
     homeEn(context) { return context.render(<HomePage lang="en" />) },
     linksEventsEn(context) { return context.render(<CategoryPage lang="en" category="events" />) },
     linksResourcesEn(context) { return context.render(<CategoryPage lang="en" category="resources" />) },
@@ -29,6 +31,7 @@ export default createController(routes, {
     statementCdEn(context) { return context.render(<StatementPage lang="en" />) },
     aboutEn(context) { return context.render(<AboutPage lang="en" />) },
     kinkSpaceEn(context) { return context.render(<KinkSpacePage lang="en" />) },
+    chronicleEn(context) { return context.render(<ChroniclePage lang="en" />) },
     // Former Kinkdom section pages → the closest category.
     store() { return redirect(routes.about.href(), 301) },
     school() { return redirect(routes.linksResources.href(), 301) },

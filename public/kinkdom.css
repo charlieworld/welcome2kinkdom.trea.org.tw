@@ -138,3 +138,34 @@ html,body{max-width:100%;overflow-x:hidden}
 .source b{display:block;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
 .source a{color:var(--accent);text-decoration:none}
 @media(max-width:420px){.stats{gap:6px}.stats dd{font-size:20px}}
+/* ---- Chronicle ---- */
+.chronicle .section{padding-top:26px}
+.chronicle-stats{grid-template-columns:1fr 1.6fr 1fr}
+.chron{border-top:1px solid var(--line)}
+.chron-year{position:relative}
+.chron-year h3{position:sticky;top:56px;z-index:5;margin:0;padding:12px 0 6px;display:flex;justify-content:space-between;align-items:baseline;font-family:"Noto Serif TC","Songti TC",serif;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);background:color-mix(in srgb,var(--ground) 90%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.chron-year h3 span{font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.chron-year ol{list-style:none;margin:0;padding:0 0 6px 22px;position:relative}
+.chron-year ol::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--line)}
+.chron-event{position:relative;padding:10px 0 12px}
+.chron-event::before{content:"";position:absolute;left:-21px;top:16px;width:9px;height:9px;border-radius:50%;background:var(--ground);border:1.5px solid var(--ink-3);opacity:.7}
+.chron-event+.chron-event{border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent)}
+.chron-event.is-highlight{margin:6px 0;padding:12px 12px 14px;border:0;border-left:3px solid var(--accent);border-radius:0 12px 12px 0;background:var(--accent-soft)}
+.chron-event.is-highlight+.chron-event{border-top:0}
+.chron-event.is-highlight::before{left:-25px;top:18px;width:11px;height:11px;background:var(--accent);border-color:var(--accent);opacity:1;box-shadow:var(--glow)}
+.chron-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-bottom:4px}
+.chron-date{font-family:Syne,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;font-variant-numeric:tabular-nums;color:var(--ink-2);margin-right:4px}
+.is-highlight .chron-date{color:var(--accent)}
+.chron-tag{font-size:11px;line-height:1.4;padding:1px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.chron-summary{margin:0;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px;font-weight:700;line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
+.chron-badge{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent);background:var(--surface);font-size:11px;line-height:1.5;letter-spacing:.04em}
+.chron-detail{margin:6px 0 0;font-size:14px;line-height:1.65;color:var(--ink-2);overflow-wrap:anywhere}
+.chron-meta{margin:4px 0 0;font-size:12px;color:var(--ink-3)}
+.chron-refs{display:flex;flex-wrap:wrap;gap:4px 12px;margin:6px 0 0;font-size:12px}
+.chron-refs a{color:var(--accent);text-decoration:none;overflow-wrap:anywhere}
+.chron-refs a:hover{text-decoration:underline}
+.chron-refs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chronicle .related-heading{margin-top:30px}
+.chronicle .related a{transition:border-color .2s ease}
+.chronicle .related a:hover{border-color:var(--accent)}
+@media(max-width:420px){.chronicle-stats dd{font-size:18px}}

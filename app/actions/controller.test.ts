@@ -6,6 +6,7 @@ import { pagePaths } from '../routes.ts'
 import { categories, links, linksIn, sortLinks } from '../data/links.ts'
 import { dict, en, zh } from '../i18n/index.ts'
 import { activePerYear, cities, countsByCity, isOngoing, spaces } from '../data/spaces.ts'
+import { HIGHLIGHT_IMPORTANCE, SHOW_THRESHOLD, events, visibleEvents } from '../data/chronicle.ts'
 
 async function fetchHtml(path: string) {
   const response = await router.fetch(new Request(`http://kinkdom.test${path}`))
@@ -62,8 +63,8 @@ describe('Navigator home page', () => {
 
 describe('Navigator content pages', () => {
   it('renders every page path in both languages', async () => {
-    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space')
-    assert.equal(pages.length, 18)
+    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/chronicle')
+    assert.equal(pages.length, 20)
     for (const path of pages) {
       const { response, html } = await fetchHtml(path)
       assert.equal(response.status, 200, path)
@@ -118,9 +119,61 @@ describe('Kink space page', () => {
   })
 })
 
+describe('Chronicle page', () => {
+  /** The `<li>` element whose text contains the given summary. */
+  function eventElement(html: string, summary: string) {
+    return (html.match(/<li\b[^>]*>.*?<\/li>/gs) ?? []).find((li) => li.includes(summary))
+  }
+
+  it('renders the timeline in both languages with entry points from the home page', async () => {
+    const { response, html } = await fetchHtml('/chronicle')
+    assert.equal(response.status, 200)
+    assert.match(html, /台灣BDSM社群大紀事及年表/)
+    assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/chronicle"/)
+    assert.equal((html.match(/class="chron-event/g) ?? []).length, 38)
+    assert.match(html, /href="\/kink_space"/)
+    const { html: enHtml } = await fetchHtml('/en/chronicle')
+    assert.match(enHtml, /Taiwan BDSM Community Chronicle/)
+    assert.match(enHtml, /More context coming/)
+    assert.match(enHtml, /href="\/en\/kink_space"/)
+    const { html: home } = await fetchHtml('/')
+    assert.match(home, /class="chip chip-link" href="\/chronicle">大紀事/)
+    assert.match(home, /<a href="\/chronicle"><b>台灣BDSM社群大紀事<\/b><span>年表 Chronicle<\/span><\/a>/)
+  })
+
+  it('shows only important events and highlights the key ones', async () => {
+    const { html } = await fetchHtml('/chronicle')
+    // Importance 3: hidden.
+    assert.ok(!html.includes('奇摩推出奇摩家族'))
+    // Importance 15: highlighted with the supplementary-info badge.
+    const key = eventElement(html, '同志箱屍案')
+    assert.ok(key, 'importance-15 event rendered')
+    assert.match(key, /class="chron-event is-highlight"/)
+    assert.match(key, /補充資訊 整理中/)
+    // Importance 9: shown, not highlighted.
+    const regular = eventElement(html, 'PTT BDSM版開版')
+    assert.ok(regular, 'importance-9 event rendered')
+    assert.doesNotMatch(regular, /is-highlight/)
+    // Internal editorial notes are never rendered.
+    assert.ok(!html.includes('待考據'))
+  })
+
+  it('has consistent chronicle data', () => {
+    assert.equal(events.length, 105)
+    const shown = visibleEvents()
+    assert.equal(shown.length, events.filter((e) => e.importance >= SHOW_THRESHOLD).length)
+    assert.equal(shown.filter((e) => e.importance === HIGHLIGHT_IMPORTANCE).length, 12)
+    for (let i = 1; i < shown.length; i++) assert.ok(shown[i - 1].start.year <= shown[i].start.year, shown[i].summary)
+    for (const event of events) {
+      if (event.end) assert.ok(event.end.year >= event.start.year && event.end.year - event.start.year <= 1, event.summary)
+      for (const ref of event.refs) assert.match(ref.url, /^https?:\/\//, event.summary)
+    }
+  })
+})
+
 describe('External links', () => {
   it('open every outbound link in a new tab', async () => {
-    for (const path of ['/', '/en', '/statement/cd', '/kink_space', '/links/forums']) {
+    for (const path of ['/', '/en', '/statement/cd', '/kink_space', '/chronicle', '/links/forums']) {
       const { html } = await fetchHtml(path)
       const anchors = html.match(/<a\b[^>]*href="https?:[^"]*"[^>]*>/g) ?? []
       assert.ok(anchors.length > 0, path)
