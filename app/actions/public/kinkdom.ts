@@ -62,3 +62,20 @@ if (chips.length && sections.length && 'IntersectionObserver' in window) {
 }
 
 apply(); tick(); setInterval(tick, 30000)
+
+// Kink space page: filter the timeline and list by running / closed.
+const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'))
+if (filterButtons.length) {
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-status]'))
+  filterButtons.forEach((button) => button.addEventListener('click', () => {
+    const filter = button.dataset.filter
+    filterButtons.forEach((other) => { const on = other === button; other.setAttribute('aria-pressed', String(on)); other.classList.toggle('chip-active', on) })
+    rows.forEach((row) => { row.hidden = filter !== 'all' && row.dataset.status !== filter })
+  }))
+  // Year labels that would overflow the track move inside the bar's end.
+  document.querySelectorAll<HTMLElement>('.tl-row').forEach((row) => {
+    const label = row.querySelector<HTMLElement>('.tl-years')
+    const track = row.querySelector<HTMLElement>('.tl-track')
+    if (label && track && label.offsetLeft + label.offsetWidth > track.offsetWidth) row.classList.add('near-end')
+  })
+}

@@ -5,6 +5,7 @@ import { router } from '../router.ts'
 import { pagePaths } from '../routes.ts'
 import { categories, links, linksIn, sortLinks } from '../data/links.ts'
 import { dict, en, zh } from '../i18n/index.ts'
+import { activePerYear, cities, countsByCity, isOngoing, spaces } from '../data/spaces.ts'
 
 async function fetchHtml(path: string) {
   const response = await router.fetch(new Request(`http://kinkdom.test${path}`))
@@ -61,8 +62,8 @@ describe('Navigator home page', () => {
 
 describe('Navigator content pages', () => {
   it('renders every page path in both languages', async () => {
-    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about')
-    assert.equal(pages.length, 16)
+    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space')
+    assert.equal(pages.length, 18)
     for (const path of pages) {
       const { response, html } = await fetchHtml(path)
       assert.equal(response.status, 200, path)
@@ -86,6 +87,34 @@ describe('Navigator content pages', () => {
     assert.match(html, /批踢踢實業坊/)
     assert.doesNotMatch(html, /href="https:\/\/kinkref\.org\/"/)
     assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/links\/forums"/)
+  })
+})
+
+describe('Kink space page', () => {
+  it('renders the map, chart, timeline and list in both languages', async () => {
+    const { response, html } = await fetchHtml('/kink_space')
+    assert.equal(response.status, 200)
+    assert.match(html, /台灣禁羈空間/)
+    assert.match(html, /class="cartogram"/)
+    assert.match(html, /class="chart"/)
+    assert.match(html, /class="timeline"/)
+    assert.match(html, /docs\.google\.com\/spreadsheets\/d\/170L5-ZWf1wuroyfeo79Qk5qmTTqB41K6lS1bv-uSlhM/)
+    for (const space of spaces) assert.ok(html.includes(space.name), space.name)
+    const { html: enHtml } = await fetchHtml('/en/kink_space')
+    assert.match(enHtml, /Kink Spaces in Taiwan/)
+    assert.match(enHtml, /New Taipei/)
+  })
+
+  it('has consistent space data', () => {
+    assert.equal(spaces.length, 62)
+    for (const space of spaces) {
+      assert.ok(space.start >= 2004 && space.start <= space.end, space.name)
+      if (space.city) assert.ok(cities.some((c) => c.key === space.city), `${space.name}: ${space.city}`)
+    }
+    const perYear = activePerYear()
+    assert.equal(perYear[0].year, 2004)
+    assert.equal(perYear.at(-1)?.count, spaces.filter(isOngoing).length)
+    assert.equal(countsByCity().reduce((sum, c) => sum + c.active + c.closed, 0), spaces.filter((s) => s.city).length)
   })
 })
 
