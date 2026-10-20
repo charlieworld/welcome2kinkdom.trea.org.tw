@@ -11,6 +11,7 @@ export const routes = route({
   statementCd: '/statement/cd',
   about: '/about',
   kinkSpace: '/kink_space',
+  kinkBasics: '/kink_basics',
   chronicle: '/chronicle',
   homeEn: '/en',
   linksEventsEn: '/en/links/events',
@@ -21,6 +22,7 @@ export const routes = route({
   statementCdEn: '/en/statement/cd',
   aboutEn: '/en/about',
   kinkSpaceEn: '/en/kink_space',
+  kinkBasicsEn: '/en/kink_basics',
   chronicleEn: '/en/chronicle',
   // Former Kinkdom section pages and Wix-era URLs, kept as permanent redirects.
   store: '/store',

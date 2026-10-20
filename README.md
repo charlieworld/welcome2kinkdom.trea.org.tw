@@ -17,9 +17,10 @@ npm run dev
 
 - 資源連結：`app/data/links.ts`，一筆一物件；新增時直接追加即可，頁面渲染時會依中文名稱筆畫序（英文版依英文名）排序。沒有英文名稱的連結在英文版顯示中文原名。
 - CD 事件聲明：`app/data/statement-cd.ts`，中英文各一份；引用區只放摘要與原文連結。
+- 認識禁羈：`app/data/kink-basics.ts`，中英文各一份，依「章節 → 段落」結構；同一份文件之後的章節直接加到 `chapters` 即可，頁面會自動加章節標題與目錄。
 - 介面文案：`app/i18n/index.ts`，`zh` 與 `en` 兩本字典，型別會強制兩邊鍵完整。
 - 路由：`app/routes.ts`；靜態建置的頁面清單由路由表自動產生。
-- 社群分享圖：首頁等共用 `public/og-day.jpg`、`og-night.jpg`；年表與禁羈空間各有專屬圖（`og-chronicle.jpg`、`og-kink-space.jpg`），由 `node --import remix/node-tsx scripts/og-templates.ts` 從資料產生 HTML 模板到 `tmp/og/`，再用無頭瀏覽器以 1200×630 截圖存回 `public/`。
+- 社群分享圖：首頁等共用 `public/og-day.jpg`、`og-night.jpg`；年表、禁羈空間與認識禁羈各有專屬圖（`og-chronicle.jpg`、`og-kink-space.jpg`、`og-kink-basics.jpg`），由 `node --import remix/node-tsx scripts/og-templates.ts` 從資料產生 HTML 模板到 `tmp/og/`，再用無頭瀏覽器以 1200×630 截圖存回 `public/`。
 
 ## 驗證
 

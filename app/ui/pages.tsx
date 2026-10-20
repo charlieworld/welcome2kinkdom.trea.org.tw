@@ -7,6 +7,7 @@ import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
 import { categories, categoryInfo, hostOf, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
 import { statementCd } from '../data/statement-cd.ts'
+import { coreValues, definition } from '../data/kink-basics.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
 export const pageHrefs = {
@@ -19,6 +20,7 @@ export const pageHrefs = {
   statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
   about: { zh: routes.about.href(), en: routes.aboutEn.href() },
   kinkSpace: { zh: routes.kinkSpace.href(), en: routes.kinkSpaceEn.href() },
+  kinkBasics: { zh: routes.kinkBasics.href(), en: routes.kinkBasicsEn.href() },
   chronicle: { zh: routes.chronicle.href(), en: routes.chronicleEn.href() },
 } as const
 
@@ -55,25 +57,27 @@ export function HomePage(handle: Handle<PageProps>) {
             <a className="chip chip-link" href={pageHrefs.kinkSpace[lang]}>{dict.kinkSpace.chip} →</a>
             <a className="chip chip-link" href={pageHrefs.chronicle[lang]}>{dict.chronicle.chip} →</a>
           </nav>
-          <a className="feature phase-transition" href={pageHrefs.kinkSpace[lang]}>
-            <span className="feature-tag">{dict.kinkSpace.homeCard.tag}</span>
-            <b>{dict.kinkSpace.homeCard.title}</b>
-            <span>{dict.kinkSpace.homeCard.text}</span>
-          </a>
-          <a className="feature phase-transition" href={pageHrefs.chronicle[lang]}>
-            <span className="feature-tag">{dict.chronicle.homeCard.tag}</span>
-            <b>{dict.chronicle.homeCard.title}</b>
-            <span>{dict.chronicle.homeCard.text}</span>
-          </a>
-          {categories.map((category) => {
+          <div className="topics">
+            <a className="topic topic-basics phase-transition" href={pageHrefs.kinkBasics[lang]}>
+              <i>{dict.kinkBasics.homeCard.tag}</i><b>{dict.kinkBasics.homeCard.title}</b><span>{dict.kinkBasics.homeCard.text}</span>
+            </a>
+            <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
+              <i>{dict.kinkSpace.homeCard.tag}</i><b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
+            </a>
+            <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
+              <i>{dict.chronicle.homeCard.tag}</i><b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
+            </a>
+          </div>
+          {categories.map((category, index) => {
             const items = linksIn(category.key, lang)
-            return (
+            return (<>
               <section className="section link-section" id={category.key} key={category.key}>
                 <h2><em>{pick(category.name, lang)}</em><span>{lang === 'zh' ? category.name.en : category.name.zh} · {items.length}</span></h2>
                 <p className="sub">{pick(category.desc, lang)}</p>
                 <LinkList items={items} icon={category.icon} lang={lang} />
               </section>
-            )
+              {index === 1 ? <BasicsTeaser lang={lang} /> : null}
+            </>)
           })}
           <SiteFooter lang={lang} />
         </main>
@@ -172,6 +176,23 @@ export function AboutPage(handle: Handle<PageProps>) {
   }
 }
 
+function BasicsTeaser(handle: Handle<{ lang: Lang }>) {
+  return () => {
+    const { lang } = handle.props
+    const dict = t(lang)
+    const def = definition(lang)
+    return (
+      <aside className="teaser phase-transition" aria-labelledby="teaser-title">
+        <div className="eyebrow"><i></i><span>{dict.kinkBasics.teaser.eyebrow}</span></div>
+        <h2 id="teaser-title">{dict.kinkBasics.teaser.title}</h2>
+        <p><b>{def.term}</b>{def.text}</p>
+        <div className="teaser-values">{coreValues(lang).map((value) => <span key={value}>{value}</span>)}</div>
+        <a href={pageHrefs.kinkBasics[lang]}>{dict.kinkBasics.teaser.link}</a>
+      </aside>
+    )
+  }
+}
+
 function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }>) {
   return () => {
     const { items, icon, lang } = handle.props
@@ -253,6 +274,7 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         </nav>
         <h3>{dict.siteHeading}</h3>
         <nav className="nav">
+          {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
           {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
           {navLink(pageHrefs.chronicle[lang], dict.chronicle.nav, dict.chronicle.navSub)}

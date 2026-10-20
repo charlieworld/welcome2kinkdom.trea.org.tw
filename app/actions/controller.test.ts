@@ -63,8 +63,8 @@ describe('Navigator home page', () => {
 
 describe('Navigator content pages', () => {
   it('renders every page path in both languages', async () => {
-    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/chronicle')
-    assert.equal(pages.length, 20)
+    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/kink_basics' || path === '/chronicle')
+    assert.equal(pages.length, 22)
     for (const path of pages) {
       const { response, html } = await fetchHtml(path)
       assert.equal(response.status, 200, path)
@@ -180,7 +180,7 @@ describe('Chronicle page', () => {
 
 describe('Social images', () => {
   it('give the chronicle and kink space pages their own og:image', async () => {
-    for (const [path, image] of [['/chronicle', 'og-chronicle.jpg'], ['/en/chronicle', 'og-chronicle.jpg'], ['/kink_space', 'og-kink-space.jpg'], ['/en/kink_space', 'og-kink-space.jpg']]) {
+    for (const [path, image] of [['/chronicle', 'og-chronicle.jpg'], ['/en/chronicle', 'og-chronicle.jpg'], ['/kink_space', 'og-kink-space.jpg'], ['/en/kink_space', 'og-kink-space.jpg'], ['/kink_basics', 'og-kink-basics.jpg'], ['/en/kink_basics', 'og-kink-basics.jpg']]) {
       const { html } = await fetchHtml(path)
       assert.match(html, new RegExp(`property="og:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
       assert.match(html, new RegExp(`name="twitter:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
@@ -189,6 +189,31 @@ describe('Social images', () => {
     const { html } = await fetchHtml('/')
     assert.match(html, /og-day\.jpg/)
     assert.match(html, /og-night\.jpg/)
+  })
+})
+
+describe('Kink basics page', () => {
+  it('renders the definition, five values and five principles in both languages', async () => {
+    const { response, html } = await fetchHtml('/kink_basics')
+    assert.equal(response.status, 200)
+    assert.match(html, /認識禁羈/)
+    assert.match(html, /class="definition"/)
+    for (const value of ['多元友善', '風險意識', '探索自己', '尊重他人', '重視安全']) assert.ok(html.includes(value), value)
+    for (const short of ['SSC', 'RACK', 'PRICK', 'CCC', '4Cs']) assert.match(html, new RegExp(`<b>${short}</b>`), short)
+    assert.ok(!html.includes('千霂'))
+    const { html: enHtml } = await fetchHtml('/en/kink_basics')
+    assert.match(enHtml, /Understanding Kink/)
+    assert.match(enHtml, /Risk-Aware Consensual Kink/)
+  })
+
+  it('is linked from the home topics row, the teaser and the menu', async () => {
+    for (const path of ['/', '/en']) {
+      const { html } = await fetchHtml(path)
+      const href = path === '/' ? '/kink_basics' : '/en/kink_basics'
+      assert.match(html, new RegExp(`class="topic topic-basics[^"]*" href="${href}"`), path)
+      assert.match(html, /class="teaser/, path)
+      assert.ok((html.match(new RegExp(`href="${href}"`, 'g')) ?? []).length >= 3, `${path}: topics row, teaser and menu`)
+    }
   })
 })
 
