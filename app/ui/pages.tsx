@@ -51,6 +51,7 @@ export function HomePage(handle: Handle<PageProps>) {
           <nav className="chips" aria-label={dict.linksHeading}>
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
+            <a className="chip chip-link" href={pageHrefs.kinkSpace[lang]}>{dict.kinkSpace.chip} →</a>
           </nav>
           <a className="feature phase-transition" href={pageHrefs.kinkSpace[lang]}>
             <span className="feature-tag">{dict.kinkSpace.homeCard.tag}</span>

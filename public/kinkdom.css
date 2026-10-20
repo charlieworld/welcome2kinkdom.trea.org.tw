@@ -45,6 +45,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .chips{position:sticky;top:56px;z-index:10;display:flex;gap:6px;overflow-x:auto;padding:14px 0 10px;margin:0 -20px;padding-left:20px;padding-right:20px;scrollbar-width:none;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);text-decoration:none;background:var(--surface)}
+.chip.chip-link{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
 .chip.chip-active{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:var(--glow)}
 .link-section{scroll-margin-top:110px;padding-top:22px}
 .section h2 em{font-style:normal;font-family:"Noto Serif TC","Songti TC",serif;font-size:18px;letter-spacing:0;text-transform:none;color:var(--ink);margin-right:10px}
