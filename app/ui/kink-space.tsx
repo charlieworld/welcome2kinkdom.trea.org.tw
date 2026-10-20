@@ -69,7 +69,7 @@ export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
             ))}
           </section>
 
-          <p className="source"><b>{k.source}</b>{k.sourceNote} <a href={SOURCE.url} rel="noopener">{SOURCE.title}（{SOURCE.author}）↗</a></p>
+          <p className="source"><b>{k.source}</b>{k.sourceNote} <a href={SOURCE.url} target="_blank" rel="noopener noreferrer">{SOURCE.title}（{SOURCE.author}）↗</a></p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
@@ -175,7 +175,7 @@ function SpaceRow(handle: Handle<{ space: KinkSpace; lang: Lang }>) {
       <div className={`row space-row${ongoing ? ' is-active' : ' is-closed'}`} data-status={ongoing ? 'active' : 'closed'}>
         <span className={`status${ongoing ? ' on' : ''}`} aria-label={ongoing ? k.filterActive : k.filterClosed}></span>
         <span className="t"><b>{space.name}</b><span>{details}</span></span>
-        <span className="years">{k.yearRange(space.start, space.end, ongoing)}{space.url ? <a href={space.url} rel="noopener">{k.reference}</a> : null}</span>
+        <span className="years">{k.yearRange(space.start, space.end, ongoing)}{space.url ? <a href={space.url} target="_blank" rel="noopener noreferrer">{k.reference}</a> : null}</span>
       </div>
     )
   }
