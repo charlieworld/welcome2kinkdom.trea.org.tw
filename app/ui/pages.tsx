@@ -19,6 +19,7 @@ export const pageHrefs = {
   statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
   about: { zh: routes.about.href(), en: routes.aboutEn.href() },
   kinkSpace: { zh: routes.kinkSpace.href(), en: routes.kinkSpaceEn.href() },
+  chronicle: { zh: routes.chronicle.href(), en: routes.chronicleEn.href() },
 } as const
 
 export type PageKey = keyof typeof pageHrefs
@@ -52,6 +53,7 @@ export function HomePage(handle: Handle<PageProps>) {
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
             <a className="chip chip-link" href={pageHrefs.kinkSpace[lang]}>{dict.kinkSpace.chip} →</a>
+            <a className="chip chip-link" href={pageHrefs.chronicle[lang]}>{dict.chronicle.chip} →</a>
           </nav>
           <a className="feature phase-transition" href={pageHrefs.kinkSpace[lang]}>
             <span className="feature-tag">{dict.kinkSpace.homeCard.tag}</span>
@@ -248,6 +250,7 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <nav className="nav">
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
           {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
+          {navLink(pageHrefs.chronicle[lang], dict.chronicle.nav, dict.chronicle.navSub)}
           {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>
