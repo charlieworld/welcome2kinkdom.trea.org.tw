@@ -82,7 +82,6 @@ export const zh = {
   kinkBasics: {
     nav: '認識禁羈',
     navSub: '基礎 Basics',
-    homeCard: { tag: '基礎', title: '認識禁羈', text: '涵義、核心精神、互動原則' },
     teaser: { eyebrow: '關於禁羈', text: '關於禁羈，每個人都可能有不同的理解與感受。我們在這裡分享自己的想法，也珍惜每一種不同的聲音。願這些文字成為探索的起點，陪伴你慢慢尋找屬於自己的答案。', link: '認識禁羈 →' },
     toc: '章節',
     nextHeading: '接著看',
@@ -193,7 +192,6 @@ export const en: Dict = {
   kinkBasics: {
     nav: 'Understanding kink',
     navSub: 'Basics',
-    homeCard: { tag: 'Basics', title: 'Understanding Kink', text: 'Meaning, core values, principles of play' },
     teaser: { eyebrow: 'On kink', text: 'Everyone may understand and feel kink differently. Here we share our own thoughts and treasure every different voice. May these words be a starting point for exploration, keeping you company as you slowly find answers of your own.', link: 'Understanding kink →' },
     toc: 'Sections',
     nextHeading: 'Read next',

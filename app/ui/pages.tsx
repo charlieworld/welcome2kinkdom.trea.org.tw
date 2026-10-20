@@ -56,9 +56,6 @@ export function HomePage(handle: Handle<PageProps>) {
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
           </nav>
           <div className="topics">
-            <a className="topic topic-basics phase-transition" href={pageHrefs.kinkBasics[lang]}>
-              <i>{dict.kinkBasics.homeCard.tag}</i><b>{dict.kinkBasics.homeCard.title}</b><span>{dict.kinkBasics.homeCard.text}</span>
-            </a>
             <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
               <i>{dict.kinkSpace.homeCard.tag}</i><b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
             </a>
