@@ -2,32 +2,9 @@ import { cp, mkdir, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { router } from '../app/router.ts'
+import { pagePaths } from '../app/routes.ts'
 
 const outputDir = path.resolve('dist')
-const pagePaths = [
-  '/',
-  '/store',
-  '/school',
-  '/cafe',
-  '/market',
-  '/store/about',
-  '/store/web',
-  '/school/growing',
-  '/school/organize',
-  '/cafe/podcast',
-  '/cafe/space',
-  '/market/pride',
-  '/market/fusion',
-  '/blank-1',
-  '/blank-2',
-  '/blank-3',
-  '/blank-4',
-  '/blank-5',
-  '/blank-6',
-  '/blank-7',
-  '/blank-8',
-  '/blank-9',
-] as const
 
 const assetPattern = /\/assets\/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+/g
 const assetQueue = new Set<string>()

@@ -1,119 +1,250 @@
-import type { Handle } from 'remix/ui'
+import type { Handle, RemixNode } from 'remix/ui'
 
 import { kinkdomHref } from '../assets.ts'
 import { routes } from '../routes.ts'
 import { Document } from '../actions/document.tsx'
+import type { Lang } from '../i18n/index.ts'
+import { pick, t } from '../i18n/index.ts'
+import { categories, categoryInfo, hostOf, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
+import { statementCd } from '../data/statement-cd.ts'
 
-const places = [
-  { key: 'store', name: '便利商店', en: 'Store', desc: '24 小時，先從這裡認識我們', paths: ['M3 9l1.5-4h15L21 9M4 9h16v11H4zM9 20v-6h6v6'], pills: [['介紹 About', routes.storeAbout.href()], ['友站 Web', routes.storeWeb.href()]] },
-  { key: 'school', name: '學校', en: 'School', desc: '社群如何長大、如何組織', paths: ['M3 10l9-5 9 5-9 5-9-5zM7 12v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5M21 10v6'], pills: [['發展 Growing', routes.schoolGrowing.href()], ['團體 Organize', routes.schoolOrganize.href()]] },
-  { key: 'cafe', name: '咖啡廳', en: 'Cafe', desc: '坐下來聽節目、找空間', paths: ['M4 9h12v6a4 4 0 01-4 4H8a4 4 0 01-4-4zM16 10h2a2 2 0 010 4h-2M7 4v2M10 3v3M13 4v2'], pills: [['節目 Podcast', routes.cafePodcast.href()], ['空間 Space', routes.cafeSpace.href()]] },
-  { key: 'market', name: '市集', en: 'Market', desc: '遊行與蛻變，最熱鬧的角落', paths: ['M3 8l2-4h14l2 4M3 8c0 1.5 1 3 3 3s3-1.5 3-3c0 1.5 1 3 3 3s3-1.5 3-3c0 1.5 1 3 3 3s3-1.5 3-3M5 11v9h14v-9'], pills: [['遊行 Pride', routes.marketPride.href()], ['蛻變 Fusion', routes.marketFusion.href()]] },
-] as const
+/** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
+export const pageHrefs = {
+  home: { zh: routes.home.href(), en: routes.homeEn.href() },
+  events: { zh: routes.linksEvents.href(), en: routes.linksEventsEn.href() },
+  resources: { zh: routes.linksResources.href(), en: routes.linksResourcesEn.href() },
+  podcasts: { zh: routes.linksPodcasts.href(), en: routes.linksPodcastsEn.href() },
+  writings: { zh: routes.linksWritings.href(), en: routes.linksWritingsEn.href() },
+  forums: { zh: routes.linksForums.href(), en: routes.linksForumsEn.href() },
+  statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
+  about: { zh: routes.about.href(), en: routes.aboutEn.href() },
+} as const
 
-const navGroups = [
-  ['便利商店', 'Store', [['禁羈介紹', 'About', routes.storeAbout.href()], ['禁羈友站', 'Web', routes.storeWeb.href()]]],
-  ['學校', 'School', [['禁羈發展', 'Growing', routes.schoolGrowing.href()], ['禁羈團體', 'Organize', routes.schoolOrganize.href()]]],
-  ['咖啡廳', 'Cafe', [['禁羈節目', 'Podcast', routes.cafePodcast.href()], ['禁羈空間', 'Space', routes.cafeSpace.href()]]],
-  ['市集', 'Market', [['遊行', 'Pride', routes.marketPride.href()], ['蛻變', 'Fusion', routes.marketFusion.href()]]],
-] as const
+type PageKey = keyof typeof pageHrefs
 
-export function HomePage() {
-  return () => (
-    <Document description="走進白天與夜晚各有樣貌的禁羈街區，認識台灣 kink 社群的故事、團體、節目、空間與活動。">
-      <TopBar />
-      <main id="top" className="wrap">
-        <section className="hero phase-transition">
-          <div className="eyebrow"><i></i><span data-copy="eyebrow">Day District</span></div>
-          <h1><span data-copy="h1">白天街區</span><small data-copy="h1en">• Day</small></h1>
-          <p className="lede" data-copy="lede">一座白天與夜晚各有樣貌的城市。走進便利商店、學校、咖啡廳與市集，認識禁羈社群。</p>
-        </section>
-        <div className="kv phase-transition">
-          <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt="歡迎入境基地樂園，白天街區主視覺" width="2742" height="3840" />
-          <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt="歡迎入禁，騷地樂園，夜晚街區主視覺" width="1371" height="1920" />
-        </div>
-        <section className="section">
-          <h2>城市地圖 · City Map</h2>
-          <p className="sub">每個地點都是一個入口。點進去看看。</p>
-          <div className="rows">{places.map((place) => <PlaceRow key={place.key} place={place} />)}</div>
-        </section>
-        <footer className="site-footer">
-          <div className="footer-inner">
-            <div className="footer-credits">
-              <p><span>發起、規劃</span>台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造</p>
-              <p><span>網頁工程 ・ 維護</span>TinaTea 緹</p>
-            </div>
-            <p className="footer-signature"><em>made with love</em><i aria-hidden="true">✦</i><span>2026</span></p>
-          </div>
-        </footer>
-      </main>
-      <MenuSheet />
-      <script type="module" src={kinkdomHref}></script>
-    </Document>
-  )
-}
+interface PageProps { lang: Lang }
 
-export function ContentPage(handle: Handle<{ page: readonly [string, string, string, string] }>) {
+function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
+
+export function HomePage(handle: Handle<PageProps>) {
   return () => {
-    const [place, title, english, urlPath] = handle.props.page
+    const { lang } = handle.props
+    const dict = t(lang)
     return (
-      <Document title={`${title} · 禁羈街區`} description={`${title}，禁羈街區 ${place}。`} urlPath={urlPath}>
-        <TopBar />
-        <main className="wrap content-page">
-          <section className="hero">
-            <div className="eyebrow"><i></i><span>{place}</span></div>
-            <h1>{title}<small>• {english}</small></h1>
-            <p className="lede">這裡將收錄禁羈社群整理的{title}內容。</p>
+      <Document lang={lang} urlPath={pageHrefs.home[lang]} altPath={pageHrefs.home[otherLang(lang)]}>
+        <TopBar lang={lang} page="home" />
+        <main id="top" className="wrap">
+          <a className="notice phase-transition" href={pageHrefs.statementCd[lang]}>
+            <i aria-hidden="true"></i>
+            <span><b>{dict.statementNotice.tag}</b>{dict.statementNotice.text}</span>
+          </a>
+          <section className="hero phase-transition">
+            <div className="eyebrow"><i></i><span data-copy="eyebrow" data-day={dict.phase.day.eyebrow} data-night={dict.phase.night.eyebrow}>{dict.phase.day.eyebrow}</span></div>
+            <h1><span data-copy="h1" data-day={dict.phase.day.h1} data-night={dict.phase.night.h1}>{dict.phase.day.h1}</span><small>{dict.h1Sub}</small></h1>
+            <p className="lede" data-copy="lede" data-day={dict.phase.day.lede} data-night={dict.phase.night.lede}>{dict.phase.day.lede}</p>
           </section>
-          <article>
-            <p>內容正在整理中。這個頁面已經備妥 Markdown 內容檔，後續可由社群直接更新。</p>
-            <p>在正式內容上線前，可以先從城市地圖前往其他地點，認識不同面向的禁羈社群。</p>
-          </article>
-          <a className="back-link" href={routes.home.href()}>← 回到城市地圖</a>
+          <div className="kv phase-transition">
+            <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt={dict.kvDayAlt} width="2742" height="3840" />
+            <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
+          </div>
+          <nav className="chips" aria-label={dict.linksHeading}>
+            <a className="chip" href="#top">{dict.all}</a>
+            {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
+          </nav>
+          {categories.map((category) => {
+            const items = linksIn(category.key, lang)
+            return (
+              <section className="section link-section" id={category.key} key={category.key}>
+                <h2><em>{pick(category.name, lang)}</em><span>{lang === 'zh' ? category.name.en : category.name.zh} · {items.length}</span></h2>
+                <p className="sub">{pick(category.desc, lang)}</p>
+                <LinkList items={items} icon={category.icon} lang={lang} />
+              </section>
+            )
+          })}
+          <SiteFooter lang={lang} />
         </main>
-        <MenuSheet />
+        <MenuSheet lang={lang} page="home" />
         <script type="module" src={kinkdomHref}></script>
       </Document>
     )
   }
 }
 
-function TopBar() {
-  return () => (
-    <header className="bar phase-transition"><div className="wrap">
-      <a className="brand" href={routes.home.href()}><b>禁羈街區</b><span>KINKDOM</span></a>
-      <button className="menu-btn phase-transition" style={{ padding: '0 10px' }} type="button" data-menu-button aria-label="開啟選單" aria-expanded="false" aria-controls="menu-sheet">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      </button>
-    </div></header>
-  )
-}
-
-function PlaceRow(handle: Handle<{ place: typeof places[number] }>) {
+export function CategoryPage(handle: Handle<PageProps & { category: LinkCategory }>) {
   return () => {
-    const place = handle.props.place
-    return <div className="row phase-transition">
-      <a className="place-main" href={`/${place.key}`} aria-label={place.name}></a>
-      <span className="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={place.paths[0]} /></svg></span>
-      <span className="t"><b>{place.name}</b><span>{place.en} · {place.desc}</span></span>
-      <span className="pills">{place.pills.map(([label, href]) => <a className="pill" key={href} href={href}>{label}</a>)}</span>
-    </div>
+    const { lang, category } = handle.props
+    const dict = t(lang)
+    const info = categoryInfo(category)
+    const items = linksIn(category, lang)
+    const name = pick(info.name, lang)
+    return (
+      <Document lang={lang} title={`${name} · ${dict.siteName}`} description={pick(info.desc, lang)} urlPath={pageHrefs[category][lang]} altPath={pageHrefs[category][otherLang(lang)]}>
+        <TopBar lang={lang} page={category} />
+        <main className="wrap content-page">
+          <section className="hero">
+            <div className="eyebrow"><i></i><span>{dict.categoryEyebrow} · {lang === 'zh' ? info.name.en : info.name.zh}</span></div>
+            <h1>{name}<small>{dict.linksCount(items.length)}</small></h1>
+            <p className="lede">{pick(info.desc, lang)} {dict.sortedNote}</p>
+          </section>
+          <LinkList items={items} icon={info.icon} lang={lang} />
+          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <SiteFooter lang={lang} />
+        </main>
+        <MenuSheet lang={lang} page={category} />
+        <script type="module" src={kinkdomHref}></script>
+      </Document>
+    )
   }
 }
 
-function MenuSheet() {
-  return () => (<>
-    <div className="scrim" data-scrim></div>
-    <aside className="sheet phase-transition" id="menu-sheet" data-sheet aria-label="選單" aria-hidden="true" tabIndex={-1}>
-      <div className="grab"></div>
-      <h3>時間樣式 · Time of day</h3>
-      <div className="seg" role="group" aria-label="時間樣式">
-        {[['day','白天','Day'],['night','夜晚','Night']].map(([mode, zh, en]) =>
-          <button type="button" data-mode={mode} aria-pressed="false" key={mode}>{zh}<small>{en}</small></button>)}
+export function StatementPage(handle: Handle<PageProps>) {
+  return () => {
+    const { lang } = handle.props
+    const dict = t(lang)
+    const content = statementCd[lang]
+    return (
+      <Document lang={lang} title={`${dict.statementTitle} · ${dict.siteName}`} description={content.paragraphs[0]} urlPath={pageHrefs.statementCd[lang]} altPath={pageHrefs.statementCd[otherLang(lang)]}>
+        <TopBar lang={lang} page="statementCd" />
+        <main className="wrap content-page statement">
+          <section className="hero">
+            <div className="eyebrow"><i></i><span>{dict.statementEyebrow}</span></div>
+            <h1>{dict.statementTitle}<small>{dict.statementSub}</small></h1>
+            <p className="meta"><span>{dict.published(content.date)}</span><span aria-hidden="true">·</span><span>{dict.siteName}</span></p>
+          </section>
+          <article>
+            {content.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            <blockquote className="quote">
+              <p className="src">{dict.quotedFrom}</p>
+              <h3>{content.quote.title}</h3>
+              <p>{content.quote.summary}</p>
+              <a href={content.quote.url} rel="noopener">{dict.readOriginal}</a>
+            </blockquote>
+            <h2 className="eyebrow related-heading"><i></i><span>{dict.related}</span></h2>
+            <div className="related">
+              {content.related.map((item) => <a href={item.url} key={item.url} rel="noopener"><span>{item.label}</span><small>{item.meta}</small></a>)}
+            </div>
+          </article>
+          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <SiteFooter lang={lang} />
+        </main>
+        <MenuSheet lang={lang} page="statementCd" />
+        <script type="module" src={kinkdomHref}></script>
+      </Document>
+    )
+  }
+}
+
+export function AboutPage(handle: Handle<PageProps>) {
+  return () => {
+    const { lang } = handle.props
+    const dict = t(lang)
+    return (
+      <Document lang={lang} title={`${dict.aboutTitle} · ${dict.siteName}`} description={dict.aboutLede} urlPath={pageHrefs.about[lang]} altPath={pageHrefs.about[otherLang(lang)]}>
+        <TopBar lang={lang} page="about" />
+        <main className="wrap content-page">
+          <section className="hero">
+            <div className="eyebrow"><i></i><span>{dict.aboutEyebrow}</span></div>
+            <h1>{dict.aboutTitle}</h1>
+            <p className="lede">{dict.aboutLede}</p>
+          </section>
+          <article>{dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</article>
+          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <SiteFooter lang={lang} />
+        </main>
+        <MenuSheet lang={lang} page="about" />
+        <script type="module" src={kinkdomHref}></script>
+      </Document>
+    )
+  }
+}
+
+function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }>) {
+  return () => {
+    const { items, icon, lang } = handle.props
+    return (
+      <div className="rows">
+        {items.map((link) => (
+          <a className="row link-row phase-transition" href={link.url} key={link.url} rel="noopener">
+            <span className="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon} /></svg></span>
+            <span className="t"><b>{pick(link.name, lang)}</b><span>{hostOf(link.url)}{link.note ? ` · ${pick(link.note, lang)}` : ''}</span></span>
+            <span className="ext" aria-hidden="true">↗</span>
+          </a>
+        ))}
       </div>
-      <p className="auto-note" data-phase-note>每次進入頁面會依手機時間顯示，也可以暫時切換。</p>
-      {navGroups.map(([zh, en, links]) => <div key={en}><h3>{zh} · {en}</h3><nav className="nav">{links.map(([label, sub, href]) => <a href={href} key={href}><b>{label}</b><span>{sub}</span></a>)}</nav></div>)}
-      <button className="close" type="button" data-close-menu>關閉</button>
-    </aside>
-  </>)
+    )
+  }
+}
+
+function TopBar(handle: Handle<{ lang: Lang; page: PageKey }>) {
+  return () => {
+    const { lang, page } = handle.props
+    const dict = t(lang)
+    const other = otherLang(lang)
+    return (
+      <header className="bar phase-transition"><div className="wrap">
+        <a className="brand" href={pageHrefs.home[lang]}><b>{dict.siteName}</b><span>{dict.siteShort}</span></a>
+        <div className="bar-actions">
+          <a className="lang-switch phase-transition" href={pageHrefs[page][other]} hrefLang={t(other).htmlLang} lang={t(other).htmlLang} aria-label={dict.switchLangLabel}>{dict.switchLang}</a>
+          <button className="menu-btn phase-transition" type="button" data-menu-button aria-label={dict.menuOpen} aria-expanded="false" aria-controls="menu-sheet">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div></header>
+    )
+  }
+}
+
+function SiteFooter(handle: Handle<{ lang: Lang }>) {
+  return () => {
+    const dict = t(handle.props.lang)
+    return (
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-credits">
+            <p><span>{dict.credits.initiated}</span>台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造</p>
+            <p><span>{dict.credits.site}</span>TinaTea 緹</p>
+            <p><span>{dict.credits.suggest}</span>{dict.credits.suggestText}</p>
+          </div>
+          <p className="footer-signature"><em>made with love</em><i aria-hidden="true">✦</i><span>2026</span></p>
+        </div>
+      </footer>
+    )
+  }
+}
+
+function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
+  return () => {
+    const { lang, page } = handle.props
+    const dict = t(lang)
+    const other = otherLang(lang)
+    const navLink = (href: string, label: RemixNode, sub: RemixNode) => <a href={href} key={href}><b>{label}</b><span>{sub}</span></a>
+    return (<>
+      <div className="scrim" data-scrim></div>
+      <aside className="sheet phase-transition" id="menu-sheet" data-sheet aria-label={dict.menuLabel} aria-hidden="true" tabIndex={-1}>
+        <div className="grab"></div>
+        <h3>{dict.timeOfDay}</h3>
+        <div className="seg" role="group" aria-label={dict.timeOfDay}>
+          {([['day', dict.day, 'Day'], ['night', dict.night, 'Night']] as const).map(([mode, label, sub]) =>
+            <button type="button" data-mode={mode} aria-pressed="false" key={mode}>{label}<small>{sub}</small></button>)}
+        </div>
+        <p className="auto-note" data-phase-note data-auto-note={dict.autoNote} data-manual-note={dict.manualNote('{label}')}>{dict.autoNote}</p>
+        <h3>{dict.language}</h3>
+        <div className="seg" role="group" aria-label={dict.language}>
+          <a aria-current={lang === 'zh' ? 'page' : undefined} href={pageHrefs[page].zh} hrefLang="zh-Hant" lang="zh-Hant">中文<small>ZH</small></a>
+          <a aria-current={lang === 'en' ? 'page' : undefined} href={pageHrefs[page].en} hrefLang="en" lang="en">English<small>EN</small></a>
+        </div>
+        <h3>{dict.linksHeading}</h3>
+        <nav className="nav">
+          {categories.map((category) => navLink(pageHrefs[category.key][lang], pick(category.name, lang), `${lang === 'zh' ? category.name.en : category.name.zh} · ${linksIn(category.key, lang).length}`))}
+        </nav>
+        <h3>{dict.siteHeading}</h3>
+        <nav className="nav">
+          {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
+          {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
+          {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
+        </nav>
+        <button className="close" type="button" data-close-menu>{dict.menuClose}</button>
+      </aside>
+    </>)
+  }
 }

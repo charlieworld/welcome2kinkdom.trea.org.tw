@@ -1,24 +1,25 @@
 type Phase = 'day' | 'night'
 
-const copy = {
-  day: { label:'白天', eyebrow:'Day District', h1:'白天街區', h1en:'• Day', lede:'一座白天與夜晚各有樣貌的城市。走進便利商店、學校、咖啡廳與市集，認識禁羈社群。' },
-  night: { label:'夜晚', eyebrow:'Night District', h1:'夜晚街區', h1en:'• Night', lede:'夜裡的城市有另一種樣貌。同一條街，不同的人、不同的故事。' },
-} as const
-
 const root = document.documentElement
 let phase: Phase = phaseByHour(new Date().getHours())
 let manuallySelected = false
 
 function phaseByHour(hour: number): Phase { return hour >= 6 && hour < 19 ? 'day' : 'night' }
-function currentPhase(): Phase { return phase }
-function setText(selector: string, value: string) { const node = document.querySelector(selector); if (node) node.textContent = value }
 
 function apply() {
-  const current = copy[phase]
   root.dataset.phase = phase
-  for (const key of ['eyebrow', 'h1', 'h1en', 'lede'] as const) setText(`[data-copy="${key}"]`, current[key])
-  setText('[data-phase-note]', manuallySelected ? `已暫時切換為「${current.label}」，重新進入頁面時會再次偵測時間。` : '每次進入頁面會依手機時間顯示，也可以暫時切換。')
-  document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === phase)))
+  // Phase-specific copy ships in the HTML as data-day / data-night so it is already localized.
+  document.querySelectorAll<HTMLElement>('[data-copy]').forEach((node) => {
+    const text = node.dataset[phase]
+    if (text) node.textContent = text
+  })
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-mode]')
+  buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === phase)))
+  const note = document.querySelector<HTMLElement>('[data-phase-note]')
+  if (note) {
+    const label = Array.from(buttons).find((button) => button.dataset.mode === phase)?.firstChild?.textContent ?? phase
+    note.textContent = manuallySelected ? (note.dataset.manualNote ?? '').replace('{label}', label) : (note.dataset.autoNote ?? '')
+  }
   window.dispatchEvent(new CustomEvent('kinkdom:phase', { detail: phase }))
 }
 
@@ -48,4 +49,16 @@ document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => 
   apply()
 }))
 
-apply(); tick(); setInterval(tick,30000)
+// Category chips: highlight the one whose section is in view.
+const chips = Array.from(document.querySelectorAll<HTMLAnchorElement>('.chip'))
+const sections = Array.from(document.querySelectorAll<HTMLElement>('.link-section'))
+if (chips.length && sections.length && 'IntersectionObserver' in window) {
+  const setActive = (id: string) => chips.forEach((chip) => chip.classList.toggle('chip-active', chip.getAttribute('href') === `#${id}`))
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+    if (visible) setActive(visible.target.id)
+  }, { rootMargin: '-120px 0px -60% 0px' })
+  sections.forEach((section) => observer.observe(section))
+}
+
+apply(); tick(); setInterval(tick, 30000)

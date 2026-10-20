@@ -3,6 +3,22 @@ import { get, route } from 'remix/routes'
 export const routes = route({
   assets: get('/assets/*path'),
   home: '/',
+  linksEvents: '/links/events',
+  linksResources: '/links/resources',
+  linksPodcasts: '/links/podcasts',
+  linksWritings: '/links/writings',
+  linksForums: '/links/forums',
+  statementCd: '/statement/cd',
+  about: '/about',
+  homeEn: '/en',
+  linksEventsEn: '/en/links/events',
+  linksResourcesEn: '/en/links/resources',
+  linksPodcastsEn: '/en/links/podcasts',
+  linksWritingsEn: '/en/links/writings',
+  linksForumsEn: '/en/links/forums',
+  statementCdEn: '/en/statement/cd',
+  aboutEn: '/en/about',
+  // Former Kinkdom section pages and Wix-era URLs, kept as permanent redirects.
   store: '/store',
   school: '/school',
   cafe: '/cafe',
@@ -25,3 +41,8 @@ export const routes = route({
   legacy8: '/blank-8',
   legacy9: '/blank-9',
 })
+
+/** Every page path the static build must render, derived from the route table. */
+export const pagePaths = Object.entries(routes)
+  .filter(([key]) => key !== 'assets')
+  .map(([, r]) => (r as { href(): string }).href())
