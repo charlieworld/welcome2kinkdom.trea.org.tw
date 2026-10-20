@@ -201,6 +201,8 @@ describe('Kink basics page', () => {
     for (const value of ['多元友善', '風險意識', '探索自己', '尊重他人', '重視安全']) assert.ok(html.includes(value), value)
     for (const short of ['SSC', 'RACK', 'PRICK', 'CCC', '4Cs']) assert.match(html, new RegExp(`<b>${short}</b>`), short)
     assert.ok(!html.includes('千霂'))
+    assert.ok(html.indexOf('願這些文字成為探索的起點') < html.indexOf('class="toc"'), 'opening words before the TOC')
+    assert.ok(html.indexOf('走出屬於自己的道路') > html.lastIndexOf('class="acronyms"'), 'closing words after the last section')
     const { html: enHtml } = await fetchHtml('/en/kink_basics')
     assert.match(enHtml, /Understanding Kink/)
     assert.match(enHtml, /Risk-Aware Consensual Kink/)

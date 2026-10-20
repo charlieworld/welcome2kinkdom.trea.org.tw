@@ -27,6 +27,7 @@ export function KinkBasicsPage(handle: Handle<{ lang: Lang }>) {
             <h1>{content.title}<small>{content.sub}</small></h1>
             <p className="lede">{content.lede}</p>
           </section>
+          <p className="basics-words basics-opening">{content.opening}</p>
           <nav className="toc" aria-label={b.toc}>
             {sections.map((section) => <a href={`#${section.id}`} key={section.id}>{section.heading}</a>)}
           </nav>
@@ -39,6 +40,7 @@ export function KinkBasicsPage(handle: Handle<{ lang: Lang }>) {
               })}
             </div>
           ))}
+          <p className="basics-words basics-closing">{content.closing}</p>
           <h2 className="eyebrow related-heading"><i></i><span>{b.nextHeading}</span></h2>
           <div className="related">
             <a href={pageHrefs.kinkSpace[lang]}><span>{dict.kinkSpace.nav}</span><small>{dict.kinkSpace.eyebrow} →</small></a>
