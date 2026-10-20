@@ -75,3 +75,64 @@ html,body{max-width:100%;overflow-x:hidden}
 .related a{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:14px}
 .related a small{flex:none;color:var(--ink-3);font-family:Syne,sans-serif;font-size:10px;letter-spacing:.08em}
 @media(min-width:768px){.chips{top:56px}.link-section{scroll-margin-top:120px}}
+/* ---- Home feature card ---- */
+.feature{display:flex;flex-direction:column;gap:2px;margin:14px 0 4px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.feature-tag{font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.feature b{font-family:"Noto Serif TC","Songti TC",serif;font-size:18px}
+.feature>span:last-child{font-size:13px;color:var(--ink-2)}
+.feature:focus-visible,.filter .chip:focus-visible,.years a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ---- Kink space page ---- */
+.kink-space .section{padding-top:26px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0;padding:0}
+.stats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center}
+.stats dt{font-family:Syne,sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.stats dd{margin:2px 0 0;font-family:"Noto Serif TC","Songti TC",serif;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cartogram{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:64px;gap:5px;max-width:330px}
+.tile{border-radius:10px;background:var(--surface-2);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;padding:7px 8px;min-width:0;opacity:.45}
+.tile.level-1,.tile.level-2,.tile.level-3,.tile.level-4{opacity:1;color:var(--ink)}
+.tile.level-1{background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+.tile.level-2{background:color-mix(in srgb,var(--accent) 30%,var(--surface))}
+.tile.level-3{background:color-mix(in srgb,var(--accent) 50%,var(--surface));color:var(--accent-ink)}
+.tile.level-4{background:var(--accent);color:var(--accent-ink);box-shadow:var(--glow)}
+.tile-name{font-size:11px;line-height:1.2}
+.tile-count{font-family:"Noto Serif TC","Songti TC",serif;font-size:22px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.tile-count small{font-family:Syne,sans-serif;font-size:11px;font-weight:500;margin-left:3px;opacity:.8}
+.chart{margin:0}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .tick{font-family:Syne,sans-serif;font-size:11px;fill:var(--ink-3)}
+.chart .val{font-family:Syne,sans-serif;font-size:11px;font-weight:700;fill:var(--ink)}
+.chart .bar{fill:color-mix(in srgb,var(--accent) 55%,var(--surface-2))}
+.chart .bar-now{fill:var(--accent)}
+.chart figcaption{font-size:11px;color:var(--ink-3);margin-top:4px}
+.filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.filter .chip{cursor:pointer;font:inherit;font-size:13px}
+.timeline{position:relative;border-top:1px solid var(--line)}
+.tl-axis{position:relative;height:18px;margin-left:34%;font-family:Syne,sans-serif;font-size:10px;color:var(--ink-3)}
+.tl-axis span{position:absolute;top:2px;transform:translateX(-50%)}
+.tl-row{display:grid;grid-template-columns:34% 1fr;gap:6px;align-items:center;padding:5px 0;border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent)}
+.tl-row[hidden]{display:none}
+.tl-name{display:flex;flex-direction:column;min-width:0}
+.tl-name b{font-size:13px;line-height:1.25;overflow-wrap:anywhere}
+.tl-name small{font-size:10px;color:var(--ink-3);overflow-wrap:anywhere}
+.tl-track{position:relative;height:18px;display:block}
+.tl-bar{position:absolute;top:3px;height:12px;border-radius:6px;background:var(--accent);min-width:6px}
+.is-closed .tl-bar{background:color-mix(in srgb,var(--accent) 35%,var(--surface-2))}
+.tl-years{position:absolute;top:1px;margin-left:5px;font-family:Syne,sans-serif;font-size:10px;color:var(--ink-3);white-space:nowrap}
+.tl-row.near-end .tl-years{left:auto!important;right:6px;top:3px;margin:0;line-height:12px;font-weight:700;color:var(--accent-ink)}
+.tl-row.near-end.is-closed .tl-years{color:var(--ink)}
+.city-group{margin-top:16px}
+.city-group h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:16px;margin:0 0 4px;display:flex;justify-content:space-between;align-items:baseline}
+.city-group h3 span{font-family:Syne,sans-serif;font-size:11px;color:var(--ink-3)}
+.space-row{grid-template-columns:12px minmax(0,1fr) auto;gap:12px;padding:11px 0}
+.space-row[hidden]{display:none}
+.status{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.45}
+.status.on{background:var(--accent);opacity:1;box-shadow:var(--glow)}
+.space-row .t b{font-size:15px}
+.is-closed .t b{color:var(--ink-2)}
+.years{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-family:Syne,sans-serif;font-size:11px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.years a{color:var(--accent);text-decoration:none;font-family:"Noto Sans TC",sans-serif}
+.source{margin:28px 0 0;font-size:13px;color:var(--ink-2);line-height:1.6}
+.source b{display:block;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.source a{color:var(--accent);text-decoration:none}
+@media(max-width:420px){.stats{gap:6px}.stats dd{font-size:20px}}

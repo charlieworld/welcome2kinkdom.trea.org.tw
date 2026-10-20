@@ -10,6 +10,7 @@ export const routes = route({
   linksForums: '/links/forums',
   statementCd: '/statement/cd',
   about: '/about',
+  kinkSpace: '/kink_space',
   homeEn: '/en',
   linksEventsEn: '/en/links/events',
   linksResourcesEn: '/en/links/resources',
@@ -18,6 +19,7 @@ export const routes = route({
   linksForumsEn: '/en/links/forums',
   statementCdEn: '/en/statement/cd',
   aboutEn: '/en/about',
+  kinkSpaceEn: '/en/kink_space',
   // Former Kinkdom section pages and Wix-era URLs, kept as permanent redirects.
   store: '/store',
   school: '/school',

@@ -4,6 +4,7 @@ import { redirect } from 'remix/response/redirect'
 import { assets } from '../assets.ts'
 import { routes } from '../routes.ts'
 import { AboutPage, CategoryPage, HomePage, StatementPage } from '../ui/pages.tsx'
+import { KinkSpacePage } from '../ui/kink-space.tsx'
 
 export default createController(routes, {
   actions: {
@@ -18,6 +19,7 @@ export default createController(routes, {
     linksForums(context) { return context.render(<CategoryPage lang="zh" category="forums" />) },
     statementCd(context) { return context.render(<StatementPage lang="zh" />) },
     about(context) { return context.render(<AboutPage lang="zh" />) },
+    kinkSpace(context) { return context.render(<KinkSpacePage lang="zh" />) },
     homeEn(context) { return context.render(<HomePage lang="en" />) },
     linksEventsEn(context) { return context.render(<CategoryPage lang="en" category="events" />) },
     linksResourcesEn(context) { return context.render(<CategoryPage lang="en" category="resources" />) },
@@ -26,6 +28,7 @@ export default createController(routes, {
     linksForumsEn(context) { return context.render(<CategoryPage lang="en" category="forums" />) },
     statementCdEn(context) { return context.render(<StatementPage lang="en" />) },
     aboutEn(context) { return context.render(<AboutPage lang="en" />) },
+    kinkSpaceEn(context) { return context.render(<KinkSpacePage lang="en" />) },
     // Former Kinkdom section pages → the closest category.
     store() { return redirect(routes.about.href(), 301) },
     school() { return redirect(routes.linksResources.href(), 301) },

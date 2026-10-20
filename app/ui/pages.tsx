@@ -18,13 +18,14 @@ export const pageHrefs = {
   forums: { zh: routes.linksForums.href(), en: routes.linksForumsEn.href() },
   statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
   about: { zh: routes.about.href(), en: routes.aboutEn.href() },
+  kinkSpace: { zh: routes.kinkSpace.href(), en: routes.kinkSpaceEn.href() },
 } as const
 
-type PageKey = keyof typeof pageHrefs
+export type PageKey = keyof typeof pageHrefs
 
 interface PageProps { lang: Lang }
 
-function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
+export function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
 
 export function HomePage(handle: Handle<PageProps>) {
   return () => {
@@ -51,6 +52,11 @@ export function HomePage(handle: Handle<PageProps>) {
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
           </nav>
+          <a className="feature phase-transition" href={pageHrefs.kinkSpace[lang]}>
+            <span className="feature-tag">{dict.kinkSpace.homeCard.tag}</span>
+            <b>{dict.kinkSpace.homeCard.title}</b>
+            <span>{dict.kinkSpace.homeCard.text}</span>
+          </a>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (
@@ -175,7 +181,7 @@ function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }
   }
 }
 
-function TopBar(handle: Handle<{ lang: Lang; page: PageKey }>) {
+export function TopBar(handle: Handle<{ lang: Lang; page: PageKey }>) {
   return () => {
     const { lang, page } = handle.props
     const dict = t(lang)
@@ -194,7 +200,7 @@ function TopBar(handle: Handle<{ lang: Lang; page: PageKey }>) {
   }
 }
 
-function SiteFooter(handle: Handle<{ lang: Lang }>) {
+export function SiteFooter(handle: Handle<{ lang: Lang }>) {
   return () => {
     const dict = t(handle.props.lang)
     return (
@@ -212,7 +218,7 @@ function SiteFooter(handle: Handle<{ lang: Lang }>) {
   }
 }
 
-function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
+export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
   return () => {
     const { lang, page } = handle.props
     const dict = t(lang)
@@ -240,6 +246,7 @@ function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <h3>{dict.siteHeading}</h3>
         <nav className="nav">
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
+          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
           {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>
