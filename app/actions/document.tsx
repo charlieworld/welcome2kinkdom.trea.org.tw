@@ -16,13 +16,20 @@ export interface DocumentProps {
   /** Path of the same page in the other language, for hreflang alternates. */
   altPath?: string
   bodyClass?: string
+  /** Page-specific social image (1200×630 JPEG under public/); the site-wide day/night pair is used when absent. */
+  ogImage?: OgImage
+}
+
+export interface OgImage {
+  src: string
+  alt: Record<Lang, string>
 }
 
 export const SITE_URL = 'https://welcome2kinkdom.trea.org.tw'
-const OG_IMAGES = [
+const OG_IMAGES: readonly OgImage[] = [
   { src: '/og-day.jpg', alt: { zh: '台灣禁羈資訊導航站白天主視覺，彩虹道路通往基地樂園', en: 'Taiwan Kink Navigator daytime key visual' } },
   { src: '/og-night.jpg', alt: { zh: '台灣禁羈資訊導航站夜晚主視覺，霓虹街景與彩虹道路', en: 'Taiwan Kink Navigator night key visual' } },
-] as const
+]
 
 export function Document(handle: Handle<DocumentProps>) {
   return () => {
@@ -32,6 +39,7 @@ export function Document(handle: Handle<DocumentProps>) {
     const description = handle.props.description ?? dict.siteDescription
     const canonicalUrl = new URL(urlPath, SITE_URL).href
     const otherLang: Lang = lang === 'zh' ? 'en' : 'zh'
+    const ogImages = handle.props.ogImage ? [handle.props.ogImage] : OG_IMAGES
 
     return (
       <html lang={dict.htmlLang} data-phase="day" data-lang={lang}>
@@ -52,7 +60,7 @@ export function Document(handle: Handle<DocumentProps>) {
           <meta property="og:url" content={canonicalUrl} />
           <meta property="og:site_name" content={dict.siteName} />
           <meta property="og:locale" content={dict.ogLocale} />
-          {OG_IMAGES.map((image) => <>
+          {ogImages.map((image) => <>
             <meta property="og:image" content={`${SITE_URL}${image.src}`} />
             <meta property="og:image:secure_url" content={`${SITE_URL}${image.src}`} />
             <meta property="og:image:type" content="image/jpeg" />
@@ -63,8 +71,8 @@ export function Document(handle: Handle<DocumentProps>) {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={`${SITE_URL}${OG_IMAGES[0].src}`} />
-          <meta name="twitter:image:alt" content={OG_IMAGES[0].alt[lang]} />
+          <meta name="twitter:image" content={`${SITE_URL}${ogImages[0].src}`} />
+          <meta name="twitter:image:alt" content={ogImages[0].alt[lang]} />
           <meta name="theme-color" content="#f4efe6" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

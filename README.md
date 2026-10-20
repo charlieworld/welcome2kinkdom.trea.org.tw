@@ -19,6 +19,7 @@ npm run dev
 - CD 事件聲明：`app/data/statement-cd.ts`，中英文各一份；引用區只放摘要與原文連結。
 - 介面文案：`app/i18n/index.ts`，`zh` 與 `en` 兩本字典，型別會強制兩邊鍵完整。
 - 路由：`app/routes.ts`；靜態建置的頁面清單由路由表自動產生。
+- 社群分享圖：首頁等共用 `public/og-day.jpg`、`og-night.jpg`；年表與禁羈空間各有專屬圖（`og-chronicle.jpg`、`og-kink-space.jpg`），由 `node --import remix/node-tsx scripts/og-templates.ts` 從資料產生 HTML 模板到 `tmp/og/`，再用無頭瀏覽器以 1200×630 截圖存回 `public/`。
 
 ## 驗證
 
