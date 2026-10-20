@@ -137,7 +137,8 @@ describe('Chronicle page', () => {
     assert.match(enHtml, /More context coming/)
     assert.match(enHtml, /href="\/en\/kink_space"/)
     const { html: home } = await fetchHtml('/')
-    assert.match(home, /class="chip chip-link" href="\/chronicle">大紀事/)
+    assert.doesNotMatch(home, /chip-link/)
+    assert.match(home, /class="topic phase-transition" href="\/chronicle"/)
     assert.match(home, /<a href="\/chronicle"><b>台灣BDSM社群大紀事<\/b><span>年表 Chronicle<\/span><\/a>/)
   })
 

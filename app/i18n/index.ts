@@ -56,7 +56,6 @@ export const zh = {
   aboutNav: '關於導航站',
   kinkSpace: {
     nav: '台灣禁羈空間',
-    chip: '禁羈空間',
     eyebrow: '策展 Curation',
     title: '台灣禁羈空間',
     sub: '地區分布與成立、結束年份',
@@ -93,7 +92,6 @@ export const zh = {
     nav: '台灣BDSM社群大紀事',
     navSub: '年表 Chronicle',
     homeCard: { tag: '年表', title: '社群大紀事', text: '2000 年至今的重要時刻' },
-    chip: '大紀事',
     eyebrow: '年表 Chronicle',
     title: '台灣BDSM社群大紀事及年表',
     sub: '社群、媒體、法規與社會事件',
@@ -169,7 +167,6 @@ export const en: Dict = {
   aboutNav: 'About',
   kinkSpace: {
     nav: 'Kink spaces in Taiwan',
-    chip: 'Kink spaces',
     eyebrow: 'Curation',
     title: 'Kink Spaces in Taiwan',
     sub: 'Where they are, when they opened and closed',
@@ -206,7 +203,6 @@ export const en: Dict = {
     nav: 'Community chronicle',
     navSub: 'Chronicle',
     homeCard: { tag: 'Chronicle', title: 'Community Chronicle', text: 'Key moments since 2000' },
-    chip: 'Chronicle',
     eyebrow: 'Chronicle',
     title: 'Taiwan BDSM Community Chronicle',
     sub: 'Community, media, law and public events',
