@@ -212,6 +212,8 @@ describe('Kink basics page', () => {
       const href = path === '/' ? '/kink_basics' : '/en/kink_basics'
       assert.match(html, new RegExp(`class="topic topic-basics[^"]*" href="${href}"`), path)
       assert.match(html, /class="teaser/, path)
+      if (path === '/') assert.ok(html.includes('願這些文字成為探索的起點'))
+      assert.ok(html.indexOf('class="teaser') < html.indexOf('class="chips"'), `${path}: teaser sits under the key visual`)
       assert.ok((html.match(new RegExp(`href="${href}"`, 'g')) ?? []).length >= 3, `${path}: topics row, teaser and menu`)
     }
   })

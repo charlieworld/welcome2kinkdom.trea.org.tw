@@ -7,7 +7,6 @@ import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
 import { categories, categoryInfo, hostOf, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
 import { statementCd } from '../data/statement-cd.ts'
-import { coreValues, definition } from '../data/kink-basics.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
 export const pageHrefs = {
@@ -51,6 +50,7 @@ export function HomePage(handle: Handle<PageProps>) {
             <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt={dict.kvDayAlt} width="2742" height="3840" />
             <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
           </div>
+          <BasicsTeaser lang={lang} />
           <nav className="chips" aria-label={dict.linksHeading}>
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
@@ -68,7 +68,7 @@ export function HomePage(handle: Handle<PageProps>) {
               <i>{dict.chronicle.homeCard.tag}</i><b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
             </a>
           </div>
-          {categories.map((category, index) => {
+          {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (<>
               <section className="section link-section" id={category.key} key={category.key}>
@@ -76,7 +76,6 @@ export function HomePage(handle: Handle<PageProps>) {
                 <p className="sub">{pick(category.desc, lang)}</p>
                 <LinkList items={items} icon={category.icon} lang={lang} />
               </section>
-              {index === 1 ? <BasicsTeaser lang={lang} /> : null}
             </>)
           })}
           <SiteFooter lang={lang} />
@@ -178,16 +177,12 @@ export function AboutPage(handle: Handle<PageProps>) {
 
 function BasicsTeaser(handle: Handle<{ lang: Lang }>) {
   return () => {
-    const { lang } = handle.props
-    const dict = t(lang)
-    const def = definition(lang)
+    const dict = t(handle.props.lang)
     return (
       <aside className="teaser phase-transition" aria-labelledby="teaser-title">
-        <div className="eyebrow"><i></i><span>{dict.kinkBasics.teaser.eyebrow}</span></div>
-        <h2 id="teaser-title">{dict.kinkBasics.teaser.title}</h2>
-        <p><b>{def.term}</b>{def.text}</p>
-        <div className="teaser-values">{coreValues(lang).map((value) => <span key={value}>{value}</span>)}</div>
-        <a href={pageHrefs.kinkBasics[lang]}>{dict.kinkBasics.teaser.link}</a>
+        <div className="eyebrow"><i></i><span id="teaser-title">{dict.kinkBasics.teaser.eyebrow}</span></div>
+        <p>{dict.kinkBasics.teaser.text}</p>
+        <a href={pageHrefs.kinkBasics[handle.props.lang]}>{dict.kinkBasics.teaser.link}</a>
       </aside>
     )
   }
