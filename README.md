@@ -1,6 +1,6 @@
-# 禁羈街區 Kinkdom
+# 台灣禁羈資訊導航站 Taiwan Kink Navigator
 
-以 Remix 3 建立的台灣 kink 社群網站。首頁會依裝置本地時間切換白天、夜晚兩種城市樣貌，也可從選單暫時切換時段。
+以 Remix 3 建立的台灣 BDSM／kink 社群資源入口。首頁把活動、資源、節目、文庫、討論區的外部連結整理成一頁；另有 CD 事件聲明頁與關於頁。中文在 `/`，英文在 `/en/`，每頁都預先渲染成靜態 HTML。頁面會依裝置本地時間切換白天、夜晚兩種城市樣貌，也可從選單暫時切換。
 
 ## 開發
 
@@ -12,6 +12,13 @@ npm run dev
 ```
 
 網站預設位於 `http://localhost:44100`。
+
+## 內容維護
+
+- 資源連結：`app/data/links.ts`，一筆一物件；新增時直接追加即可，頁面渲染時會依中文名稱筆畫序（英文版依英文名）排序。沒有英文名稱的連結在英文版顯示中文原名。
+- CD 事件聲明：`app/data/statement-cd.ts`，中英文各一份；引用區只放摘要與原文連結。
+- 介面文案：`app/i18n/index.ts`，`zh` 與 `en` 兩本字典，型別會強制兩邊鍵完整。
+- 路由：`app/routes.ts`；靜態建置的頁面清單由路由表自動產生。
 
 ## 驗證
 
@@ -27,5 +34,3 @@ npm test
 ```sh
 npm run build:static
 ```
-
-內容初稿位於 `content/`；路由定義在 `app/routes.ts`，共用 UI 在 `app/ui/`，瀏覽器端時間與 canvas 行為在 `app/actions/public/kinkdom.ts`。

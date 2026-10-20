@@ -32,3 +32,46 @@ html,body{max-width:100%;overflow-x:hidden}
 @supports(overflow:clip){html,body{overflow-x:clip}}
 @media(min-width:768px){.site-footer{margin-top:72px}.footer-inner{padding-top:38px}.footer-credits{max-width:760px}.footer-signature{margin-top:38px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* ---- Navigator: top bar, notice, chips, link rows, statement ---- */
+.bar-actions{display:flex;align-items:center;gap:6px}
+.brand b{font-size:16px;white-space:nowrap}
+.lang-switch{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-family:Syne,"Noto Sans TC",sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em}
+.lang-switch:focus-visible,.chip:focus-visible,.link-row:focus-visible,.notice:focus-visible,.quote a:focus-visible,.related a:focus-visible,.seg a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notice{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:10px 12px;border-radius:12px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);color:var(--ink);text-decoration:none;font-size:13px;line-height:1.5}
+.notice i{flex:none;margin-top:7px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:var(--glow)}
+.notice b{display:block;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hero{padding-top:20px}
+.kv{aspect-ratio:4/3}
+.chips{position:sticky;top:56px;z-index:10;display:flex;gap:6px;overflow-x:auto;padding:14px 0 10px;margin:0 -20px;padding-left:20px;padding-right:20px;scrollbar-width:none;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);text-decoration:none;background:var(--surface)}
+.chip.chip-active{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:var(--glow)}
+.link-section{scroll-margin-top:110px;padding-top:22px}
+.section h2 em{font-style:normal;font-family:"Noto Serif TC","Songti TC",serif;font-size:18px;letter-spacing:0;text-transform:none;color:var(--ink);margin-right:10px}
+.link-row{grid-template-columns:40px minmax(0,1fr) auto;gap:12px;padding:13px 0;text-decoration:none}
+.link-row .ico{width:40px;height:40px;border-radius:11px}
+.link-row .ico svg{width:20px;height:20px}
+.link-row .t b{font-size:16px;overflow-wrap:anywhere}
+.link-row .t span{overflow-wrap:anywhere}
+.link-row .ext{font-family:Syne,sans-serif;font-size:12px;color:var(--ink-3)}
+.link-row:hover .t b{color:var(--accent)}
+.content-page .rows{margin-top:6px}
+.seg a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:48px;padding:8px 4px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-size:13px;line-height:1.2}
+.seg a small{font-family:Syne,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.seg a[aria-current="page"]{background:var(--ground);color:var(--ink);box-shadow:0 2px 8px -2px rgba(0,0,0,.25)}
+.seg a[aria-current="page"] small{color:var(--accent)}
+.nav a span .dot{width:8px;height:8px;display:inline-block}
+.statement h1{font-size:clamp(28px,8vw,38px)}
+.meta{display:flex;gap:10px;flex-wrap:wrap;font-family:Syne,"Noto Sans TC",sans-serif;font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin:0 0 6px}
+.statement article{color:var(--ink)}
+.statement article p{font-size:15px}
+.quote{margin:20px 0;padding:14px 14px 12px;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0}
+.quote .src{font-family:Syne,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.quote h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;margin:0 0 6px;line-height:1.35}
+.quote p{font-size:14px;color:var(--ink-2);margin:0 0 8px}
+.quote a{color:var(--accent);font-size:14px;text-decoration:none;border-bottom:1px solid currentColor}
+.related-heading{margin:22px 0 10px}
+.related{display:flex;flex-direction:column;gap:8px}
+.related a{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:14px}
+.related a small{flex:none;color:var(--ink-3);font-family:Syne,sans-serif;font-size:10px;letter-spacing:.08em}
+@media(min-width:768px){.chips{top:56px}.link-section{scroll-margin-top:120px}}
