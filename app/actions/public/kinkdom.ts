@@ -87,3 +87,50 @@ if (filterButtons.length) {
     label.style.right = `${track.offsetWidth - bar.offsetLeft + 5}px`
   })
 }
+
+// Chronicle: the rail fills as you scroll, year nodes light up once passed, events fade in, and the year strip tracks the year in view.
+const chron = document.querySelector<HTMLElement>('[data-chron]')
+if (chron) {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const yearSections = Array.from(chron.querySelectorAll<HTMLElement>('.chron-year'))
+  const stripYears = Array.from(document.querySelectorAll<HTMLElement>('[data-strip-year]'))
+  const strip = document.querySelector<HTMLElement>('[data-chron-strip]')
+  if (!reduced) chron.classList.add('is-animated')
+
+  const update = () => {
+    const rect = chron.getBoundingClientRect()
+    const focus = window.innerHeight * 0.45
+    const progress = Math.min(rect.height, Math.max(0, focus - rect.top))
+    chron.style.setProperty('--progress', `${progress}px`)
+    let current: HTMLElement | undefined
+    for (const section of yearSections) {
+      const top = section.getBoundingClientRect().top
+      const past = top < focus
+      section.classList.toggle('is-past', past)
+      if (past) current = section
+    }
+    const year = current?.id.slice(1)
+    stripYears.forEach((item) => {
+      const on = item.dataset.stripYear === year
+      item.classList.toggle('is-current', on)
+      if (on && strip) {
+        const left = item.offsetLeft - strip.clientWidth / 2 + item.offsetWidth / 2
+        if (Math.abs(strip.scrollLeft - left) > 40) strip.scrollTo({ left, behavior: reduced ? 'auto' : 'smooth' })
+      }
+    })
+  }
+  let ticking = false
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false }) } }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll)
+  update()
+
+  if (!reduced && 'IntersectionObserver' in window) {
+    const seen = new IntersectionObserver((entries) => {
+      for (const entry of entries) if (entry.isIntersecting) { entry.target.classList.add('is-seen'); seen.unobserve(entry.target) }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.15 })
+    chron.querySelectorAll('[data-chron-event]').forEach((event) => seen.observe(event))
+  } else {
+    chron.querySelectorAll('[data-chron-event]').forEach((event) => event.classList.add('is-seen'))
+  }
+}
