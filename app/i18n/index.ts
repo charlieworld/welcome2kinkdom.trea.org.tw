@@ -83,6 +83,7 @@ export const zh = {
   chronicle: {
     nav: '台灣BDSM社群大紀事',
     navSub: '年表 Chronicle',
+    homeCard: { tag: '策展', title: '台灣BDSM社群大紀事', text: '從 2000 年到今天，38 件重要時刻的年表 →' },
     chip: '大紀事',
     eyebrow: '年表 Chronicle',
     title: '台灣BDSM社群大紀事及年表',
@@ -186,6 +187,7 @@ export const en: Dict = {
   chronicle: {
     nav: 'Community chronicle',
     navSub: 'Chronicle',
+    homeCard: { tag: 'Curation', title: 'Community Chronicle', text: 'Timeline of 38 key moments since 2000 →' },
     chip: 'Chronicle',
     eyebrow: 'Chronicle',
     title: 'Taiwan BDSM Community Chronicle',
