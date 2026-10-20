@@ -7,6 +7,7 @@ import path from 'node:path'
 
 import { CURRENT_YEAR, FIRST_YEAR, countsByCity, isOngoing, spaces } from '../app/data/spaces.ts'
 import { eventsByYear, isHighlight, visibleEvents } from '../app/data/chronicle.ts'
+import { coreValues, definition, kinkBasics } from '../app/data/kink-basics.ts'
 
 const outDir = path.resolve('tmp/og')
 
@@ -87,7 +88,30 @@ h1{font-size:64px;margin:14px 0 8px}
 <div class="brand"><b class="serif">台灣禁羈資訊導航站</b><span class="mono">kink nav</span></div>`)
 }
 
+function basics(): string {
+  const content = kinkBasics.zh
+  const def = definition('zh')
+  const values = coreValues('zh')
+  const acronyms = content.chapters.flatMap((c) => c.sections).flatMap((s) => (s.body.kind === 'acronyms' ? s.body.items : []))
+  return base('day', `<style>
+.side{width:440px;display:flex;flex-direction:column;justify-content:center;gap:12px;align-self:center}
+.values{display:flex;flex-direction:column;gap:8px}
+.values div{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.values .n{font-size:22px;font-weight:800;color:var(--accent);line-height:1}
+.values b{font-family:"Noto Serif TC","Noto Serif CJK TC",serif;font-size:20px}
+.acro{display:flex;gap:6px;flex-wrap:wrap}
+.acro span{padding:5px 12px;border-radius:999px;background:var(--surface-2);font-size:15px;font-weight:800;letter-spacing:.04em;text-transform:none}
+.def{margin:20px 0 0;padding:16px 18px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 14px 14px 0;font-size:20px;line-height:1.6;color:var(--ink-2);max-width:26em}
+.def b{color:var(--ink)}
+</style><div class="frame"><div class="text"><div><div class="eyebrow mono"><i></i>基礎知識 · Basics</div><h1 class="serif">認識禁羈</h1><div class="sub mono">Understanding Kink</div>
+<p class="def"><b>${def.term}</b>${def.text}</p></div>
+<div class="brand"><b class="serif">台灣禁羈資訊導航站</b><span class="mono">kink nav</span></div></div>
+<div class="side"><div class="values">${values.map((v, i) => `<div><span class="n mono">${i + 1}</span><b>${v}</b></div>`).join('')}</div>
+<div class="acro">${acronyms.map((a) => `<span class="mono">${a.short}</span>`).join('')}</div></div></div>`)
+}
+
 await mkdir(outDir, { recursive: true })
+await writeFile(path.join(outDir, 'kink-basics.html'), basics())
 await writeFile(path.join(outDir, 'kink-space.html'), kinkSpace())
 await writeFile(path.join(outDir, 'chronicle.html'), chronicle())
 console.log(`OG templates written to ${outDir}`)

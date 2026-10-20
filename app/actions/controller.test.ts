@@ -63,8 +63,8 @@ describe('Navigator home page', () => {
 
 describe('Navigator content pages', () => {
   it('renders every page path in both languages', async () => {
-    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/chronicle')
-    assert.equal(pages.length, 20)
+    const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/kink_basics' || path === '/chronicle')
+    assert.equal(pages.length, 22)
     for (const path of pages) {
       const { response, html } = await fetchHtml(path)
       assert.equal(response.status, 200, path)
@@ -137,7 +137,8 @@ describe('Chronicle page', () => {
     assert.match(enHtml, /More context coming/)
     assert.match(enHtml, /href="\/en\/kink_space"/)
     const { html: home } = await fetchHtml('/')
-    assert.match(home, /class="chip chip-link" href="\/chronicle">大紀事/)
+    assert.doesNotMatch(home, /chip-link/)
+    assert.match(home, /class="topic phase-transition" href="\/chronicle"/)
     assert.match(home, /<a href="\/chronicle"><b>台灣BDSM社群大紀事<\/b><span>年表 Chronicle<\/span><\/a>/)
   })
 
@@ -180,7 +181,7 @@ describe('Chronicle page', () => {
 
 describe('Social images', () => {
   it('give the chronicle and kink space pages their own og:image', async () => {
-    for (const [path, image] of [['/chronicle', 'og-chronicle.jpg'], ['/en/chronicle', 'og-chronicle.jpg'], ['/kink_space', 'og-kink-space.jpg'], ['/en/kink_space', 'og-kink-space.jpg']]) {
+    for (const [path, image] of [['/chronicle', 'og-chronicle.jpg'], ['/en/chronicle', 'og-chronicle.jpg'], ['/kink_space', 'og-kink-space.jpg'], ['/en/kink_space', 'og-kink-space.jpg'], ['/kink_basics', 'og-kink-basics.jpg'], ['/en/kink_basics', 'og-kink-basics.jpg']]) {
       const { html } = await fetchHtml(path)
       assert.match(html, new RegExp(`property="og:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
       assert.match(html, new RegExp(`name="twitter:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
@@ -189,6 +190,35 @@ describe('Social images', () => {
     const { html } = await fetchHtml('/')
     assert.match(html, /og-day\.jpg/)
     assert.match(html, /og-night\.jpg/)
+  })
+})
+
+describe('Kink basics page', () => {
+  it('renders the definition, five values and five principles in both languages', async () => {
+    const { response, html } = await fetchHtml('/kink_basics')
+    assert.equal(response.status, 200)
+    assert.match(html, /認識禁羈/)
+    assert.match(html, /class="definition"/)
+    for (const value of ['多元友善', '風險意識', '探索自己', '尊重他人', '重視安全']) assert.ok(html.includes(value), value)
+    for (const short of ['SSC', 'RACK', 'PRICK', 'CCC', '4Cs']) assert.match(html, new RegExp(`<b>${short}</b>`), short)
+    assert.ok(!html.includes('千霂'))
+    assert.ok(html.indexOf('願這些文字成為探索的起點') < html.indexOf('class="toc"'), 'opening words before the TOC')
+    assert.ok(html.indexOf('走出屬於自己的道路') > html.lastIndexOf('class="acronyms"'), 'closing words after the last section')
+    const { html: enHtml } = await fetchHtml('/en/kink_basics')
+    assert.match(enHtml, /Understanding Kink/)
+    assert.match(enHtml, /Risk-Aware Consensual Kink/)
+  })
+
+  it('is linked from the home teaser and the menu', async () => {
+    for (const path of ['/', '/en']) {
+      const { html } = await fetchHtml(path)
+      const href = path === '/' ? '/kink_basics' : '/en/kink_basics'
+      assert.doesNotMatch(html, /topic-basics/, path)
+      assert.match(html, /class="teaser/, path)
+      if (path === '/') assert.ok(html.includes('願這些文字成為探索的起點'))
+      assert.ok(html.indexOf('class="teaser') < html.indexOf('class="chips"'), `${path}: teaser sits under the key visual`)
+      assert.ok((html.match(new RegExp(`href="${href}"`, 'g')) ?? []).length >= 2, `${path}: teaser and menu`)
+    }
   })
 })
 

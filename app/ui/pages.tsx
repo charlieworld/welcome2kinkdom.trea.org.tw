@@ -19,6 +19,7 @@ export const pageHrefs = {
   statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
   about: { zh: routes.about.href(), en: routes.aboutEn.href() },
   kinkSpace: { zh: routes.kinkSpace.href(), en: routes.kinkSpaceEn.href() },
+  kinkBasics: { zh: routes.kinkBasics.href(), en: routes.kinkBasicsEn.href() },
   chronicle: { zh: routes.chronicle.href(), en: routes.chronicleEn.href() },
 } as const
 
@@ -49,31 +50,28 @@ export function HomePage(handle: Handle<PageProps>) {
             <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt={dict.kvDayAlt} width="2742" height="3840" />
             <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
           </div>
+          <BasicsTeaser lang={lang} />
           <nav className="chips" aria-label={dict.linksHeading}>
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
-            <a className="chip chip-link" href={pageHrefs.kinkSpace[lang]}>{dict.kinkSpace.chip} →</a>
-            <a className="chip chip-link" href={pageHrefs.chronicle[lang]}>{dict.chronicle.chip} →</a>
           </nav>
-          <a className="feature phase-transition" href={pageHrefs.kinkSpace[lang]}>
-            <span className="feature-tag">{dict.kinkSpace.homeCard.tag}</span>
-            <b>{dict.kinkSpace.homeCard.title}</b>
-            <span>{dict.kinkSpace.homeCard.text}</span>
-          </a>
-          <a className="feature phase-transition" href={pageHrefs.chronicle[lang]}>
-            <span className="feature-tag">{dict.chronicle.homeCard.tag}</span>
-            <b>{dict.chronicle.homeCard.title}</b>
-            <span>{dict.chronicle.homeCard.text}</span>
-          </a>
+          <div className="topics">
+            <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
+              <i>{dict.kinkSpace.homeCard.tag}</i><b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
+            </a>
+            <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
+              <i>{dict.chronicle.homeCard.tag}</i><b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
+            </a>
+          </div>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
-            return (
+            return (<>
               <section className="section link-section" id={category.key} key={category.key}>
                 <h2><em>{pick(category.name, lang)}</em><span>{lang === 'zh' ? category.name.en : category.name.zh} · {items.length}</span></h2>
                 <p className="sub">{pick(category.desc, lang)}</p>
                 <LinkList items={items} icon={category.icon} lang={lang} />
               </section>
-            )
+            </>)
           })}
           <SiteFooter lang={lang} />
         </main>
@@ -172,6 +170,19 @@ export function AboutPage(handle: Handle<PageProps>) {
   }
 }
 
+function BasicsTeaser(handle: Handle<{ lang: Lang }>) {
+  return () => {
+    const dict = t(handle.props.lang)
+    return (
+      <aside className="teaser phase-transition" aria-labelledby="teaser-title">
+        <div className="eyebrow"><i></i><span id="teaser-title">{dict.kinkBasics.teaser.eyebrow}</span></div>
+        <p>{dict.kinkBasics.teaser.text}</p>
+        <a href={pageHrefs.kinkBasics[handle.props.lang]}>{dict.kinkBasics.teaser.link}</a>
+      </aside>
+    )
+  }
+}
+
 function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }>) {
   return () => {
     const { items, icon, lang } = handle.props
@@ -253,6 +264,7 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         </nav>
         <h3>{dict.siteHeading}</h3>
         <nav className="nav">
+          {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
           {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
           {navLink(pageHrefs.chronicle[lang], dict.chronicle.nav, dict.chronicle.navSub)}
