@@ -60,6 +60,11 @@ export function HomePage(handle: Handle<PageProps>) {
             <b>{dict.kinkSpace.homeCard.title}</b>
             <span>{dict.kinkSpace.homeCard.text}</span>
           </a>
+          <a className="feature phase-transition" href={pageHrefs.chronicle[lang]}>
+            <span className="feature-tag">{dict.chronicle.homeCard.tag}</span>
+            <b>{dict.chronicle.homeCard.title}</b>
+            <span>{dict.chronicle.homeCard.text}</span>
+          </a>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (

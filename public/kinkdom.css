@@ -78,6 +78,7 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(min-width:768px){.chips{top:56px}.link-section{scroll-margin-top:120px}}
 /* ---- Home feature card ---- */
 .feature{display:flex;flex-direction:column;gap:2px;margin:14px 0 4px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.feature+.feature{margin-top:0}
 .feature-tag{font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
 .feature b{font-family:"Noto Serif TC","Songti TC",serif;font-size:18px}
 .feature>span:last-child{font-size:13px;color:var(--ink-2)}
