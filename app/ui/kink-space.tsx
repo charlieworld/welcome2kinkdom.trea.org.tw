@@ -10,6 +10,8 @@ import {
 } from '../data/spaces.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
+const OG_IMAGE = { src: '/og-kink-space.jpg', alt: { zh: '台灣禁羈空間：縣市分布方塊圖與營運中空間數', en: 'Kink Spaces in Taiwan: county map and counts' } }
+
 export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
   return () => {
     const { lang } = handle.props
@@ -19,7 +21,7 @@ export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
     const closed = spaces.length - active
     const cityCount = new Set(spaces.map((s) => s.city).filter(Boolean)).size
     return (
-      <Document lang={lang} title={`${k.title} · ${dict.siteName}`} description={k.lede} urlPath={pageHrefs.kinkSpace[lang]} altPath={pageHrefs.kinkSpace[otherLang(lang)]}>
+      <Document lang={lang} title={`${k.title} · ${dict.siteName}`} description={k.lede} urlPath={pageHrefs.kinkSpace[lang]} altPath={pageHrefs.kinkSpace[otherLang(lang)]} ogImage={OG_IMAGE}>
         <TopBar lang={lang} page="kinkSpace" />
         <main className="wrap content-page kink-space">
           <section className="hero">

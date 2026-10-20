@@ -178,6 +178,20 @@ describe('Chronicle page', () => {
   })
 })
 
+describe('Social images', () => {
+  it('give the chronicle and kink space pages their own og:image', async () => {
+    for (const [path, image] of [['/chronicle', 'og-chronicle.jpg'], ['/en/chronicle', 'og-chronicle.jpg'], ['/kink_space', 'og-kink-space.jpg'], ['/en/kink_space', 'og-kink-space.jpg']]) {
+      const { html } = await fetchHtml(path)
+      assert.match(html, new RegExp(`property="og:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
+      assert.match(html, new RegExp(`name="twitter:image" content="https://welcome2kinkdom\\.trea\\.org\\.tw/${image}"`), path)
+      assert.doesNotMatch(html, /og-day\.jpg/, path)
+    }
+    const { html } = await fetchHtml('/')
+    assert.match(html, /og-day\.jpg/)
+    assert.match(html, /og-night\.jpg/)
+  })
+})
+
 describe('External links', () => {
   it('open every outbound link in a new tab', async () => {
     for (const path of ['/', '/en', '/statement/cd', '/kink_space', '/chronicle', '/links/forums']) {
