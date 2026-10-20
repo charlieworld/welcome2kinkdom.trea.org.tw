@@ -51,18 +51,21 @@ export function HomePage(handle: Handle<PageProps>) {
             <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
           </div>
           <BasicsTeaser lang={lang} />
+          <section className="section topics-section" id="topics">
+            <h2><em>{dict.topics.heading}</em><span>{dict.topics.sub}</span></h2>
+            <div className="topics">
+              <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
+                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span><i aria-hidden="true">→</i>
+              </a>
+              <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
+                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span><i aria-hidden="true">→</i>
+              </a>
+            </div>
+          </section>
           <nav className="chips" aria-label={dict.linksHeading}>
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
           </nav>
-          <div className="topics">
-            <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
-              <i>{dict.kinkSpace.homeCard.tag}</i><b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
-            </a>
-            <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
-              <i>{dict.chronicle.homeCard.tag}</i><b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
-            </a>
-          </div>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (<>
@@ -262,12 +265,15 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <nav className="nav">
           {categories.map((category) => navLink(pageHrefs[category.key][lang], pick(category.name, lang), `${lang === 'zh' ? category.name.en : category.name.zh} · ${linksIn(category.key, lang).length}`))}
         </nav>
+        <h3>{dict.topics.menu}</h3>
+        <nav className="nav nav-topics">
+          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.homeCard.title, dict.kinkSpace.homeCard.text)}
+          {navLink(pageHrefs.chronicle[lang], dict.chronicle.homeCard.title, dict.chronicle.homeCard.text)}
+        </nav>
         <h3>{dict.siteHeading}</h3>
         <nav className="nav">
           {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
-          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
-          {navLink(pageHrefs.chronicle[lang], dict.chronicle.nav, dict.chronicle.navSub)}
           {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>
