@@ -31,6 +31,7 @@ export const zh = {
   manualNote: (label: string) => `已暫時切換為「${label}」，重新進入頁面時會再次偵測時間。`,
   language: '語言 · Language',
   linksHeading: '資源分類 · Links',
+  linksTitle: '資源導航',
   topics: { heading: '專題', sub: 'Topics', menu: '專題 · Topics' },
   siteHeading: '網站 · Site',
   phase: {
@@ -142,6 +143,7 @@ export const en: Dict = {
   manualNote: (label: string) => `Switched to ${label} for now. The next visit follows your clock again.`,
   language: 'Language',
   linksHeading: 'Links',
+  linksTitle: 'Resource links',
   topics: { heading: 'Topics', sub: '專題', menu: 'Topics' },
   siteHeading: 'Site',
   phase: {

@@ -5,7 +5,7 @@ import { routes } from '../routes.ts'
 import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
-import { categories, categoryInfo, hostOf, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
+import { categories, categoryInfo, hostOf, links, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
 import { statementCd } from '../data/statement-cd.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
@@ -62,10 +62,13 @@ export function HomePage(handle: Handle<PageProps>) {
               </a>
             </div>
           </section>
-          <nav className="chips" aria-label={dict.linksHeading}>
-            <a className="chip" href="#top">{dict.all}</a>
-            {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
-          </nav>
+          <div className="links-block" id="links">
+            <h2 className="links-heading"><em>{dict.linksTitle}</em><span>{dict.linksCount(links.length)}</span></h2>
+            <nav className="chips" aria-label={dict.linksHeading}>
+              <a className="chip" href="#links">{dict.all}</a>
+              {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
+            </nav>
+          </div>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (<>
