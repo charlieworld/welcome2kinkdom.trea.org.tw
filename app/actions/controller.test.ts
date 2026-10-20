@@ -118,6 +118,23 @@ describe('Kink space page', () => {
   })
 })
 
+describe('External links', () => {
+  it('open every outbound link in a new tab', async () => {
+    for (const path of ['/', '/en', '/statement/cd', '/kink_space', '/links/forums']) {
+      const { html } = await fetchHtml(path)
+      const anchors = html.match(/<a\b[^>]*href="https?:[^"]*"[^>]*>/g) ?? []
+      assert.ok(anchors.length > 0, path)
+      for (const anchor of anchors) {
+        if (anchor.includes('fonts.googleapis')) continue
+        assert.match(anchor, /target="_blank"/, `${path}: ${anchor}`)
+        assert.match(anchor, /rel="noopener noreferrer"/, `${path}: ${anchor}`)
+      }
+      const internal = (html.match(/<a\b[^>]*href="\/[^"]*"[^>]*>/g) ?? []).filter((a) => a.includes('target='))
+      assert.deepEqual(internal, [], `${path}: internal links must not open new tabs`)
+    }
+  })
+})
+
 describe('i18n dictionaries', () => {
   it('has the same keys in every language', () => {
     const keys = (value: object): string[] => Object.entries(value).flatMap(([key, child]) =>

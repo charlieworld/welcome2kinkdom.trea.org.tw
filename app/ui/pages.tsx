@@ -123,11 +123,11 @@ export function StatementPage(handle: Handle<PageProps>) {
               <p className="src">{dict.quotedFrom}</p>
               <h3>{content.quote.title}</h3>
               <p>{content.quote.summary}</p>
-              <a href={content.quote.url} rel="noopener">{dict.readOriginal}</a>
+              <a href={content.quote.url} target="_blank" rel="noopener noreferrer">{dict.readOriginal}</a>
             </blockquote>
             <h2 className="eyebrow related-heading"><i></i><span>{dict.related}</span></h2>
             <div className="related">
-              {content.related.map((item) => <a href={item.url} key={item.url} rel="noopener"><span>{item.label}</span><small>{item.meta}</small></a>)}
+              {content.related.map((item) => <a href={item.url} key={item.url} target="_blank" rel="noopener noreferrer"><span>{item.label}</span><small>{item.meta}</small></a>)}
             </div>
           </article>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
@@ -170,7 +170,7 @@ function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }
     return (
       <div className="rows">
         {items.map((link) => (
-          <a className="row link-row phase-transition" href={link.url} key={link.url} rel="noopener">
+          <a className="row link-row phase-transition" href={link.url} key={link.url} target="_blank" rel="noopener noreferrer">
             <span className="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon} /></svg></span>
             <span className="t"><b>{pick(link.name, lang)}</b><span>{hostOf(link.url)}{link.note ? ` · ${pick(link.note, lang)}` : ''}</span></span>
             <span className="ext" aria-hidden="true">↗</span>
