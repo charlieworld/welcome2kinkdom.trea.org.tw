@@ -5,8 +5,24 @@ import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
-import { eventsByYear, formatDate, isHighlight, visibleEvents, type ChronicleEvent } from '../data/chronicle.ts'
+import { eventsByYear, formatDate, isHighlight, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+
+/** Event types collapse into four visual groups, each with its own colour on the rail. */
+export type TypeGroup = 'society' | 'scene' | 'media' | 'org'
+const typeGroups: Record<TypeGroup, string[]> = {
+  society: ['社會事件', '法規', '法院判決', '新聞媒體'],
+  scene: ['活動', '表演', '遊行'],
+  media: ['網路平台', '網路', '出版刊物'],
+  org: ['組織', '空間'],
+}
+export function typeGroupOf(type: string): TypeGroup {
+  for (const [group, types] of Object.entries(typeGroups) as [TypeGroup, string[]][]) if (types.includes(type)) return group
+  return 'scene'
+}
+function eventGroup(event: ChronicleEvent): TypeGroup {
+  return event.types.length ? typeGroupOf(event.types[0]) : 'scene'
+}
 
 export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
   return () => {
@@ -15,8 +31,8 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
     const c = dict.chronicle
     const shown = visibleEvents()
     const years = eventsByYear()
-    const first = shown[0]?.start.year
-    const last = shown.at(-1)?.start.year
+    const first = shown[0]?.start.year ?? 0
+    const last = shown.at(-1)?.start.year ?? 0
     const highlighted = shown.filter(isHighlight).length
     return (
       <Document lang={lang} title={`${c.title} · ${dict.siteName}`} description={c.lede} urlPath={pageHrefs.chronicle[lang]} altPath={pageHrefs.chronicle[otherLang(lang)]}>
@@ -34,16 +50,33 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
             <div><dt>{c.stats.highlighted}</dt><dd>{highlighted}</dd></div>
           </dl>
 
+          <YearStrip years={years} first={first} last={last} lang={lang} />
+
+          <div className="chron-legend" aria-label={c.legend.label}>
+            {(['society', 'scene', 'media', 'org'] as const).map((group) => <span key={group}><i className={`dot-${group}`}></i>{c.legend[group]}</span>)}
+          </div>
+
           <section className="section" id="timeline">
             <h2><em>{c.timelineHeading}</em></h2>
             <p className="sub">{c.timelineSub}</p>
-            <div className="chron">
-              {years.map((group) => (
-                <section className="chron-year" key={group.year} aria-labelledby={`y${group.year}`}>
-                  <h3 id={`y${group.year}`}>{group.year}<span>{c.yearCount(group.items.length)}</span></h3>
-                  <ol>{group.items.map((event, index) => <ChronicleItem event={event} lang={lang} key={`${group.year}-${index}`} />)}</ol>
-                </section>
-              ))}
+            <div className="chron" data-chron>
+              <div className="chron-progress" aria-hidden="true"></div>
+              {years.map((group, index) => {
+                const previous = years[index - 1]
+                const decade = Math.floor(group.year / 10) * 10
+                const newDecade = !previous || Math.floor(previous.year / 10) * 10 !== decade
+                const gap = previous ? group.year - previous.year - 1 : 0
+                return (<>
+                  {gap > 0 ? <div className="chron-gap" aria-hidden="true"><span>{c.gap(gap)}</span></div> : null}
+                  {newDecade ? <div className="chron-decade" aria-hidden="true"><span>{decade}s</span></div> : null}
+                  <section className="chron-year" key={group.year} id={`y${group.year}`} aria-labelledby={`h${group.year}`}>
+                    <i className="chron-node" aria-hidden="true"></i>
+                    <h3 id={`h${group.year}`}><b>{group.year}</b><span>{c.yearCount(group.items.length)}</span></h3>
+                    <ol>{group.items.map((event, i) => <ChronicleItem event={event} lang={lang} key={`${group.year}-${i}`} />)}</ol>
+                  </section>
+                </>)
+              })}
+              <div className="chron-end" aria-hidden="true"><span>{c.toBeContinued}</span></div>
             </div>
           </section>
 
@@ -62,22 +95,65 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
   }
 }
 
+/** Horizontal overview: one column per calendar year, bar height = events that year; tap to jump. */
+function YearStrip(handle: Handle<{ years: { year: number; items: ChronicleEvent[] }[]; first: number; last: number; lang: Lang }>) {
+  return () => {
+    const { years, first, last, lang } = handle.props
+    const c = t(lang).chronicle
+    const byYear = new Map(years.map((group) => [group.year, group.items]))
+    const max = Math.max(...years.map((group) => group.items.length))
+    const columns = []
+    for (let year = first; year <= last; year++) columns.push(year)
+    return (
+      <nav className="chron-strip" aria-label={c.stripLabel} data-chron-strip>
+        <div className="chron-strip-track">
+          {columns.map((year) => {
+            const items = byYear.get(year) ?? []
+            const highlight = items.some(isHighlight)
+            const height = items.length ? 22 + (items.length / max) * 34 : 4
+            return items.length ? (
+              <a href={`#y${year}`} className={`strip-year${highlight ? ' is-highlight' : ''}`} key={year} data-strip-year={year} title={c.yearCount(items.length)}>
+                <i style={{ height: `${height}px` }}></i>
+                <span>{year}</span>
+              </a>
+            ) : (
+              <span className="strip-year is-empty" key={year} aria-hidden="true"><i></i><span>{year % 10 === 0 ? year : ''}</span></span>
+            )
+          })}
+        </div>
+      </nav>
+    )
+  }
+}
+
+function dateParts(date: ChronicleDate): { year: number; rest?: string } {
+  const rest = [date.month, date.month ? date.day : undefined].filter((v) => v !== undefined).map((v) => String(v).padStart(2, '0')).join('.')
+  return { year: date.year, rest: rest || undefined }
+}
+
 function ChronicleItem(handle: Handle<{ event: ChronicleEvent; lang: Lang }>) {
   return () => {
     const { event, lang } = handle.props
     const c = t(lang).chronicle
     const highlight = isHighlight(event)
+    const group = eventGroup(event)
     const meta = [event.org, event.place].filter(Boolean).join(' · ')
+    const { rest } = dateParts(event.start)
+    const full = formatDate(event.start, event.end)
     return (
-      <li className={`chron-event${highlight ? ' is-highlight' : ''}`}>
+      <li className={`chron-event group-${group}${highlight ? ' is-highlight' : ''}`} data-chron-event>
+        <i className="chron-dot" aria-hidden="true"></i>
         <div className="chron-head">
-          <time className="chron-date">{formatDate(event.start, event.end)}</time>
-          {event.types.map((type) => <span className="chron-tag" key={type}>{type}</span>)}
+          <time className="chron-date" dateTime={String(event.start.year)} title={full}>
+            {rest ? <b>{rest}</b> : <b>{event.start.year}</b>}
+            {event.end ? <small>{full.slice(full.indexOf('–'))}</small> : null}
+          </time>
+          {event.types.map((type) => <span className={`chron-tag tag-${typeGroupOf(type)}`} key={type}>{type}</span>)}
         </div>
         <p className="chron-summary">{event.summary}</p>
-        {highlight ? <span className="chron-badge">{c.highlightBadge}</span> : null}
         {event.detail ? <p className="chron-detail">{event.detail}</p> : null}
         {meta ? <p className="chron-meta">{meta}</p> : null}
+        {highlight ? <span className="chron-badge">{c.highlightBadge}</span> : null}
         {event.refs.length ? (
           <p className="chron-refs" aria-label={c.refs}>
             {event.refs.map((ref) => <a href={ref.url} key={ref.url} target="_blank" rel="noopener noreferrer">{ref.label ?? hostOf(ref.url)} ↗</a>)}
