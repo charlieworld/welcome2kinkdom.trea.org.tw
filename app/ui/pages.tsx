@@ -51,18 +51,21 @@ export function HomePage(handle: Handle<PageProps>) {
             <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
           </div>
           <BasicsTeaser lang={lang} />
+          <section className="section topics-section" id="topics">
+            <h2><em>{dict.topics.heading}</em><span>{dict.topics.sub}</span></h2>
+            <div className="topics">
+              <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
+                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
+              </a>
+              <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
+                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
+              </a>
+            </div>
+          </section>
           <nav className="chips" aria-label={dict.linksHeading}>
             <a className="chip" href="#top">{dict.all}</a>
             {categories.map((category) => <a className="chip" key={category.key} href={`#${category.key}`}>{pick(category.name, lang)}</a>)}
           </nav>
-          <div className="topics">
-            <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
-              <i>{dict.kinkSpace.homeCard.tag}</i><b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
-            </a>
-            <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
-              <i>{dict.chronicle.homeCard.tag}</i><b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
-            </a>
-          </div>
           {categories.map((category) => {
             const items = linksIn(category.key, lang)
             return (<>

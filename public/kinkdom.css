@@ -215,7 +215,8 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:420px){.chronicle-stats dd{font-size:18px}.chron-decade span{font-size:44px}}
 @media(min-width:768px){.chron{--indent:48px;--rail:18px}.chron-decade span{font-size:72px}}
 /* ---- Home topics row + basics teaser ---- */
-.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:14px 0 4px}
+.topics-section{padding:24px 0 0}
+.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0 4px}
 .topic{display:flex;flex-direction:column;gap:2px;padding:11px 11px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;min-width:0}
 .topic i{font-family:Syne,sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-style:normal}
 .topic b{font-family:"Noto Serif TC","Songti TC",serif;font-size:14px;line-height:1.25;overflow-wrap:anywhere}
