@@ -31,7 +31,7 @@ export const zh = {
   manualNote: (label: string) => `已暫時切換為「${label}」，重新進入頁面時會再次偵測時間。`,
   language: '語言 · Language',
   linksHeading: '資源分類 · Links',
-  topics: { heading: '專題', sub: 'Topics' },
+  topics: { heading: '專題', sub: 'Topics', menu: '專題 · Topics' },
   siteHeading: '網站 · Site',
   phase: {
     day: { eyebrow: 'Day District', h1: '白天街區', lede: '台灣 BDSM／kink 社群的入口。活動、資源、節目、文庫、討論區，一頁找齊。' },
@@ -142,7 +142,7 @@ export const en: Dict = {
   manualNote: (label: string) => `Switched to ${label} for now. The next visit follows your clock again.`,
   language: 'Language',
   linksHeading: 'Links',
-  topics: { heading: 'Topics', sub: '專題' },
+  topics: { heading: 'Topics', sub: '專題', menu: 'Topics' },
   siteHeading: 'Site',
   phase: {
     day: { eyebrow: 'Day District', h1: 'Daytime District', lede: "The front door to Taiwan's BDSM / kink community: events, resources, podcasts, writing and forums on one page." },

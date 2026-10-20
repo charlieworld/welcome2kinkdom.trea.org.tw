@@ -265,12 +265,15 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <nav className="nav">
           {categories.map((category) => navLink(pageHrefs[category.key][lang], pick(category.name, lang), `${lang === 'zh' ? category.name.en : category.name.zh} · ${linksIn(category.key, lang).length}`))}
         </nav>
+        <h3>{dict.topics.menu}</h3>
+        <nav className="nav nav-topics">
+          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.homeCard.title, dict.kinkSpace.homeCard.text)}
+          {navLink(pageHrefs.chronicle[lang], dict.chronicle.homeCard.title, dict.chronicle.homeCard.text)}
+        </nav>
         <h3>{dict.siteHeading}</h3>
         <nav className="nav">
           {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
-          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.nav, dict.kinkSpace.eyebrow)}
-          {navLink(pageHrefs.chronicle[lang], dict.chronicle.nav, dict.chronicle.navSub)}
           {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>

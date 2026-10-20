@@ -139,7 +139,7 @@ describe('Chronicle page', () => {
     const { html: home } = await fetchHtml('/')
     assert.doesNotMatch(home, /chip-link/)
     assert.match(home, /class="topic phase-transition" href="\/chronicle"/)
-    assert.match(home, /<a href="\/chronicle"><b>台灣BDSM社群大紀事<\/b><span>年表 Chronicle<\/span><\/a>/)
+    assert.match(home, /<nav class="nav nav-topics">.*<a href="\/chronicle"><b>社群大紀事<\/b><span>2000 年至今的重要時刻<\/span><\/a>/)
   })
 
   it('shows only important events and highlights the key ones', async () => {
