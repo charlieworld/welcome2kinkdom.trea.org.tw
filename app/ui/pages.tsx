@@ -55,10 +55,10 @@ export function HomePage(handle: Handle<PageProps>) {
             <h2><em>{dict.topics.heading}</em><span>{dict.topics.sub}</span></h2>
             <div className="topics">
               <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
-                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span>
+                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span><i aria-hidden="true">→</i>
               </a>
               <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
-                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span>
+                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span><i aria-hidden="true">→</i>
               </a>
             </div>
           </section>
