@@ -21,7 +21,7 @@ export interface CategoryInfo {
 /** Categories in the order they appear on the page (same order as the source spreadsheet). */
 export const categories: readonly CategoryInfo[] = [
   { key: 'events', name: { zh: '活動', en: 'Events' }, desc: { zh: '聚會、行事曆，想見到人從這裡開始。', en: 'Munches and calendars. Start here to meet people.' }, icon: 'M4 5h16v14H4zM4 9h16M8 3v4M16 3v4' },
-  { key: 'resources', name: { zh: '資源', en: 'Resources' }, desc: { zh: '學術、助人工作者、自我探索。', en: 'Research, kink-aware professionals, self-discovery.' }, icon: 'M4 4h12l4 4v12H4zM8 12h8M8 16h8' },
+  { key: 'resources', name: { zh: '工具', en: 'Tools' }, desc: { zh: '學術、助人工作者、自我探索。', en: 'Research, kink-aware professionals, self-discovery.' }, icon: 'M4 4h12l4 4v12H4zM8 12h8M8 16h8' },
   { key: 'podcasts', name: { zh: '節目', en: 'Podcasts' }, desc: { zh: '用聽的認識社群。', en: 'Get to know the community by ear.' }, icon: 'M12 3a4 4 0 014 4v5a4 4 0 01-8 0V7a4 4 0 014-4zM5 11a7 7 0 0014 0M12 18v3' },
   { key: 'writings', name: { zh: '文庫', en: 'Writings' }, desc: { zh: '部落格、日記、繩縛書寫。', en: 'Blogs, diaries and writing on rope.' }, icon: 'M4 19V5a1 1 0 011-1h5a2 2 0 012 2v14a2 2 0 00-2-2H4zM20 19V5a1 1 0 00-1-1h-5a2 2 0 00-2 2v14a2 2 0 012-2h6z' },
   { key: 'forums', name: { zh: '討論', en: 'Forums' }, desc: { zh: '公開討論區。', en: 'Public discussion boards.' }, icon: 'M4 5h16v11H9l-5 4z' },
