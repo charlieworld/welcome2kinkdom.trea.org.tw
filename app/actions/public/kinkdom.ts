@@ -8,11 +8,6 @@ function phaseByHour(hour: number): Phase { return hour >= 6 && hour < 19 ? 'day
 
 function apply() {
   root.dataset.phase = phase
-  // Phase-specific copy ships in the HTML as data-day / data-night so it is already localized.
-  document.querySelectorAll<HTMLElement>('[data-copy]').forEach((node) => {
-    const text = node.dataset[phase]
-    if (text) node.textContent = text
-  })
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-mode]')
   buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === phase)))
   const note = document.querySelector<HTMLElement>('[data-phase-note]')
@@ -59,6 +54,12 @@ if (chips.length && sections.length && 'IntersectionObserver' in window) {
     if (visible) setActive(visible.target.id)
   }, { rootMargin: '-120px 0px -60% 0px' })
   sections.forEach((section) => observer.observe(section))
+}
+
+// Home: the top bar floats transparent over the key visual and turns solid once page content scrolls under it.
+const keyVisual = document.querySelector<HTMLElement>('.home .kv')
+if (keyVisual && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => document.body.classList.toggle('bar-solid', !entry.isIntersecting), { rootMargin: '-57px 0px 0px 0px' }).observe(keyVisual)
 }
 
 apply(); tick(); setInterval(tick, 30000)

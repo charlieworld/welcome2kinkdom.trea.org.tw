@@ -1,9 +1,15 @@
+import { statSync } from 'node:fs'
+
 import type { Handle, RemixNode } from 'remix/ui'
 import { css } from 'remix/ui'
 
 import { entryHref, entryPreloads } from '../assets.ts'
 import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
+
+// Versioned so browsers pick up stylesheet edits instead of a heuristically cached copy.
+const stylesheetPath = new URL('../../public/kinkdom.css', import.meta.url)
+function stylesheetHref() { return `/kinkdom.css?v=${Math.round(statSync(stylesheetPath).mtimeMs).toString(36)}` }
 
 export interface DocumentProps {
   children?: RemixNode
@@ -77,7 +83,7 @@ export function Document(handle: Handle<DocumentProps>) {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=Syne:wght@500;700;800&display=swap" />
-          <link rel="stylesheet" href="/kinkdom.css" />
+          <link rel="stylesheet" href={stylesheetHref()} />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
           <title>{title}</title>
           <script>{`(function(){var h=new Date().getHours();document.documentElement.setAttribute('data-phase',h>=6&&h<19?'day':'night')})();`}</script>
