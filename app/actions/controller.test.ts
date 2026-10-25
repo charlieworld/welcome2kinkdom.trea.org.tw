@@ -57,7 +57,7 @@ describe('Navigator home page', () => {
   it('has every category represented and no duplicate URLs', () => {
     for (const category of categories) assert.ok(linksIn(category.key, 'zh').length > 0, category.key)
     assert.equal(new Set(links.map((link) => link.url)).size, links.length)
-    assert.equal(links.length, 16)
+    assert.equal(links.length, 18)
   })
 })
 

@@ -39,6 +39,8 @@ export const links: readonly SiteLink[] = [
   { category: 'podcasts', name: { zh: 'BDSM蹺蹺板：聊聊你的愉虐人生' }, url: 'https://open.firstory.fm/user/bdsmseesaw/' },
   { category: 'podcasts', name: { zh: '嗨你有性趣嗎?' }, url: 'https://podcasts.apple.com/tw/podcast/%E5%97%A8%E4%BD%A0%E6%9C%89%E6%80%A7%E8%B6%A3%E5%97%8E/id1701954648' },
   { category: 'podcasts', name: { zh: '底層慾望' }, url: 'https://open.firstory.fm/user/masterkenta/' },
+  { category: 'podcasts', name: { zh: '汪汪雜貨鋪｜人型犬大小事' }, url: 'https://joy.bio/wangzahuopu' },
+  { category: 'podcasts', name: { zh: '無病聲吟' }, url: 'https://open.firstory.fm/user/doublevoice' },
   { category: 'writings', name: { zh: '補上慾望的缺口' }, url: 'http://blog.maizugirl.me/?zx=2b0487a87cf65d83' },
   { category: 'writings', name: { zh: 'Re: Sink 中年情慾交換日記' }, url: 'https://portaly.cc/ReSink' },
   { category: 'writings', name: { zh: 'S.Ink 情慾交換日記' }, url: 'https://sex-ink.blog.bdsmtw.com/' },
