@@ -166,7 +166,7 @@ export function AboutPage(handle: Handle<PageProps>) {
           </section>
           <article>
             {dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            <p>{dict.aboutFeedback.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.aboutFeedback.link}</a>{dict.aboutFeedback.after}</p>
+            <p>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </article>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />

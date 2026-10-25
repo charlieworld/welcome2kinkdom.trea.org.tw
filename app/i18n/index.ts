@@ -73,7 +73,7 @@ export const zh = {
     ongoing: '至今',
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – 至今` : start === end ? `${start}` : `${start} – ${end}`,
     source: '資料來源',
-    sourceNote: '整理自虎斑的「台灣禁羈空間列表＆時間軸」試算表，歡迎補充或修正。',
+    sourceNote: '整理自虎斑的「台灣禁羈空間列表＆時間軸」試算表。',
     reference: '參考 ↗',
   },
   kinkBasics: {
@@ -113,7 +113,7 @@ export const zh = {
   aboutBody: [
     '這裡不自產長文，只收錄連結。每個連結都是社群成員經營的活動、資源、節目、文庫或討論區；內容與立場由各站自行負責。',
   ],
-  aboutFeedback: { before: '如有勘誤、推薦資源連結、調整建議或任何回饋，歡迎', link: '填寫表單', after: '與我們聯繫。' },
+  feedbackNote: { before: '如有勘誤、推薦資源連結、調整建議或任何回饋，歡迎', link: '填寫表單', after: '與我們聯繫。' },
   credits: { initiated: '發起、規劃', site: '網頁工程 ・ 維護', suggest: '推薦連結', suggestText: { before: '想加入新連結？歡迎', link: '填寫表單', after: '與我們聯繫' } },
   redirectTitle: '重新導向',
   redirectGo: '前往頁面',
@@ -181,7 +181,7 @@ export const en: Dict = {
     ongoing: 'now',
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – now` : start === end ? `${start}` : `${start} – ${end}`,
     source: 'Source',
-    sourceNote: 'Compiled from 虎斑\'s spreadsheet "台灣禁羈空間列表＆時間軸". Corrections and additions welcome.',
+    sourceNote: 'Compiled from 虎斑\'s spreadsheet "台灣禁羈空間列表＆時間軸".',
     reference: 'Reference ↗',
   },
   kinkBasics: {
@@ -221,7 +221,7 @@ export const en: Dict = {
   aboutBody: [
     'We publish links, not articles. Every link is an event, resource, podcast, blog or forum run by community members; each site is responsible for its own content and views.',
   ],
-  aboutFeedback: { before: 'For corrections, resource suggestions, adjustments or any other feedback, please ', link: 'fill in the form', after: ' to get in touch.' },
+  feedbackNote: { before: 'For corrections, resource suggestions, adjustments or any other feedback, please ', link: 'fill in the form', after: ' to get in touch.' },
   credits: { initiated: 'Initiated by', site: 'Site', suggest: 'Suggest a link', suggestText: { before: 'Want to add a link? ', link: 'Fill in the form', after: ' to reach us' } },
   redirectTitle: 'Redirecting',
   redirectGo: 'Continue',
