@@ -6,25 +6,9 @@ import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
 import { eventsByYear, formatDate, isHighlight, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
-import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
-/** Event types collapse into four visual groups, each with its own colour on the rail. */
-export type TypeGroup = 'society' | 'scene' | 'media' | 'org'
-const typeGroups: Record<TypeGroup, string[]> = {
-  society: ['社會事件', '法規', '法院判決', '新聞媒體'],
-  scene: ['活動', '表演', '遊行'],
-  media: ['網路平台', '網路', '出版刊物'],
-  org: ['組織', '空間'],
-}
-export function typeGroupOf(type: string): TypeGroup {
-  for (const [group, types] of Object.entries(typeGroups) as [TypeGroup, string[]][]) if (types.includes(type)) return group
-  return 'scene'
-}
-function eventGroup(event: ChronicleEvent): TypeGroup {
-  return event.types.length ? typeGroupOf(event.types[0]) : 'scene'
-}
-
-const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '台灣BDSM社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
+const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
 
 export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
   return () => {
@@ -54,10 +38,6 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
 
           <YearStrip years={years} first={first} last={last} lang={lang} />
 
-          <div className="chron-legend" aria-label={c.legend.label}>
-            {(['society', 'scene', 'media', 'org'] as const).map((group) => <span key={group}><i className={`dot-${group}`}></i>{c.legend[group]}</span>)}
-          </div>
-
           <section className="section" id="timeline">
             <h2><em>{c.timelineHeading}</em></h2>
             <p className="sub">{c.timelineSub}</p>
@@ -86,7 +66,7 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
           <div className="related">
             <a href={pageHrefs.kinkSpace[lang]}><span>{c.relatedKinkSpace.label}</span><small>{c.relatedKinkSpace.meta} →</small></a>
           </div>
-          <p className="source">{c.sourceNote}</p>
+          <p className="source">{c.sourceNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{c.sourceNote.link}</a>{c.sourceNote.after}</p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
@@ -138,19 +118,18 @@ function ChronicleItem(handle: Handle<{ event: ChronicleEvent; lang: Lang }>) {
     const { event, lang } = handle.props
     const c = t(lang).chronicle
     const highlight = isHighlight(event)
-    const group = eventGroup(event)
     const meta = [event.org, event.place].filter(Boolean).join(' · ')
     const { rest } = dateParts(event.start)
     const full = formatDate(event.start, event.end)
     return (
-      <li className={`chron-event group-${group}${highlight ? ' is-highlight' : ''}`} data-chron-event>
+      <li className={`chron-event${highlight ? ' is-highlight' : ''}`} data-chron-event>
         <i className="chron-dot" aria-hidden="true"></i>
         <div className="chron-head">
           <time className="chron-date" dateTime={String(event.start.year)} title={full}>
             {rest ? <b>{rest}</b> : <b>{event.start.year}</b>}
             {event.end ? <small>{full.slice(full.indexOf('–'))}</small> : null}
           </time>
-          {event.types.map((type) => <span className={`chron-tag tag-${typeGroupOf(type)}`} key={type}>{type}</span>)}
+          {event.types.map((type) => <span className="chron-tag" key={type}>{type}</span>)}
         </div>
         <p className="chron-summary">{event.summary}</p>
         {event.detail ? <p className="chron-detail">{event.detail}</p> : null}

@@ -29,27 +29,34 @@ interface PageProps { lang: Lang }
 
 export function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
 
+// Google Form for corrections, link suggestions and other feedback (linked from the about page).
+export const FEEDBACK_FORM = 'https://forms.gle/zQkMLY4XzwjhyDU27'
+
+// Footer credits: the label comes from the dictionary; the name and link are the same in every language.
+const CREDITS = [
+  { key: 'planning', name: '社團法人台灣情感教育協會', url: 'https://www.trea.org.tw/' },
+  { key: 'initiated', name: 'Fusion', url: 'https://www.instagram.com/fusion.taiwan/' },
+  { key: 'design', name: '犬神高度育造', url: 'https://inukoiku.github.io/kotogako/age-gate?redirect=/' },
+  { key: 'site', name: 'TinaTea 緹', url: 'https://x.com/TinaTeaTW' },
+] as const
+
 export function HomePage(handle: Handle<PageProps>) {
   return () => {
     const { lang } = handle.props
     const dict = t(lang)
     return (
-      <Document lang={lang} urlPath={pageHrefs.home[lang]} altPath={pageHrefs.home[otherLang(lang)]}>
+      <Document lang={lang} urlPath={pageHrefs.home[lang]} altPath={pageHrefs.home[otherLang(lang)]} bodyClass="home">
         <TopBar lang={lang} page="home" />
         <main id="top" className="wrap">
+          <h1 className="sr-only">{dict.siteName}</h1>
+          <div className="kv phase-transition">
+            <img className="kv-image kv-image-day" src="/kinkdom-hero-day.avif" alt={dict.kvDayAlt} width="1440" height="2560" />
+            <img className="kv-image kv-image-night" src="/kinkdom-hero-night.avif" alt={dict.kvNightAlt} width="1440" height="2560" />
+          </div>
           <a className="notice phase-transition" href={pageHrefs.statementCd[lang]}>
             <i aria-hidden="true"></i>
             <span><b>{dict.statementNotice.tag}</b>{dict.statementNotice.text}</span>
           </a>
-          <section className="hero phase-transition">
-            <div className="eyebrow"><i></i><span data-copy="eyebrow" data-day={dict.phase.day.eyebrow} data-night={dict.phase.night.eyebrow}>{dict.phase.day.eyebrow}</span></div>
-            <h1><span data-copy="h1" data-day={dict.phase.day.h1} data-night={dict.phase.night.h1}>{dict.phase.day.h1}</span><small>{dict.h1Sub}</small></h1>
-            <p className="lede" data-copy="lede" data-day={dict.phase.day.lede} data-night={dict.phase.night.lede}>{dict.phase.day.lede}</p>
-          </section>
-          <div className="kv phase-transition">
-            <img className="kv-image kv-image-day" src="/kinkdom-day.avif" alt={dict.kvDayAlt} width="2742" height="3840" />
-            <img className="kv-image kv-image-night" src="/kinkdom-night.avif" alt={dict.kvNightAlt} width="1371" height="1920" />
-          </div>
           <BasicsTeaser lang={lang} />
           <section className="section topics-section" id="topics">
             <h2><em>{dict.topics.heading}</em><span>{dict.topics.sub}</span></h2>
@@ -165,7 +172,10 @@ export function AboutPage(handle: Handle<PageProps>) {
             <h1>{dict.aboutTitle}</h1>
             <p className="lede">{dict.aboutLede}</p>
           </section>
-          <article>{dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</article>
+          <article>
+            {dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            <p>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
+          </article>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
@@ -232,9 +242,8 @@ export function SiteFooter(handle: Handle<{ lang: Lang }>) {
       <footer className="site-footer">
         <div className="footer-inner">
           <div className="footer-credits">
-            <p><span>{dict.credits.initiated}</span>台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造</p>
-            <p><span>{dict.credits.site}</span>TinaTea 緹</p>
-            <p><span>{dict.credits.suggest}</span>{dict.credits.suggestText}</p>
+            {CREDITS.map((credit) => <p key={credit.key}><span>{dict.credits[credit.key]}</span><a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.name}</a></p>)}
+            <p><span>{dict.credits.suggest}</span>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </div>
           <p className="footer-signature"><em>made with love</em><i aria-hidden="true">✦</i><span>2026</span></p>
         </div>
@@ -253,6 +262,22 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
       <div className="scrim" data-scrim></div>
       <aside className="sheet phase-transition" id="menu-sheet" data-sheet aria-label={dict.menuLabel} aria-hidden="true" tabIndex={-1}>
         <div className="grab"></div>
+        <h3>{dict.siteHeading}</h3>
+        <nav className="nav">
+          {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
+          {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
+          {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
+          {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
+        </nav>
+        <h3>{dict.linksHeading}</h3>
+        <nav className="nav">
+          {categories.map((category) => navLink(pageHrefs[category.key][lang], pick(category.name, lang), `${lang === 'zh' ? category.name.en : category.name.zh} · ${linksIn(category.key, lang).length}`))}
+        </nav>
+        <h3>{dict.topics.menu}</h3>
+        <nav className="nav nav-topics">
+          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.homeCard.title, dict.kinkSpace.homeCard.text)}
+          {navLink(pageHrefs.chronicle[lang], dict.chronicle.homeCard.title, dict.chronicle.homeCard.text)}
+        </nav>
         <h3>{dict.timeOfDay}</h3>
         <div className="seg" role="group" aria-label={dict.timeOfDay}>
           {([['day', dict.day, 'Day'], ['night', dict.night, 'Night']] as const).map(([mode, label, sub]) =>
@@ -264,22 +289,6 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
           <a aria-current={lang === 'zh' ? 'page' : undefined} href={pageHrefs[page].zh} hrefLang="zh-Hant" lang="zh-Hant">中文<small>ZH</small></a>
           <a aria-current={lang === 'en' ? 'page' : undefined} href={pageHrefs[page].en} hrefLang="en" lang="en">English<small>EN</small></a>
         </div>
-        <h3>{dict.linksHeading}</h3>
-        <nav className="nav">
-          {categories.map((category) => navLink(pageHrefs[category.key][lang], pick(category.name, lang), `${lang === 'zh' ? category.name.en : category.name.zh} · ${linksIn(category.key, lang).length}`))}
-        </nav>
-        <h3>{dict.topics.menu}</h3>
-        <nav className="nav nav-topics">
-          {navLink(pageHrefs.kinkSpace[lang], dict.kinkSpace.homeCard.title, dict.kinkSpace.homeCard.text)}
-          {navLink(pageHrefs.chronicle[lang], dict.chronicle.homeCard.title, dict.chronicle.homeCard.text)}
-        </nav>
-        <h3>{dict.siteHeading}</h3>
-        <nav className="nav">
-          {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
-          {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
-          {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
-          {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
-        </nav>
         <button className="close" type="button" data-close-menu>{dict.menuClose}</button>
       </aside>
     </>)

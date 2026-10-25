@@ -20,15 +20,16 @@ describe('Navigator home page', () => {
     assert.match(html, /<html lang="zh-Hant" data-phase="day" data-lang="zh">/)
     assert.match(html, /台灣禁羈資訊導航站/)
     assert.match(html, /h>=6&&h<19/)
-    assert.match(html, /src="\/kinkdom-day\.avif"/)
-    assert.match(html, /src="\/kinkdom-night\.avif"/)
+    assert.match(html, /src="\/kinkdom-hero-day\.avif"/)
+    assert.match(html, /src="\/kinkdom-hero-night\.avif"/)
     assert.match(html, /href="\/statement\/cd"/)
     assert.match(html, /href="\/en"/)
     assert.match(html, /hreflang="en" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/en"/)
     assert.match(html, /property="og:site_name" content="台灣禁羈資訊導航站"/)
     assert.match(html, /property="og:locale" content="zh_TW"/)
-    assert.match(html, /台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造/)
-    assert.match(html, /TinaTea 緹/)
+    for (const name of ['社團法人台灣情感教育協會', 'Fusion', '犬神高度育造', 'TinaTea 緹']) assert.ok(html.includes(`>${name}</a>`), name)
+    assert.match(html, /<span>統籌規劃<\/span><a href="https:\/\/www\.trea\.org\.tw\/"/)
+    assert.ok(!html.includes('皮繩愉虐邦'))
     for (const link of links) {
       assert.match(html, new RegExp(`href="${link.url.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}"`), link.url)
       assert.ok(html.includes(link.name.zh), link.name.zh)
@@ -57,7 +58,7 @@ describe('Navigator home page', () => {
   it('has every category represented and no duplicate URLs', () => {
     for (const category of categories) assert.ok(linksIn(category.key, 'zh').length > 0, category.key)
     assert.equal(new Set(links.map((link) => link.url)).size, links.length)
-    assert.equal(links.length, 16)
+    assert.equal(links.length, 18)
   })
 })
 
@@ -128,7 +129,8 @@ describe('Chronicle page', () => {
   it('renders the timeline in both languages with entry points from the home page', async () => {
     const { response, html } = await fetchHtml('/chronicle')
     assert.equal(response.status, 200)
-    assert.match(html, /台灣BDSM社群大紀事及年表/)
+    assert.match(html, /社群大紀事及年表/)
+    assert.ok(!html.includes('台灣BDSM社群大紀事'))
     assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/chronicle"/)
     assert.equal((html.match(/class="chron-event/g) ?? []).length, 38)
     assert.match(html, /href="\/kink_space"/)
@@ -149,7 +151,7 @@ describe('Chronicle page', () => {
     // Importance 15: highlighted with the supplementary-info badge.
     const key = eventElement(html, '同志箱屍案')
     assert.ok(key, 'importance-15 event rendered')
-    assert.match(key, /class="chron-event group-\w+ is-highlight"/)
+    assert.match(key, /class="chron-event is-highlight"/)
     assert.match(key, /補充資訊 整理中/)
     // Importance 9: shown, not highlighted.
     const regular = eventElement(html, 'PTT BDSM版開版')
@@ -157,12 +159,12 @@ describe('Chronicle page', () => {
     assert.doesNotMatch(regular, /is-highlight/)
     // Internal editorial notes are never rendered.
     assert.ok(!html.includes('待考據'))
-    // Timeline furniture: year strip, decade markers, gap markers, legend and progress rail.
+    // Timeline furniture: year strip, decade markers, gap markers and progress rail.
     assert.match(html, /data-chron-strip/)
     assert.match(html, /href="#y2001"/)
     assert.match(html, /class="chron-decade"[^>]*><span>2000s<\/span>/)
     assert.match(html, /class="chron-gap"/)
-    assert.match(html, /class="chron-legend"/)
+    assert.ok(!html.includes('chron-legend'), 'no colour legend: every event uses the accent')
     assert.match(html, /class="chron-progress"/)
   })
 
@@ -201,7 +203,7 @@ describe('Kink basics page', () => {
     assert.match(html, /class="definition"/)
     for (const value of ['多元友善', '風險意識', '探索自己', '尊重他人', '重視安全']) assert.ok(html.includes(value), value)
     for (const short of ['SSC', 'RACK', 'PRICK', 'CCC', '4Cs']) assert.match(html, new RegExp(`<b>${short}</b>`), short)
-    assert.ok(!html.includes('千霂'))
+    assert.match(html, /<p class="source">本頁內容由<a href="https:\/\/www\.facebook\.com\/della\.wang\.2015"[^>]*>千霂<\/a>提供/)
     assert.ok(html.indexOf('願這些文字成為探索的起點') < html.indexOf('class="toc"'), 'opening words before the TOC')
     assert.ok(html.indexOf('走出屬於自己的道路') > html.lastIndexOf('class="acronyms"'), 'closing words after the last section')
     const { html: enHtml } = await fetchHtml('/en/kink_basics')

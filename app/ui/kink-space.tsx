@@ -8,7 +8,7 @@ import {
   CURRENT_YEAR, FIRST_YEAR, SOURCE, activePerYear, cityName, countsByCity, isOngoing, kindNames,
   spaces, spacesByCity, timelineOrder, type KinkSpace,
 } from '../data/spaces.ts'
-import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
 const OG_IMAGE = { src: '/og-kink-space.jpg', alt: { zh: '台灣禁羈空間：縣市分布方塊圖與營運中空間數', en: 'Kink Spaces in Taiwan: county map and counts' } }
 
@@ -71,7 +71,7 @@ export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
             ))}
           </section>
 
-          <p className="source"><b>{k.source}</b>{k.sourceNote} <a href={SOURCE.url} target="_blank" rel="noopener noreferrer">{SOURCE.title}（{SOURCE.author}）↗</a></p>
+          <p className="source"><b>{k.source}</b>{k.sourceNote} <a href={SOURCE.url} target="_blank" rel="noopener noreferrer">{SOURCE.title}（{SOURCE.author}）↗</a><br />{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>

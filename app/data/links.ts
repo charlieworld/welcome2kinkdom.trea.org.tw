@@ -21,7 +21,7 @@ export interface CategoryInfo {
 /** Categories in the order they appear on the page (same order as the source spreadsheet). */
 export const categories: readonly CategoryInfo[] = [
   { key: 'events', name: { zh: '活動', en: 'Events' }, desc: { zh: '聚會、行事曆，想見到人從這裡開始。', en: 'Munches and calendars. Start here to meet people.' }, icon: 'M4 5h16v14H4zM4 9h16M8 3v4M16 3v4' },
-  { key: 'resources', name: { zh: '資源', en: 'Resources' }, desc: { zh: '學術、助人工作者、自我探索。', en: 'Research, kink-aware professionals, self-discovery.' }, icon: 'M4 4h12l4 4v12H4zM8 12h8M8 16h8' },
+  { key: 'resources', name: { zh: '工具', en: 'Tools' }, desc: { zh: '學術、助人工作者、自我探索。', en: 'Research, kink-aware professionals, self-discovery.' }, icon: 'M4 4h12l4 4v12H4zM8 12h8M8 16h8' },
   { key: 'podcasts', name: { zh: '節目', en: 'Podcasts' }, desc: { zh: '用聽的認識社群。', en: 'Get to know the community by ear.' }, icon: 'M12 3a4 4 0 014 4v5a4 4 0 01-8 0V7a4 4 0 014-4zM5 11a7 7 0 0014 0M12 18v3' },
   { key: 'writings', name: { zh: '文庫', en: 'Writings' }, desc: { zh: '部落格、日記、繩縛書寫。', en: 'Blogs, diaries and writing on rope.' }, icon: 'M4 19V5a1 1 0 011-1h5a2 2 0 012 2v14a2 2 0 00-2-2H4zM20 19V5a1 1 0 00-1-1h-5a2 2 0 00-2 2v14a2 2 0 012-2h6z' },
   { key: 'forums', name: { zh: '討論', en: 'Forums' }, desc: { zh: '公開討論區。', en: 'Public discussion boards.' }, icon: 'M4 5h16v11H9l-5 4z' },
@@ -39,6 +39,8 @@ export const links: readonly SiteLink[] = [
   { category: 'podcasts', name: { zh: 'BDSM蹺蹺板：聊聊你的愉虐人生' }, url: 'https://open.firstory.fm/user/bdsmseesaw/' },
   { category: 'podcasts', name: { zh: '嗨你有性趣嗎?' }, url: 'https://podcasts.apple.com/tw/podcast/%E5%97%A8%E4%BD%A0%E6%9C%89%E6%80%A7%E8%B6%A3%E5%97%8E/id1701954648' },
   { category: 'podcasts', name: { zh: '底層慾望' }, url: 'https://open.firstory.fm/user/masterkenta/' },
+  { category: 'podcasts', name: { zh: '汪汪雜貨鋪｜人型犬大小事' }, url: 'https://joy.bio/wangzahuopu' },
+  { category: 'podcasts', name: { zh: '無病聲吟' }, url: 'https://open.firstory.fm/user/doublevoice' },
   { category: 'writings', name: { zh: '補上慾望的缺口' }, url: 'http://blog.maizugirl.me/?zx=2b0487a87cf65d83' },
   { category: 'writings', name: { zh: 'Re: Sink 中年情慾交換日記' }, url: 'https://portaly.cc/ReSink' },
   { category: 'writings', name: { zh: 'S.Ink 情慾交換日記' }, url: 'https://sex-ink.blog.bdsmtw.com/' },
