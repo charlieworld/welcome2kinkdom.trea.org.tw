@@ -73,20 +73,6 @@ if (filterButtons.length) {
     filterButtons.forEach((other) => { const on = other === button; other.setAttribute('aria-pressed', String(on)); other.classList.toggle('chip-active', on) })
     rows.forEach((row) => { row.hidden = filter !== 'all' && row.dataset.status !== filter })
   }))
-  // Year labels that would overflow the track move inside the bar's end when the
-  // bar is wide enough to hold them; otherwise they sit just before the bar so
-  // the text never lands on the dark track background in the bar's ink colour.
-  document.querySelectorAll<HTMLElement>('.tl-row').forEach((row) => {
-    const label = row.querySelector<HTMLElement>('.tl-years')
-    const track = row.querySelector<HTMLElement>('.tl-track')
-    const bar = row.querySelector<HTMLElement>('.tl-bar')
-    if (!label || !track || !bar) return
-    if (label.offsetLeft + label.offsetWidth <= track.offsetWidth) return
-    if (bar.offsetWidth >= label.offsetWidth + 12) { row.classList.add('near-end'); return }
-    row.classList.add('label-before')
-    label.style.left = 'auto'
-    label.style.right = `${track.offsetWidth - bar.offsetLeft + 5}px`
-  })
 }
 
 // Chronicle: the rail fills as you scroll, year nodes light up once passed, events fade in, and the year strip tracks the year in view.

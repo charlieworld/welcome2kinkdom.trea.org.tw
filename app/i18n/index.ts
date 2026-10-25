@@ -64,7 +64,7 @@ export const zh = {
     perYearHeading: '歷年營運中的空間數',
     perYearSub: '依各空間的起始與結束年份計算，結束年為 2026 視為仍在營運。',
     timelineHeading: '時間軸',
-    timelineSub: '依成立年份排序；深色長條為營運中，淺色為已結束。',
+    timelineSub: '依成立年份排序；暗色長條為營運中，亮色為已結束。',
     listHeading: '空間列表',
     listSub: '依縣市由北到南，營運中在前。',
     filterAll: '全部',
