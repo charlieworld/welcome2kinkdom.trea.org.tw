@@ -30,7 +30,7 @@ interface PageProps { lang: Lang }
 export function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
 
 // Google Form for corrections, link suggestions and other feedback (linked from the about page).
-const FEEDBACK_FORM = 'https://forms.gle/zQkMLY4XzwjhyDU27'
+export const FEEDBACK_FORM = 'https://forms.gle/zQkMLY4XzwjhyDU27'
 
 export function HomePage(handle: Handle<PageProps>) {
   return () => {
@@ -236,7 +236,7 @@ export function SiteFooter(handle: Handle<{ lang: Lang }>) {
           <div className="footer-credits">
             <p><span>{dict.credits.initiated}</span>台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造</p>
             <p><span>{dict.credits.site}</span>TinaTea 緹</p>
-            <p><span>{dict.credits.suggest}</span>{dict.credits.suggestText}</p>
+            <p><span>{dict.credits.suggest}</span>{dict.credits.suggestText.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.credits.suggestText.link}</a>{dict.credits.suggestText.after}</p>
           </div>
           <p className="footer-signature"><em>made with love</em><i aria-hidden="true">✦</i><span>2026</span></p>
         </div>

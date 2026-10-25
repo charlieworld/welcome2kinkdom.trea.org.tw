@@ -23,7 +23,7 @@
 .site-footer{width:100vw;margin:48px 0 0 calc(50% - 50vw);padding:0;color:var(--ink-3);border-top:1px solid var(--line)}
 .footer-inner{width:min(1080px,calc(100% - 40px));margin:0 auto;padding:32px 0 calc(28px + env(safe-area-inset-bottom))}
 .footer-credits{display:grid;gap:4px}
-.footer-credits p{margin:0;font-size:13px;line-height:1.75}
+.footer-credits p{margin:0;font-size:13px;line-height:1.75}.footer-credits p a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
 .footer-credits p span{display:inline-block;margin-right:10px;color:color-mix(in srgb,var(--ink-3) 72%,transparent);font-family:"Noto Serif TC","Songti TC",serif;font-size:11px;font-style:italic;letter-spacing:.08em}
 .footer-signature{display:flex;align-items:center;justify-content:center;gap:9px;margin:32px 0 0;color:var(--ink-3);font-family:Syne,"Noto Sans TC",sans-serif;font-size:13px;letter-spacing:.12em}
 .footer-signature em{font-family:"Noto Serif TC","Songti TC",serif;font-style:italic;letter-spacing:.08em}

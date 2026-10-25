@@ -6,7 +6,7 @@ import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
 import { eventsByYear, formatDate, isHighlight, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
-import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
 /** Event types collapse into four visual groups, each with its own colour on the rail. */
 export type TypeGroup = 'society' | 'scene' | 'media' | 'org'
@@ -86,7 +86,7 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
           <div className="related">
             <a href={pageHrefs.kinkSpace[lang]}><span>{c.relatedKinkSpace.label}</span><small>{c.relatedKinkSpace.meta} →</small></a>
           </div>
-          <p className="source">{c.sourceNote}</p>
+          <p className="source">{c.sourceNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{c.sourceNote.link}</a>{c.sourceNote.after}</p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
