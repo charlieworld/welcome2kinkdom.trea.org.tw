@@ -3,8 +3,9 @@ import type { Handle } from 'remix/ui'
 import { kinkdomHref } from '../assets.ts'
 import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
-import { t } from '../i18n/index.ts'
+import { pick, t } from '../i18n/index.ts'
 import { kinkBasics, type BasicsSection } from '../data/kink-basics.ts'
+import { hostOf, linksIn } from '../data/links.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
 const OG_IMAGE = { src: '/og-kink-basics.jpg', alt: { zh: '認識禁羈：涵義、核心精神與互動原則', en: 'Understanding Kink: meaning, core values and principles of play' } }
@@ -41,7 +42,13 @@ export function KinkBasicsPage(handle: Handle<{ lang: Lang }>) {
             </div>
           ))}
           <p className="basics-words basics-closing">{content.closing}</p>
-          <h2 className="eyebrow related-heading"><i></i><span>{b.nextHeading}</span></h2>
+          <h2 className="eyebrow related-heading"><i></i><span>{b.nextTools}</span></h2>
+          <div className="related">
+            {linksIn('resources', lang).map((link) => (
+              <a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer"><span>{pick(link.name, lang)}</span><small>{hostOf(link.url)} ↗</small></a>
+            ))}
+          </div>
+          <h2 className="eyebrow related-heading"><i></i><span>{b.nextTopics}</span></h2>
           <div className="related">
             <a href={pageHrefs.kinkSpace[lang]}><span>{dict.kinkSpace.nav}</span><small>{dict.kinkSpace.eyebrow} →</small></a>
             <a href={pageHrefs.chronicle[lang]}><span>{dict.chronicle.nav}</span><small>{dict.chronicle.navSub} →</small></a>

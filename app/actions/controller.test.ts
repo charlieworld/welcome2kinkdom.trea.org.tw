@@ -128,7 +128,8 @@ describe('Chronicle page', () => {
   it('renders the timeline in both languages with entry points from the home page', async () => {
     const { response, html } = await fetchHtml('/chronicle')
     assert.equal(response.status, 200)
-    assert.match(html, /台灣BDSM社群大紀事及年表/)
+    assert.match(html, /社群大紀事及年表/)
+    assert.ok(!html.includes('台灣BDSM社群大紀事'))
     assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/chronicle"/)
     assert.equal((html.match(/class="chron-event/g) ?? []).length, 38)
     assert.match(html, /href="\/kink_space"/)

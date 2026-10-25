@@ -24,7 +24,7 @@ function eventGroup(event: ChronicleEvent): TypeGroup {
   return event.types.length ? typeGroupOf(event.types[0]) : 'scene'
 }
 
-const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '台灣BDSM社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
+const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
 
 export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
   return () => {
