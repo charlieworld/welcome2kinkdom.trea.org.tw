@@ -151,7 +151,7 @@ describe('Chronicle page', () => {
     // Importance 15: highlighted with the supplementary-info badge.
     const key = eventElement(html, '同志箱屍案')
     assert.ok(key, 'importance-15 event rendered')
-    assert.match(key, /class="chron-event group-\w+ is-highlight"/)
+    assert.match(key, /class="chron-event is-highlight"/)
     assert.match(key, /補充資訊 整理中/)
     // Importance 9: shown, not highlighted.
     const regular = eventElement(html, 'PTT BDSM版開版')
@@ -159,12 +159,12 @@ describe('Chronicle page', () => {
     assert.doesNotMatch(regular, /is-highlight/)
     // Internal editorial notes are never rendered.
     assert.ok(!html.includes('待考據'))
-    // Timeline furniture: year strip, decade markers, gap markers, legend and progress rail.
+    // Timeline furniture: year strip, decade markers, gap markers and progress rail.
     assert.match(html, /data-chron-strip/)
     assert.match(html, /href="#y2001"/)
     assert.match(html, /class="chron-decade"[^>]*><span>2000s<\/span>/)
     assert.match(html, /class="chron-gap"/)
-    assert.match(html, /class="chron-legend"/)
+    assert.ok(!html.includes('chron-legend'), 'no colour legend: every event uses the accent')
     assert.match(html, /class="chron-progress"/)
   })
 

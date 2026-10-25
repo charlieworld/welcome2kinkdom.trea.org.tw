@@ -146,8 +146,6 @@ html,body{max-width:100%;overflow-x:hidden}
 .source a{color:var(--accent);text-decoration:none}
 @media(max-width:420px){.stats{gap:6px}.stats dd{font-size:20px}}
 /* ---- Chronicle ---- */
-:root{--c-society:#b3164f;--c-scene:#c77d10;--c-media:#2b6cb0;--c-org:#2f855a}
-:root[data-phase="night"]{--c-society:#ff4fa3;--c-scene:#ffb547;--c-media:#6cb4ff;--c-org:#5fd39a}
 .chronicle .section{padding-top:26px}
 .chronicle-stats{grid-template-columns:1fr 1.6fr 1fr}
 /* year strip */
@@ -163,10 +161,6 @@ html,body{max-width:100%;overflow-x:hidden}
 .strip-year:hover i,.strip-year.is-current i{transform:scaleX(1.3)}
 .strip-year.is-current span{color:var(--accent);font-weight:700}
 .strip-year:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-.chron-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:12px 0 0;font-size:11px;color:var(--ink-3)}
-.chron-legend span{display:inline-flex;align-items:center;gap:6px}
-.chron-legend i{width:8px;height:8px;border-radius:50%}
-.dot-society{background:var(--c-society)}.dot-scene{background:var(--c-scene)}.dot-media{background:var(--c-media)}.dot-org{background:var(--c-org)}
 /* rail */
 .chron{position:relative;--indent:34px;--rail:14px;padding:14px 0 0 var(--indent)}
 .chron::before{content:"";position:absolute;left:var(--rail);top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--line) 40px,var(--line) calc(100% - 60px),transparent);transform:translateX(-50%)}
@@ -183,8 +177,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .chron-year h3 b{font-weight:700;letter-spacing:.02em}
 .chron-year h3 span{font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .chron-year ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.chron-event{position:relative;padding:10px 12px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);--c:var(--c-scene);transition:opacity .5s ease,transform .5s ease,border-color .3s}
-.chron-event.group-society{--c:var(--c-society)}.chron-event.group-media{--c:var(--c-media)}.chron-event.group-org{--c:var(--c-org)}
+.chron-event{position:relative;padding:10px 12px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);--c:var(--accent);transition:opacity .5s ease,transform .5s ease,border-color .3s}
 .chron-dot{position:absolute;left:calc(var(--rail) - var(--indent));top:17px;width:8px;height:8px;border-radius:50%;background:var(--c);transform:translateX(-50%);z-index:2}
 .chron-dot::before{content:"";position:absolute;left:4px;top:3px;width:calc(var(--indent) - var(--rail) - 6px);height:1px;background:color-mix(in srgb,var(--c) 55%,transparent)}
 .chron-event.is-highlight{border-color:color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 9%,var(--surface));box-shadow:0 14px 30px -24px var(--c)}
@@ -194,11 +187,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .chron-date{display:inline-flex;align-items:baseline;gap:5px;font-family:Syne,sans-serif;font-variant-numeric:tabular-nums;color:var(--c);margin-right:4px}
 .chron-date b{font-size:18px;font-weight:800;letter-spacing:.02em;line-height:1}
 .chron-date small{font-size:11px;font-weight:700;color:var(--ink-3)}
-.chron-tag{font-size:11px;line-height:1.4;padding:1px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid transparent}
-.tag-society{border-color:color-mix(in srgb,var(--c-society) 35%,transparent);color:var(--c-society);background:color-mix(in srgb,var(--c-society) 8%,var(--surface))}
-.tag-scene{border-color:color-mix(in srgb,var(--c-scene) 35%,transparent);color:var(--c-scene);background:color-mix(in srgb,var(--c-scene) 8%,var(--surface))}
-.tag-media{border-color:color-mix(in srgb,var(--c-media) 35%,transparent);color:var(--c-media);background:color-mix(in srgb,var(--c-media) 8%,var(--surface))}
-.tag-org{border-color:color-mix(in srgb,var(--c-org) 35%,transparent);color:var(--c-org);background:color-mix(in srgb,var(--c-org) 8%,var(--surface))}
+.chron-tag{font-size:11px;line-height:1.4;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
 .chron-summary{margin:0;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px;font-weight:700;line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
 .is-highlight .chron-summary{font-size:18px}
 .chron-badge{display:inline-block;margin-top:8px;padding:2px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);color:var(--c);background:var(--surface);font-size:11px;line-height:1.5;letter-spacing:.04em}
