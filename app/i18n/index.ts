@@ -114,7 +114,7 @@ export const zh = {
     '這裡不自產長文，只收錄連結。每個連結都是社群成員經營的活動、資源、節目、文庫或討論區；內容與立場由各站自行負責。',
   ],
   feedbackNote: { before: '如有勘誤、推薦資源連結、調整建議或任何回饋，歡迎', link: '填寫表單', after: '與我們聯繫。' },
-  credits: { initiated: '發起、規劃', site: '網頁工程 ・ 維護', suggest: '推薦連結', suggestText: { before: '想加入新連結？歡迎', link: '填寫表單', after: '與我們聯繫' } },
+  credits: { planning: '統籌規劃', initiated: '發起', design: '視覺設計', site: '網頁工程 ・ 維護', suggest: '推薦連結' },
   redirectTitle: '重新導向',
   redirectGo: '前往頁面',
 }
@@ -222,7 +222,7 @@ export const en: Dict = {
     'We publish links, not articles. Every link is an event, resource, podcast, blog or forum run by community members; each site is responsible for its own content and views.',
   ],
   feedbackNote: { before: 'For corrections, resource suggestions, adjustments or any other feedback, please ', link: 'fill in the form', after: ' to get in touch.' },
-  credits: { initiated: 'Initiated by', site: 'Site', suggest: 'Suggest a link', suggestText: { before: 'Want to add a link? ', link: 'Fill in the form', after: ' to reach us' } },
+  credits: { planning: 'Planning', initiated: 'Initiated by', design: 'Visual design', site: 'Site', suggest: 'Suggest a link' },
   redirectTitle: 'Redirecting',
   redirectGo: 'Continue',
 }

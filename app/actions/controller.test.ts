@@ -27,8 +27,9 @@ describe('Navigator home page', () => {
     assert.match(html, /hreflang="en" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/en"/)
     assert.match(html, /property="og:site_name" content="台灣禁羈資訊導航站"/)
     assert.match(html, /property="og:locale" content="zh_TW"/)
-    assert.match(html, /台灣情感教育協會 × 皮繩愉虐邦 × FUSION × 犬神高度育造/)
-    assert.match(html, /TinaTea 緹/)
+    for (const name of ['社團法人台灣情感教育協會', 'Fusion', '犬神高度育造', 'TinaTea 緹']) assert.ok(html.includes(`>${name}</a>`), name)
+    assert.match(html, /<span>統籌規劃<\/span><a href="https:\/\/www\.trea\.org\.tw\/"/)
+    assert.ok(!html.includes('皮繩愉虐邦'))
     for (const link of links) {
       assert.match(html, new RegExp(`href="${link.url.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}"`), link.url)
       assert.ok(html.includes(link.name.zh), link.name.zh)
