@@ -112,8 +112,8 @@ export const zh = {
   aboutLede: '台灣禁羈資訊導航站把散落各處的社群資源整理成一頁，方便新朋友與老朋友快速找到入口。',
   aboutBody: [
     '這裡不自產長文，只收錄連結。每個連結都是社群成員經營的活動、資源、節目、文庫或討論區；內容與立場由各站自行負責。',
-    '想推薦新連結、修正資訊，或認為某個連結不該出現在這裡，歡迎透過發起團體的社群帳號聯絡我們。',
   ],
+  aboutFeedback: { before: '如有勘誤、推薦資源連結、調整建議或任何回饋，歡迎', link: '填寫表單', after: '與我們聯繫。' },
   credits: { initiated: '發起、規劃', site: '網頁工程 ・ 維護', suggest: '推薦連結', suggestText: '想加入新連結？透過發起團體的社群帳號聯絡我們' },
   redirectTitle: '重新導向',
   redirectGo: '前往頁面',
@@ -220,8 +220,8 @@ export const en: Dict = {
   aboutLede: "Taiwan Kink Navigator gathers the community's scattered resources on one page, so newcomers and regulars alike can find the way in.",
   aboutBody: [
     'We publish links, not articles. Every link is an event, resource, podcast, blog or forum run by community members; each site is responsible for its own content and views.',
-    'To suggest a link, fix a detail, or ask for a link to be removed, reach us through the social accounts of the founding groups.',
   ],
+  aboutFeedback: { before: 'For corrections, resource suggestions, adjustments or any other feedback, please ', link: 'fill in the form', after: ' to get in touch.' },
   credits: { initiated: 'Initiated by', site: 'Site', suggest: 'Suggest a link', suggestText: 'Reach us through the social accounts of the founding groups' },
   redirectTitle: 'Redirecting',
   redirectGo: 'Continue',

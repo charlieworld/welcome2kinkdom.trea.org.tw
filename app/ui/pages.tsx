@@ -29,6 +29,9 @@ interface PageProps { lang: Lang }
 
 export function otherLang(lang: Lang): Lang { return lang === 'zh' ? 'en' : 'zh' }
 
+// Google Form for corrections, link suggestions and other feedback (linked from the about page).
+const FEEDBACK_FORM = 'https://forms.gle/zQkMLY4XzwjhyDU27'
+
 export function HomePage(handle: Handle<PageProps>) {
   return () => {
     const { lang } = handle.props
@@ -161,7 +164,10 @@ export function AboutPage(handle: Handle<PageProps>) {
             <h1>{dict.aboutTitle}</h1>
             <p className="lede">{dict.aboutLede}</p>
           </section>
-          <article>{dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</article>
+          <article>
+            {dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            <p>{dict.aboutFeedback.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.aboutFeedback.link}</a>{dict.aboutFeedback.after}</p>
+          </article>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
