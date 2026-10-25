@@ -46,7 +46,7 @@ export function KinkBasicsPage(handle: Handle<{ lang: Lang }>) {
             <a href={pageHrefs.kinkSpace[lang]}><span>{dict.kinkSpace.nav}</span><small>{dict.kinkSpace.eyebrow} →</small></a>
             <a href={pageHrefs.chronicle[lang]}><span>{dict.chronicle.nav}</span><small>{dict.chronicle.navSub} →</small></a>
           </div>
-          <p className="source">{b.sourceNote}</p>
+          <p className="source">{b.sourceNote.before}<a href={content.credit.url} target="_blank" rel="noopener noreferrer">{content.credit.name}</a>{b.sourceNote.after}</p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>

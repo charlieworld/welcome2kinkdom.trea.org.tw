@@ -33,6 +33,8 @@ export interface BasicsContent {
   chapters: BasicsChapter[]
   /** Closing words after the last chapter. */
   closing: string
+  /** Who contributed the content; linked from the note at the bottom of the page. */
+  credit: { name: string; url: string }
 }
 
 export const kinkBasics: Record<Lang, BasicsContent> = {
@@ -43,6 +45,7 @@ export const kinkBasics: Record<Lang, BasicsContent> = {
     lede: '第一次接觸的人從這裡開始：禁羈是什麼、社群看重什麼、互動前要先知道的事。',
     opening: '關於禁羈，每個人都可能有不同的理解與感受。我們在這裡分享自己的想法，也珍惜每一種不同的聲音。願這些文字成為探索的起點，陪伴你慢慢尋找屬於自己的答案。',
     closing: '禁羈不該由任何人替你定義，你的感受、經驗與思考，同樣珍貴。願我們的分享帶來一些啟發，也願你始終保有自由，走出屬於自己的道路。',
+    credit: { name: '千霂', url: 'https://www.facebook.com/della.wang.2015' },
     chapters: [
       {
         id: 'basics',
@@ -98,6 +101,7 @@ export const kinkBasics: Record<Lang, BasicsContent> = {
     lede: 'Start here if you are new: what kink is, what the community cares about, and what to know before you play.',
     opening: 'Everyone may understand and feel kink differently. Here we share our own thoughts and treasure every different voice. May these words be a starting point for exploration, keeping you company as you slowly find answers of your own.',
     closing: 'No one should define kink for you; your feelings, experiences and thinking are just as precious. May what we share bring some inspiration, and may you always keep your freedom and walk a path that is your own.',
+    credit: { name: '千霂', url: 'https://www.facebook.com/della.wang.2015' },
     chapters: [
       {
         id: 'basics',

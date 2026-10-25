@@ -82,7 +82,7 @@ export const zh = {
     teaser: { eyebrow: '關於禁羈', text: '關於禁羈，每個人都可能有不同的理解與感受。我們在這裡分享自己的想法，也珍惜每一種不同的聲音。願這些文字成為探索的起點，陪伴你慢慢尋找屬於自己的答案。', link: '認識禁羈 →' },
     toc: '章節',
     nextHeading: '接著看',
-    sourceNote: '本頁內容由社群整理，會隨著社群討論持續修訂。',
+    sourceNote: { before: '本頁內容由', after: '提供，如有建議歡迎與其聯繫討論。' },
   },
   chronicle: {
     nav: '台灣BDSM社群大紀事',
@@ -189,7 +189,7 @@ export const en: Dict = {
     teaser: { eyebrow: 'On kink', text: 'Everyone may understand and feel kink differently. Here we share our own thoughts and treasure every different voice. May these words be a starting point for exploration, keeping you company as you slowly find answers of your own.', link: 'Understanding kink →' },
     toc: 'Sections',
     nextHeading: 'Read next',
-    sourceNote: 'Written by the community and revised as the conversation continues.',
+    sourceNote: { before: 'The content of this page was contributed by ', after: '. Suggestions are welcome; feel free to get in touch with them.' },
   },
   chronicle: {
     nav: 'Community chronicle',
