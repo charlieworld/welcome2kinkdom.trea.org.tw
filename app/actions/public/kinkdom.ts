@@ -1,10 +1,17 @@
 type Phase = 'day' | 'night'
 
+// A manual day/night choice is kept for the browsing session so it survives navigation, including the language switch.
+const PHASE_KEY = 'kinkdom:phase'
 const root = document.documentElement
-let phase: Phase = phaseByHour(new Date().getHours())
-let manuallySelected = false
+const storedPhase = readStoredPhase()
+let phase: Phase = storedPhase ?? phaseByHour(new Date().getHours())
+let manuallySelected = storedPhase !== null
 
 function phaseByHour(hour: number): Phase { return hour >= 6 && hour < 19 ? 'day' : 'night' }
+function readStoredPhase(): Phase | null {
+  try { const value = sessionStorage.getItem(PHASE_KEY); return value === 'day' || value === 'night' ? value : null } catch { return null }
+}
+function storePhase(value: Phase) { try { sessionStorage.setItem(PHASE_KEY, value) } catch { /* storage unavailable: the choice just lasts for this page */ } }
 
 function apply() {
   root.dataset.phase = phase
@@ -41,6 +48,7 @@ document.addEventListener('keydown', (event) => { if (event.key === 'Escape') op
 document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => button.addEventListener('click', () => {
   phase = button.dataset.mode as Phase
   manuallySelected = true
+  storePhase(phase)
   apply()
 }))
 

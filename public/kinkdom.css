@@ -91,7 +91,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .feature-tag{font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
 .feature b{font-family:"Noto Serif TC","Songti TC",serif;font-size:18px}
 .feature>span:last-child{font-size:13px;color:var(--ink-2)}
-.feature:focus-visible,.filter .chip:focus-visible,.years a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.feature:focus-visible,.filter .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* ---- Kink space page ---- */
 .kink-space .section{padding-top:26px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0;padding:0}
@@ -140,7 +140,6 @@ html,body{max-width:100%;overflow-x:hidden}
 .space-row .t b{font-size:15px}
 .is-closed .t b{color:var(--ink-2)}
 .years{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-family:Syne,sans-serif;font-size:11px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
-.years a{color:var(--accent);text-decoration:none;font-family:"Noto Sans TC",sans-serif}
 .source{margin:28px 0 0;font-size:13px;color:var(--ink-2);line-height:1.6}
 .source b{display:block;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
 .source a{color:var(--accent);text-decoration:none}
