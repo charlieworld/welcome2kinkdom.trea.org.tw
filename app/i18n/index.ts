@@ -64,7 +64,7 @@ export const zh = {
     perYearHeading: '歷年營運中的空間數',
     perYearSub: '依各空間的起始與結束年份計算，結束年為 2026 視為仍在營運。',
     timelineHeading: '時間軸',
-    timelineSub: '依成立年份排序；暗色長條為營運中，亮色為已結束。',
+    timelineSub: '依成立年份排序；實心長條為營運中，淡色為已結束。',
     listHeading: '空間列表',
     listSub: '依縣市由北到南，營運中在前。',
     filterAll: '全部',
@@ -74,7 +74,6 @@ export const zh = {
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – 至今` : start === end ? `${start}` : `${start} – ${end}`,
     source: '資料來源',
     sourceNote: '整理自虎斑的「台灣禁羈空間列表＆時間軸」試算表。',
-    reference: '參考 ↗',
   },
   kinkBasics: {
     nav: '認識禁羈',
@@ -181,7 +180,6 @@ export const en: Dict = {
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – now` : start === end ? `${start}` : `${start} – ${end}`,
     source: 'Source',
     sourceNote: 'Compiled from 虎斑\'s spreadsheet "台灣禁羈空間列表＆時間軸".',
-    reference: 'Reference ↗',
   },
   kinkBasics: {
     nav: 'Understanding kink',
