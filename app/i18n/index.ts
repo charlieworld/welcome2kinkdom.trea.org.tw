@@ -103,8 +103,6 @@ export const zh = {
     filterClosed: '已結束',
     ongoing: '至今',
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – 至今` : start === end ? `${start}` : `${start} – ${end}`,
-    source: '資料來源',
-    sourceNote: '整理自虎斑的「台灣禁羈空間列表＆時間軸」試算表。',
   },
   kinkBasics: {
     nav: '認識禁羈',
@@ -240,8 +238,6 @@ export const en: Dict = {
     filterClosed: 'Closed',
     ongoing: 'now',
     yearRange: (start: number, end: number, ongoing: boolean) => ongoing ? `${start} – now` : start === end ? `${start}` : `${start} – ${end}`,
-    source: 'Source',
-    sourceNote: 'Compiled from 虎斑\'s spreadsheet "台灣禁羈空間列表＆時間軸".',
   },
   kinkBasics: {
     nav: 'Understanding kink',

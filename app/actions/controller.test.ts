@@ -101,7 +101,7 @@ describe('Kink space page', () => {
     assert.match(html, /class="cartogram"/)
     assert.match(html, /class="chart"/)
     assert.match(html, /class="timeline"/)
-    assert.match(html, /docs\.google\.com\/spreadsheets\/d\/170L5-ZWf1wuroyfeo79Qk5qmTTqB41K6lS1bv-uSlhM/)
+    assert.doesNotMatch(html, /虎斑|docs\.google\.com\/spreadsheets/)
     for (const space of spaces) assert.ok(html.includes(space.name), space.name)
     const { html: enHtml } = await fetchHtml('/en/kink_space')
     assert.match(enHtml, /Kink Spaces in Taiwan/)

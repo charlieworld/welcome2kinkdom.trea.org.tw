@@ -5,7 +5,7 @@ import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
 import {
-  CURRENT_YEAR, FIRST_YEAR, SOURCE, activePerYear, cityName, countsByCity, isOngoing, kindNames,
+  CURRENT_YEAR, FIRST_YEAR, activePerYear, cityName, countsByCity, isOngoing, kindNames,
   spaces, spacesByCity, timelineOrder, type KinkSpace,
 } from '../data/spaces.ts'
 import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
@@ -71,7 +71,7 @@ export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
             ))}
           </section>
 
-          <p className="source"><b>{k.source}</b>{k.sourceNote} <a href={SOURCE.url} target="_blank" rel="noopener noreferrer">{SOURCE.title}（{SOURCE.author}）↗</a><br />{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
+          <p className="source">{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>

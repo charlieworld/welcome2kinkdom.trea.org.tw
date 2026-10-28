@@ -21,12 +21,6 @@ export interface KinkSpace {
 export const CURRENT_YEAR = 2026
 export const FIRST_YEAR = 2004
 
-export const SOURCE = {
-  title: '台灣禁羈空間列表＆時間軸',
-  author: '虎斑',
-  url: 'https://docs.google.com/spreadsheets/d/170L5-ZWf1wuroyfeo79Qk5qmTTqB41K6lS1bv-uSlhM/edit?gid=0#gid=0',
-}
-
 export const kindNames: Record<SpaceKind, Localized> = {
   space: { zh: '空間', en: 'Space' },
   munch: { zh: '聊天會・Munch', en: 'Munch' },
