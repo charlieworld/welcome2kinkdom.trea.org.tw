@@ -5,7 +5,7 @@ import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
-import { eventsByYear, formatDate, isHighlight, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
+import { eventsByYear, formatDate, isHighlight, localizeEvent, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
 import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 
 const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
@@ -118,7 +118,8 @@ function ChronicleItem(handle: Handle<{ event: ChronicleEvent; lang: Lang }>) {
     const { event, lang } = handle.props
     const c = t(lang).chronicle
     const highlight = isHighlight(event)
-    const meta = [event.org, event.place].filter(Boolean).join(' · ')
+    const text = localizeEvent(event, lang)
+    const meta = [text.org, text.place].filter(Boolean).join(' · ')
     const { rest } = dateParts(event.start)
     const full = formatDate(event.start, event.end)
     return (
@@ -129,10 +130,10 @@ function ChronicleItem(handle: Handle<{ event: ChronicleEvent; lang: Lang }>) {
             {rest ? <b>{rest}</b> : <b>{event.start.year}</b>}
             {event.end ? <small>{full.slice(full.indexOf('–'))}</small> : null}
           </time>
-          {event.types.map((type) => <span className="chron-tag" key={type}>{type}</span>)}
+          {text.types.map((type) => <span className="chron-tag" key={type}>{type}</span>)}
         </div>
-        <p className="chron-summary">{event.summary}</p>
-        {event.detail ? <p className="chron-detail">{event.detail}</p> : null}
+        <p className="chron-summary">{text.summary}</p>
+        {text.detail ? <p className="chron-detail">{text.detail}</p> : null}
         {meta ? <p className="chron-meta">{meta}</p> : null}
         {highlight ? <span className="chron-badge">{c.highlightBadge}</span> : null}
         {event.refs.length ? (

@@ -7,6 +7,7 @@ import { categories, links, linksIn, sortLinks } from '../data/links.ts'
 import { dict, en, zh } from '../i18n/index.ts'
 import { activePerYear, cities, countsByCity, isOngoing, spaces } from '../data/spaces.ts'
 import { HIGHLIGHT_IMPORTANCE, SHOW_THRESHOLD, events, visibleEvents } from '../data/chronicle.ts'
+import { eventsEn, typeNamesEn } from '../data/chronicle-en.ts'
 
 async function fetchHtml(path: string) {
   const response = await router.fetch(new Request(`http://kinkdom.test${path}`))
@@ -137,6 +138,10 @@ describe('Chronicle page', () => {
     const { html: enHtml } = await fetchHtml('/en/chronicle')
     assert.match(enHtml, /Taiwan BDSM Community Chronicle/)
     assert.match(enHtml, /More context coming/)
+    // Event text and type tags are translated on the English page.
+    assert.ok(!enHtml.includes('同志箱屍案'), 'English page shows the translated summary')
+    assert.ok(!enHtml.includes('社會事件'), 'English page shows translated type tags')
+    assert.match(enHtml, new RegExp(`class="chron-summary">${eventsEn['同志箱屍案'].summary.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<`))
     assert.match(enHtml, /href="\/en\/kink_space"/)
     const { html: home } = await fetchHtml('/')
     assert.doesNotMatch(home, /chip-link/)
@@ -173,6 +178,10 @@ describe('Chronicle page', () => {
     const shown = visibleEvents()
     assert.equal(shown.length, events.filter((e) => e.importance >= SHOW_THRESHOLD).length)
     assert.equal(shown.filter((e) => e.importance === HIGHLIGHT_IMPORTANCE).length, 12)
+    // Every shown event has an English version, keyed by its Chinese summary; no stale keys linger.
+    for (const e of shown) assert.ok(eventsEn[e.summary], `English text for: ${e.summary}`)
+    for (const key of Object.keys(eventsEn)) assert.ok(shown.some((e) => e.summary === key), `stale English key: ${key}`)
+    for (const e of shown) for (const type of e.types) assert.ok(typeNamesEn[type], `English type label for: ${type}`)
     for (let i = 1; i < shown.length; i++) assert.ok(shown[i - 1].start.year <= shown[i].start.year, shown[i].summary)
     for (const event of events) {
       if (event.end) assert.ok(event.end.year >= event.start.year && event.end.year - event.start.year <= 1, event.summary)

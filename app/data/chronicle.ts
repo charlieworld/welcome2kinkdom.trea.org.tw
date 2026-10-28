@@ -1,5 +1,7 @@
 // Source: 台灣BDSM社群大紀事及年表 (Google Sheet maintained by the site owner). Order follows the sheet.
 // Generated from a CSV export of the sheet; every row is kept so the display threshold can change later.
+import type { Lang } from '../i18n/index.ts'
+import { eventsEn, typeNamesEn } from './chronicle-en.ts'
 
 export interface ChronicleDate {
   year: number
@@ -151,6 +153,28 @@ export const events: readonly ChronicleEvent[] = [
 
 export function isHighlight(event: ChronicleEvent): boolean {
   return event.importance >= HIGHLIGHT_IMPORTANCE
+}
+
+export interface LocalizedEventText {
+  summary: string
+  detail?: string
+  org?: string
+  place?: string
+  types: string[]
+}
+
+/** The event's text in the given language. English comes from chronicle-en.ts and falls back to the Chinese field by field. */
+export function localizeEvent(event: ChronicleEvent, lang: Lang): LocalizedEventText {
+  const { summary, detail, org, place, types } = event
+  if (lang !== 'en') return { summary, detail, org, place, types }
+  const en = eventsEn[summary]
+  return {
+    summary: en?.summary ?? summary,
+    detail: en?.detail ?? detail,
+    org: en?.org ?? org,
+    place: en?.place ?? place,
+    types: types.map((type) => typeNamesEn[type] ?? type),
+  }
 }
 
 /** Sort key comparison: year, then month (unknown month last within a year), then day (unknown day first within a month). */

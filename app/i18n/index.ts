@@ -200,7 +200,7 @@ export const en: Dict = {
     lede: "From early web forums to academic conferences, from tabloid exposés to court rulings: key moments in the history of Taiwan's BDSM community.",
     stats: { shown: 'Events', span: 'Years', highlighted: 'Key events' },
     timelineHeading: 'Timeline',
-    timelineSub: 'In date order. Highlighted entries are key events; fuller context for them is on the way. Event details are in Chinese.',
+    timelineSub: 'In date order. Highlighted entries are key events; fuller context for them is on the way.',
     highlightBadge: 'More context coming',
     yearCount: (n: number) => `${n} event${n === 1 ? '' : 's'}`,
     refs: 'Sources',
