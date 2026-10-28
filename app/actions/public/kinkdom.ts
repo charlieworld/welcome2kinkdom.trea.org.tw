@@ -69,6 +69,13 @@ const keyVisual = document.querySelector<HTMLElement>('.home .kv')
 if (keyVisual && 'IntersectionObserver' in window) {
   new IntersectionObserver(([entry]) => document.body.classList.toggle('bar-solid', !entry.isIntersecting), { rootMargin: '-57px 0px 0px 0px' }).observe(keyVisual)
 }
+// Home: the scroll hint on the key visual glides to the first block below it instead of jumping.
+document.querySelector<HTMLAnchorElement>('.scroll-hint')?.addEventListener('click', (event) => {
+  const target = document.getElementById('statement-notice')
+  if (!target) return
+  event.preventDefault()
+  target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
+})
 
 apply(); tick(); setInterval(tick, 30000)
 

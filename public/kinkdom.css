@@ -302,3 +302,10 @@ html,body{max-width:100%;overflow-x:hidden}
 .purple .purple-speech h4{font-family:"Noto Serif TC","Songti TC",serif;font-size:15px;line-height:1.5;color:var(--ink);margin:1.2em 0 .5em}
 .purple .purple-note{color:var(--ink-3);font-size:12px;margin:14px 0 6px}
 @media (max-width:420px){.purple .purple-card{padding:14px 12px 8px}.purple .purple-head{gap:12px}}
+/* ---- Home: scroll hint on the key visual ---- */
+.scroll-hint{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;text-decoration:none;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.65);opacity:.92;transition:opacity var(--t) ease}
+.scroll-hint svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 6px rgba(0,0,0,.6));animation:scroll-hint-bob 1.8s ease-in-out infinite}
+@keyframes scroll-hint-bob{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(8px);opacity:1}}
+.home.bar-solid .scroll-hint{opacity:0;pointer-events:none}
+.scroll-hint:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:8px}
+#statement-notice{scroll-margin-top:72px}
