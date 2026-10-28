@@ -108,7 +108,7 @@ describe('Kink space page', () => {
   })
 
   it('has consistent space data', () => {
-    assert.equal(spaces.length, 62)
+    assert.equal(spaces.length, 65)
     for (const space of spaces) {
       assert.ok(space.start >= 2004 && space.start <= space.end, space.name)
       if (space.city) assert.ok(cities.some((c) => c.key === space.city), `${space.name}: ${space.city}`)
