@@ -9,6 +9,7 @@ import {
   spaces, spacesByCity, timelineOrder, type KinkSpace,
 } from '../data/spaces.ts'
 import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { Icon } from './icons.tsx'
 
 const OG_IMAGE = { src: '/og-kink-space.jpg', alt: { zh: '台灣禁羈空間：縣市分布方塊圖與營運中空間數', en: 'Kink Spaces in Taiwan: county map and counts' } }
 
@@ -72,7 +73,7 @@ export function KinkSpacePage(handle: Handle<{ lang: Lang }>) {
           </section>
 
           <p className="source">{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="kinkSpace" />

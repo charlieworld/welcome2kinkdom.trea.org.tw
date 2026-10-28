@@ -7,6 +7,7 @@ import { pick, t } from '../i18n/index.ts'
 import { purple, purpleUpdated } from '../data/statement-cd-purple.ts'
 import { linkHost } from '../data/statement-cd-solidarity.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { Icon } from './icons.tsx'
 
 export function StatementPurplePage(handle: Handle<{ lang: Lang }>) {
   return () => {
@@ -33,7 +34,7 @@ export function StatementPurplePage(handle: Handle<{ lang: Lang }>) {
                   <div className="purple-title">
                     <h3>{pick(group.name, lang)}</h3>
                     {group.url
-                      ? <a className="purple-visit" href={group.url} target="_blank" rel="noopener noreferrer">{s.visit}<small>{linkHost(group.url)}</small></a>
+                      ? <a className="purple-visit" href={group.url} target="_blank" rel="noopener noreferrer">{s.visit}<Icon name="arrow-up-right" size={14} className="icon-inline" /><small>{linkHost(group.url)}</small></a>
                       : null}
                   </div>
                 </div>
@@ -45,7 +46,7 @@ export function StatementPurplePage(handle: Handle<{ lang: Lang }>) {
                   ? <p className="purple-pending">{s.speechPending}</p>
                   : (
                     <details className="purple-speech">
-                      <summary>{s.speechToggle}</summary>
+                      <summary><Icon name="chevron-right" size={16} className="summary-icon" />{s.speechToggle}</summary>
                       <div>
                         {group.speech.map((paragraph, i) => paragraph.startsWith('［') ? <h4 key={i}>{paragraph}</h4> : <p key={i}>{paragraph}</p>)}
                       </div>
@@ -55,7 +56,7 @@ export function StatementPurplePage(handle: Handle<{ lang: Lang }>) {
             ))}
             <p className="purple-note">{s.sourceNote}</p>
           </article>
-          <a className="back-link" href={pageHrefs.statementCd[lang]}>{s.backToStatement}</a>
+          <a className="back-link" href={pageHrefs.statementCd[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{s.backToStatement}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="statementCdPurple" />
