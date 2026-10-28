@@ -6,6 +6,7 @@ import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
 import { linkHost, solidarity, solidarityOrgs, solidarityUpdated, type SolidarityCategory } from '../data/statement-cd-solidarity.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { Icon } from './icons.tsx'
 
 const CATEGORIES: SolidarityCategory[] = ['action', 'statement']
 
@@ -50,7 +51,7 @@ export function StatementSolidarityPage(handle: Handle<{ lang: Lang }>) {
             ))}
             <p className="solidarity-note">{s.sourceNote}</p>
           </article>
-          <a className="back-link" href={pageHrefs.statementCd[lang]}>{s.backToStatement}</a>
+          <a className="back-link" href={pageHrefs.statementCd[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{s.backToStatement}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="statementCdSolidarity" />

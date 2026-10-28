@@ -7,6 +7,7 @@ import { pick, t } from '../i18n/index.ts'
 import { kinkBasics, type BasicsSection } from '../data/kink-basics.ts'
 import { hostOf, linksIn } from '../data/links.ts'
 import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { Icon } from './icons.tsx'
 
 const OG_IMAGE = { src: '/og-kink-basics.jpg', alt: { zh: '認識禁羈：涵義、核心精神與互動原則', en: 'Understanding Kink: meaning, core values and principles of play' } }
 
@@ -45,16 +46,16 @@ export function KinkBasicsPage(handle: Handle<{ lang: Lang }>) {
           <h2 className="eyebrow related-heading"><i></i><span>{b.nextTools}</span></h2>
           <div className="related">
             {linksIn('resources', lang).map((link) => (
-              <a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer"><span>{pick(link.name, lang)}</span><small>{hostOf(link.url)} ↗</small></a>
+              <a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer"><span>{pick(link.name, lang)}</span><small>{hostOf(link.url)}<Icon name="arrow-up-right" size={14} className="icon-inline" /></small></a>
             ))}
           </div>
           <h2 className="eyebrow related-heading"><i></i><span>{b.nextTopics}</span></h2>
           <div className="related">
-            <a href={pageHrefs.kinkSpace[lang]}><span>{dict.kinkSpace.nav}</span><small>{dict.kinkSpace.eyebrow} →</small></a>
-            <a href={pageHrefs.chronicle[lang]}><span>{dict.chronicle.nav}</span><small>{dict.chronicle.navSub} →</small></a>
+            <a href={pageHrefs.kinkSpace[lang]}><span>{dict.kinkSpace.nav}</span><small>{dict.kinkSpace.eyebrow}<Icon name="arrow-right" size={14} className="icon-inline" /></small></a>
+            <a href={pageHrefs.chronicle[lang]}><span>{dict.chronicle.nav}</span><small>{dict.chronicle.navSub}<Icon name="arrow-right" size={14} className="icon-inline" /></small></a>
           </div>
           <p className="source">{b.sourceNote.before}<a href={content.credit.url} target="_blank" rel="noopener noreferrer">{content.credit.name}</a>{b.sourceNote.after}</p>
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="kinkBasics" />

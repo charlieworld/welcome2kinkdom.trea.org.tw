@@ -41,7 +41,7 @@ export default createController(routes, {
     kinkSpaceEn(context) { return context.render(<KinkSpacePage lang="en" />) },
     kinkBasicsEn(context) { return context.render(<KinkBasicsPage lang="en" />) },
     chronicleEn(context) { return context.render(<ChroniclePage lang="en" />) },
-    // Former Kinkdom section pages → the closest category.
+    // Former Kinkdom section pages: the closest category.
     store() { return redirect(routes.about.href(), 301) },
     school() { return redirect(routes.linksResources.href(), 301) },
     cafe() { return redirect(routes.linksPodcasts.href(), 301) },

@@ -101,7 +101,7 @@ export const spaces: readonly KinkSpace[] = [
 export interface CityInfo {
   key: string
   name: Localized
-  /** Column and row on the tile cartogram (west→east, north→south). */
+  /** Column and row on the tile cartogram (west to east, north to south). */
   col: number
   row: number
 }
@@ -164,7 +164,7 @@ export function timelineOrder(lang: Lang): KinkSpace[] {
   return [...spaces].sort((a, b) => a.start - b.start || collator.compare(a.name, b.name))
 }
 
-/** Spaces grouped by city, cities in cartogram order (north→south), unknown city last. */
+/** Spaces grouped by city, cities in cartogram order (north to south), unknown city last. */
 export function spacesByCity(lang: Lang): { key: string | undefined; name: string; items: KinkSpace[] }[] {
   const collator = new Intl.Collator(lang === 'zh' ? 'zh-Hant-TW' : 'en')
   const groups = cities

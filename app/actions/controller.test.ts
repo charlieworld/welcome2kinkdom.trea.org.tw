@@ -309,3 +309,14 @@ describe('Legacy redirects', () => {
     assert.equal(response.headers.get('location'), '/links/podcasts')
   })
 })
+
+describe('Lucide icons', () => {
+  it('every link row carries a Lucide icon', async () => {
+    const { html } = await fetchHtml('/links/podcasts')
+    const exts = html.match(/class="ext"[^>]*>(?=<svg)/g) ?? []
+    assert.equal(exts.length, linksIn('podcasts', 'zh').length)
+    assert.doesNotMatch(html, /[↗→←]/)
+    const { html: home } = await fetchHtml('/')
+    assert.match(home, /class="menu-btn[^"]*"[^>]*>\s*<svg/)
+  })
+})

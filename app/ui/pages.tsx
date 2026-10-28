@@ -6,6 +6,8 @@ import { Document } from '../actions/document.tsx'
 import type { Lang } from '../i18n/index.ts'
 import { pick, t } from '../i18n/index.ts'
 import { categories, categoryInfo, hostOf, links, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
+import type { IconName } from './icons.tsx'
+import { Icon } from './icons.tsx'
 import { statementCd } from '../data/statement-cd.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
@@ -56,22 +58,22 @@ export function HomePage(handle: Handle<PageProps>) {
             <img className="kv-image kv-image-night" src="/kinkdom-hero-night.avif" alt={dict.kvNightAlt} width="1440" height="2560" />
             <a className="scroll-hint" href="#statement-notice" aria-label={dict.scrollHint}>
               <span aria-hidden="true">{dict.scrollHintLabel}</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+              <Icon name="chevron-down" size={28} strokeWidth={2} />
             </a>
           </div>
           <a className="notice phase-transition" id="statement-notice" href={pageHrefs.statementCd[lang]}>
             <i aria-hidden="true"></i>
-            <span><b>{dict.statementNotice.tag}</b>{dict.statementNotice.text}</span>
+            <span><b>{dict.statementNotice.tag}</b>{dict.statementNotice.text}<Icon name="arrow-right" size={14} className="icon-inline" /></span>
           </a>
           <BasicsTeaser lang={lang} />
           <section className="section topics-section" id="topics">
             <h2><em>{dict.topics.heading}</em><span>{dict.topics.sub}</span></h2>
             <div className="topics">
               <a className="topic phase-transition" href={pageHrefs.kinkSpace[lang]}>
-                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span><i aria-hidden="true">→</i>
+                <b>{dict.kinkSpace.homeCard.title}</b><span>{dict.kinkSpace.homeCard.text}</span><i aria-hidden="true"><Icon name="arrow-right" size={14} /></i>
               </a>
               <a className="topic phase-transition" href={pageHrefs.chronicle[lang]}>
-                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span><i aria-hidden="true">→</i>
+                <b>{dict.chronicle.homeCard.title}</b><span>{dict.chronicle.homeCard.text}</span><i aria-hidden="true"><Icon name="arrow-right" size={14} /></i>
               </a>
             </div>
           </section>
@@ -118,7 +120,7 @@ export function CategoryPage(handle: Handle<PageProps & { category: LinkCategory
             <p className="lede">{pick(info.desc, lang)} {dict.sortedNote}</p>
           </section>
           <LinkList items={items} icon={info.icon} lang={lang} />
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page={category} />
@@ -148,7 +150,7 @@ export function StatementPage(handle: Handle<PageProps>) {
               <p className="src">{dict.quotedFrom}</p>
               <h3>{content.quote.title}</h3>
               <p>{content.quote.summary}</p>
-              <a href={content.quote.url} target="_blank" rel="noopener noreferrer">{dict.readOriginal}</a>
+              <a href={content.quote.url} target="_blank" rel="noopener noreferrer">{dict.readOriginal}<Icon name="arrow-up-right" size={14} className="icon-inline" /></a>
             </blockquote>
             <h2 className="eyebrow related-heading"><i></i><span>{dict.related}</span></h2>
             <div className="related">
@@ -157,7 +159,7 @@ export function StatementPage(handle: Handle<PageProps>) {
                 : <a href={item.url} key={item.url} target="_blank" rel="noopener noreferrer"><span>{item.label}</span><small>{item.meta}</small></a>)}
             </div>
           </article>
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="statementCd" />
@@ -184,7 +186,7 @@ export function AboutPage(handle: Handle<PageProps>) {
             {dict.aboutBody.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             <p>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </article>
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="about" />
@@ -201,22 +203,22 @@ function BasicsTeaser(handle: Handle<{ lang: Lang }>) {
       <aside className="teaser phase-transition" aria-labelledby="teaser-title">
         <div className="eyebrow"><i></i><span id="teaser-title">{dict.kinkBasics.teaser.eyebrow}</span></div>
         <p>{dict.kinkBasics.teaser.text}</p>
-        <a href={pageHrefs.kinkBasics[handle.props.lang]}>{dict.kinkBasics.teaser.link}</a>
+        <a href={pageHrefs.kinkBasics[handle.props.lang]}>{dict.kinkBasics.teaser.link}<Icon name="arrow-right" size={14} className="icon-inline" /></a>
       </aside>
     )
   }
 }
 
-function LinkList(handle: Handle<{ items: SiteLink[]; icon: string; lang: Lang }>) {
+function LinkList(handle: Handle<{ items: SiteLink[]; icon: IconName; lang: Lang }>) {
   return () => {
     const { items, icon, lang } = handle.props
     return (
       <div className="rows">
         {items.map((link) => (
           <a className="row link-row phase-transition" href={link.url} key={link.url} target="_blank" rel="noopener noreferrer">
-            <span className="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon} /></svg></span>
+            <span className="ico"><Icon name={icon} size={22} /></span>
             <span className="t"><b>{pick(link.name, lang)}</b><span>{hostOf(link.url)}{link.note ? ` · ${pick(link.note, lang)}` : ''}</span></span>
-            <span className="ext" aria-hidden="true">↗</span>
+            <span className="ext" aria-hidden="true"><Icon name="arrow-up-right" size={14} /></span>
           </a>
         ))}
       </div>
@@ -235,7 +237,7 @@ export function TopBar(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <div className="bar-actions">
           <a className="lang-switch phase-transition" href={pageHrefs[page][other]} hrefLang={t(other).htmlLang} lang={t(other).htmlLang} aria-label={dict.switchLangLabel}>{dict.switchLang}</a>
           <button className="menu-btn phase-transition" type="button" data-menu-button aria-label={dict.menuOpen} aria-expanded="false" aria-controls="menu-sheet">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            <Icon name="menu" size={16} />
           </button>
         </div>
       </div></header>
@@ -253,7 +255,7 @@ export function SiteFooter(handle: Handle<{ lang: Lang }>) {
             {CREDITS.map((credit) => <p key={credit.key}><span>{dict.credits[credit.key]}</span><a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.name}</a></p>)}
             <p><span>{dict.credits.suggest}</span>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </div>
-          <p className="footer-signature"><em>made with love</em><i aria-hidden="true">✦</i><span>2026</span></p>
+          <p className="footer-signature"><em>made with love</em><i aria-hidden="true"><Icon name="sparkle" size={11} /></i><span>2026</span></p>
         </div>
       </footer>
     )
@@ -265,6 +267,7 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
     const { lang, page } = handle.props
     const dict = t(lang)
     const other = otherLang(lang)
+    const navArrow = <Icon name="arrow-right" size={12} />
     const navLink = (href: string, label: RemixNode, sub: RemixNode) => <a href={href} key={href}><b>{label}</b><span>{sub}</span></a>
     return (<>
       <div className="scrim" data-scrim></div>
@@ -274,9 +277,9 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <nav className="nav">
           {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
-          {navLink(pageHrefs.statementCdSolidarity[lang], dict.solidarity.nav, '→')}
-          {navLink(pageHrefs.statementCdPurple[lang], dict.purple.nav, '→')}
-          {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
+          {navLink(pageHrefs.statementCdSolidarity[lang], dict.solidarity.nav, navArrow)}
+          {navLink(pageHrefs.statementCdPurple[lang], dict.purple.nav, navArrow)}
+          {navLink(pageHrefs.about[lang], dict.aboutNav, navArrow)}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>
         <h3>{dict.linksHeading}</h3>

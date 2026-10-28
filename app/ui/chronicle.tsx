@@ -7,6 +7,7 @@ import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
 import { eventsByYear, formatDate, isHighlight, localizeEvent, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
 import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { Icon } from './icons.tsx'
 
 const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
 
@@ -64,10 +65,10 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
 
           <h2 className="eyebrow related-heading"><i></i><span>{c.relatedHeading}</span></h2>
           <div className="related">
-            <a href={pageHrefs.kinkSpace[lang]}><span>{c.relatedKinkSpace.label}</span><small>{c.relatedKinkSpace.meta} →</small></a>
+            <a href={pageHrefs.kinkSpace[lang]}><span>{c.relatedKinkSpace.label}</span><small>{c.relatedKinkSpace.meta}<Icon name="arrow-right" size={14} className="icon-inline" /></small></a>
           </div>
           <p className="source">{c.sourceNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{c.sourceNote.link}</a>{c.sourceNote.after}</p>
-          <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
+          <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>
         <MenuSheet lang={lang} page="chronicle" />
@@ -138,7 +139,7 @@ function ChronicleItem(handle: Handle<{ event: ChronicleEvent; lang: Lang }>) {
         {highlight ? <span className="chron-badge">{c.highlightBadge}</span> : null}
         {event.refs.length ? (
           <p className="chron-refs" aria-label={c.refs}>
-            {event.refs.map((ref) => <a href={ref.url} key={ref.url} target="_blank" rel="noopener noreferrer">{ref.label ?? hostOf(ref.url)} ↗</a>)}
+            {event.refs.map((ref) => <a href={ref.url} key={ref.url} target="_blank" rel="noopener noreferrer">{ref.label ?? hostOf(ref.url)}<Icon name="arrow-up-right" size={14} className="icon-inline" /></a>)}
           </p>
         ) : null}
       </li>
