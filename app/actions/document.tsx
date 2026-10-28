@@ -86,7 +86,7 @@ export function Document(handle: Handle<DocumentProps>) {
           <link rel="stylesheet" href={stylesheetHref()} />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
           <title>{title}</title>
-          <script>{`(function(){var h=new Date().getHours();document.documentElement.setAttribute('data-phase',h>=6&&h<19?'day':'night')})();`}</script>
+          <script>{`(function(){var p=null;try{p=sessionStorage.getItem('kinkdom:phase')}catch(e){}var h=new Date().getHours();document.documentElement.setAttribute('data-phase',p==='day'||p==='night'?p:(h>=6&&h<19?'day':'night'))})();`}</script>
           {head}
           {entryPreloads.map((href) => (
             <link key={href} rel="modulepreload" href={href} />
