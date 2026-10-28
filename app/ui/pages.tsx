@@ -253,7 +253,7 @@ export function SiteFooter(handle: Handle<{ lang: Lang }>) {
         <div className="footer-inner">
           <div className="footer-credits">
             {CREDITS.map((credit) => <p key={credit.key}><span>{dict.credits[credit.key]}</span><a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.name}</a></p>)}
-            <p><span>{dict.credits.suggest}</span>{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
+            <p className="footer-feedback">{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </div>
           <p className="footer-signature"><em>made with love</em><i aria-hidden="true"><Icon name="sparkle" size={11} /></i><span>2026</span></p>
         </div>
