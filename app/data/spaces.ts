@@ -59,7 +59,7 @@ export const spaces: readonly KinkSpace[] = [
   { name: '台師大多元性慾友善社', kind: 'club', start: 2017, end: 2026, host: '師大性善社', city: '台北市', district: '大安區', url: 'https://www.facebook.com/photo?fbid=652636338256893&set=a.459029776238722' },
   { name: '成大禁羈社', kind: 'club', start: 2019, end: 2026, host: '成大禁羈社', city: '台南市', district: '東區', url: 'https://x.com/nckukink/status/1186562774517735424' },
   { name: '清大愛慾實務社', kind: 'club', start: 2020, end: 2026, host: '清大愛慾實務社', city: '新竹市', district: '東區', url: 'https://nthuaiyu.medium.com/1091-%E5%AD%B8%E6%9C%9F%E5%9B%9E%E9%A1%A7-%E6%96%B0%E7%AB%B9%E5%94%AF%E4%B8%80%E4%B8%BB%E6%89%93%E6%83%85%E6%85%BE%E8%88%87%E6%80%A7%E7%9A%84%E7%A4%BE%E5%9C%98-%E5%9C%A8%E9%80%99%E5%80%8B%E5%AD%B8%E6%9C%9F%E5%81%9A%E4%BA%86%E4%BB%80%E9%BA%BC-2ae44ee0f4c' },
-  { name: '東吳大學多元性愉悅研究社', kind: 'space', start: 2025, end: 2026, city: '台北市', district: '中正區', url: 'https://x.com/scubdsmclub/status/1904717761324204209' },
+  { name: '東吳大學多元性愉悅研究社', kind: 'club', start: 2025, end: 2026, city: '台北市', district: '中正區', url: 'https://x.com/scubdsmclub/status/1904717761324204209' },
   { name: '貓樓上繩語沙龍', kind: 'space', start: 2018, end: 2026, city: '台北市', district: '大同區', url: 'https://www.catsdownstairs.com/about' },
   { name: 'BDSM康樂玩', kind: 'space', start: 2019, end: 2026, city: '新北市', district: '板橋區' },
   { name: '束室', kind: 'space', start: 2018, end: 2026, city: '新北市', district: '板橋區' },
