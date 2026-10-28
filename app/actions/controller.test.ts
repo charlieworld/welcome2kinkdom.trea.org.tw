@@ -66,7 +66,7 @@ describe('Navigator home page', () => {
 describe('Navigator content pages', () => {
   it('renders every page path in both languages', async () => {
     const pages = pagePaths.filter((path) => path === '/' || path === '/en' || path.startsWith('/links') || path.startsWith('/en/') || path.startsWith('/statement') || path === '/about' || path === '/kink_space' || path === '/kink_basics' || path === '/chronicle')
-    assert.equal(pages.length, 22)
+    assert.equal(pages.length, 26)
     for (const path of pages) {
       const { response, html } = await fetchHtml(path)
       assert.equal(response.status, 200, path)
@@ -233,9 +233,46 @@ describe('Kink basics page', () => {
   })
 })
 
+describe('Solidarity page', () => {
+  it('renders the solidarity page', async () => {
+    const zhPage = await fetchHtml('/statement/cd/solidarity')
+    assert.equal(zhPage.response.status, 200)
+    for (const text of ['各界聲援', '台灣同志諮詢熱線協會', 'https://www.amnesty.tw/node/25033', 'rel="canonical" href="https://welcome2kinkdom.trea.org.tw/statement/cd/solidarity"'])
+      assert.ok(zhPage.html.includes(text), text)
+    const enPage = await fetchHtml('/en/statement/cd/solidarity')
+    assert.equal(enPage.response.status, 200)
+    assert.ok(enPage.html.includes('Covenants Watch'))
+    assert.ok(enPage.html.includes('<html lang="en"'))
+    const statement = await fetchHtml('/statement/cd')
+    const anchor = statement.html.match(/<a\b[^>]*href="\/statement\/cd\/solidarity"[^>]*>/)?.[0]
+    assert.ok(anchor, 'statement links to the solidarity page')
+    assert.ok(!anchor.includes('target='))
+    assert.match(statement.html, /<div class="related"><a href="\/statement\/cd\/solidarity"/)
+  })
+})
+
+describe('Purple contingent page', () => {
+  it('renders the purple contingent page', async () => {
+    const zhPage = await fetchHtml('/statement/cd/purple')
+    assert.equal(zhPage.response.status, 200)
+    for (const text of ['紫色大隊', '彩虹城市管樂團', '/logos/rainbow-city-symphonic-band.webp', '歲月靜好人力車', '<details', 'rel="canonical" href="https://welcome2kinkdom.trea.org.tw/statement/cd/purple"'])
+      assert.ok(zhPage.html.includes(text), text)
+    const enPage = await fetchHtml('/en/statement/cd/purple')
+    assert.equal(enPage.response.status, 200)
+    assert.ok(enPage.html.includes('Rainbow City Symphonic Band'))
+    assert.ok(enPage.html.includes('<html lang="en"'))
+    const statement = await fetchHtml('/statement/cd')
+    const related = statement.html.match(/<div class="related">(.*?)<\/div>/s)?.[1] ?? ''
+    const anchors = related.match(/<a\b[^>]*>/g) ?? []
+    assert.match(anchors[0] ?? '', /href="\/statement\/cd\/solidarity"/)
+    assert.match(anchors[1] ?? '', /href="\/statement\/cd\/purple"/)
+    assert.ok(!anchors[1].includes('target='))
+  })
+})
+
 describe('External links', () => {
   it('open every outbound link in a new tab', async () => {
-    for (const path of ['/', '/en', '/statement/cd', '/kink_space', '/chronicle', '/links/forums']) {
+    for (const path of ['/', '/en', '/statement/cd', '/statement/cd/solidarity', '/en/statement/cd/solidarity', '/statement/cd/purple', '/en/statement/cd/purple', '/kink_space', '/chronicle', '/links/forums']) {
       const { html } = await fetchHtml(path)
       const anchors = html.match(/<a\b[^>]*href="https?:[^"]*"[^>]*>/g) ?? []
       assert.ok(anchors.length > 0, path)

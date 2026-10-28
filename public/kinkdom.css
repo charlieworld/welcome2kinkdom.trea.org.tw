@@ -20,7 +20,7 @@
 .kv{aspect-ratio:457/640;background:var(--surface)}
 .kv-image{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;transition:opacity var(--t) ease}
 :root[data-phase="day"] .kv-image-night,:root[data-phase="night"] .kv-image-day{opacity:0;pointer-events:none}
-.site-footer{width:100vw;margin:48px 0 0 calc(50% - 50vw);padding:0;color:var(--ink-3);border-top:1px solid var(--line)}
+.site-footer{width:100vw;margin:48px 0 0 calc(50% - 50vw);padding:0;color:var(--ink-3);}
 .footer-inner{width:min(1080px,calc(100% - 40px));margin:0 auto;padding:32px 0 calc(28px + env(safe-area-inset-bottom))}
 .footer-credits{display:grid;gap:4px}
 .footer-credits p{margin:0;font-size:13px;line-height:1.75}.footer-credits p a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
@@ -118,7 +118,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .chart figcaption{font-size:11px;color:var(--ink-3);margin-top:4px}
 .filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
 .filter .chip{cursor:pointer;font:inherit;font-size:13px}
-.timeline{position:relative;border-top:1px solid var(--line)}
+.timeline{position:relative;}
 .tl-axis{position:relative;height:18px;margin-left:calc(34% + 6px);margin-right:68px;font-family:Syne,sans-serif;font-size:10px;color:var(--ink-3)}
 .tl-axis span{position:absolute;top:2px;transform:translateX(-50%)}
 .tl-row{display:grid;grid-template-columns:34% 1fr;gap:6px;align-items:center;padding:5px 0;border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent)}
@@ -259,3 +259,46 @@ html,body{max-width:100%;overflow-x:hidden}
 .home:not(.bar-solid) .brand{text-shadow:0 0 6px var(--ground),0 0 14px var(--ground)}
 .home:not(.bar-solid) .brand span{color:var(--ink-2)}
 .home .kv{height:100svh}
+/* ---- Statement: solidarity list ---- */
+.solidarity-section{padding:22px 0 4px}
+.solidarity .solidarity-section .sub{margin:4px 0 12px;color:var(--ink-2);font-size:14px}
+.solidarity .solidarity-card{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:14px 14px 4px;margin:0 0 12px}
+.solidarity .solidarity-joint{margin:0 0 8px;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.solidarity-orgs ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.solidarity-orgs li{font-size:12px;line-height:1.4;padding:4px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.solidarity-items{display:flex;flex-direction:column;}
+.solidarity-card .solidarity-item{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.5}
+.solidarity-card .solidarity-item:last-child{border-bottom:0}
+.solidarity-item small{flex:none;color:var(--ink-3);font-family:Syne,sans-serif;font-size:10px;letter-spacing:.08em}
+.solidarity-item:hover .solidarity-title{color:var(--accent)}
+.solidarity-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.solidarity .solidarity-note{color:var(--ink-3);font-size:12px;margin:14px 0 6px}
+
+/* ---- Statement: purple contingent ---- */
+.purple .purple-card{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 16px 10px;margin:0 0 14px}
+.purple .purple-head{display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.purple .purple-logo{flex:none;width:64px;height:64px;border-radius:14px;background:#fff;overflow:hidden;display:block}
+.purple .purple-logo img{display:block;width:100%;height:100%;object-fit:contain;padding:4px}
+.purple .purple-logo-text{background:var(--card-color);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Noto Serif TC","Songti TC",serif;font-weight:700;font-size:20px}
+.purple .purple-title{min-width:0}
+.purple .purple-title h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;line-height:1.35;margin:0;color:var(--ink);overflow-wrap:anywhere}
+.purple .purple-card a.purple-visit{display:inline-flex;gap:8px;align-items:baseline;margin-top:2px;font-size:13px;color:var(--accent);text-decoration:none;border-bottom:0}
+.purple .purple-visit small{color:var(--ink-3);font-family:Syne,sans-serif;font-size:10px;letter-spacing:.08em;overflow-wrap:anywhere}
+.purple .purple-card a.purple-visit:hover{text-decoration:underline}
+.purple .purple-card a.purple-visit:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.purple .purple-card p.purple-intro{font-size:14px;line-height:1.7;color:var(--ink-2);margin:0 0 12px}
+.purple .purple-support{margin:0 0 12px;padding:2px 0 2px 12px;border-left:3px solid var(--accent)}
+.purple .purple-support p{font-size:14px;line-height:1.7;color:var(--ink);margin:0}
+.purple .purple-support p.purple-label,.purple .purple-card p.purple-label{margin:0 0 4px;font-family:Syne,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.purple .purple-card p.purple-pending{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.purple .purple-speech{border-top:1px solid var(--line);padding:10px 0 4px;margin:0 0 4px}
+.purple .purple-speech summary{list-style:none;cursor:pointer;color:var(--accent);font-weight:700;font-size:14px}
+.purple .purple-speech summary::-webkit-details-marker{display:none}
+.purple .purple-speech summary::before{content:"▸";display:inline-block;margin-right:6px;transition:transform .2s}
+.purple .purple-speech[open] summary::before{transform:rotate(90deg)}
+.purple .purple-speech summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.purple .purple-speech>div{padding-top:10px}
+.purple .purple-speech p{font-size:14px;line-height:1.85;color:var(--ink-2);margin:0 0 .9em}
+.purple .purple-speech h4{font-family:"Noto Serif TC","Songti TC",serif;font-size:15px;line-height:1.5;color:var(--ink);margin:1.2em 0 .5em}
+.purple .purple-note{color:var(--ink-3);font-size:12px;margin:14px 0 6px}
+@media (max-width:420px){.purple .purple-card{padding:14px 12px 8px}.purple .purple-head{gap:12px}}

@@ -7,6 +7,7 @@ export interface StatementContent {
   paragraphs: string[]
   /** Quoted source: Taiwan LGBT+ Pride's 2026 theme statement supplement. */
   quote: { title: string; summary: string; url: string }
+  /** `url` is either an external https URL or a site-internal path starting with `/`. */
   related: { label: string; url: string; meta: string }[]
 }
 
@@ -26,6 +27,8 @@ export const statementCd: Record<Lang, StatementContent> = {
       url: 'https://www.facebook.com/100067198980712/posts/1445435101039776/',
     },
     related: [
+      { label: '各界聲援聲明與行動整理', url: '/statement/cd/solidarity', meta: '持續更新' },
+      { label: '2026 同志遊行紫色大隊：聲援單位與宣講', url: '/statement/cd/purple', meta: '持續更新' },
       { label: '【聯合聲明】北市府應徹查萬華分局搜索同志店家爭議', url: 'https://www.taiwanpride.lgbt/announcement/2026104', meta: '2026/10/4' },
       { label: '2026 主題說明｜華文版', url: 'https://www.taiwanpride.lgbt/2026-theme-statement-zh', meta: 'taiwanpride.lgbt' },
       { label: '2026 主題說明｜臺文版', url: 'https://www.taiwanpride.lgbt/2026-theme-statement-taigi', meta: 'taiwanpride.lgbt' },
@@ -45,6 +48,8 @@ export const statementCd: Record<Lang, StatementContent> = {
       url: 'https://www.taiwanpride.lgbt/2026-theme-statement-en',
     },
     related: [
+      { label: 'Solidarity statements and actions', url: '/en/statement/cd/solidarity', meta: 'Updated' },
+      { label: 'Purple Contingent: supporting groups and speeches', url: '/en/statement/cd/purple', meta: 'Updated' },
       { label: 'Joint statement: Taipei must investigate the Wanhua raid (Chinese)', url: 'https://www.taiwanpride.lgbt/announcement/2026104', meta: '2026/10/4' },
       { label: 'Original post on Facebook (Chinese)', url: 'https://www.facebook.com/100067198980712/posts/1445435101039776/', meta: 'facebook.com' },
       { label: 'Kink-Aware Professionals in Taiwan', url: 'https://therapist.smer.today/', meta: 'Resources' },

@@ -6,6 +6,8 @@ import { routes } from '../routes.ts'
 import { AboutPage, CategoryPage, HomePage, StatementPage } from '../ui/pages.tsx'
 import { KinkSpacePage } from '../ui/kink-space.tsx'
 import { ChroniclePage } from '../ui/chronicle.tsx'
+import { StatementPurplePage } from '../ui/statement-purple.tsx'
+import { StatementSolidarityPage } from '../ui/statement-solidarity.tsx'
 import { KinkBasicsPage } from '../ui/kink-basics.tsx'
 
 export default createController(routes, {
@@ -20,6 +22,8 @@ export default createController(routes, {
     linksWritings(context) { return context.render(<CategoryPage lang="zh" category="writings" />) },
     linksForums(context) { return context.render(<CategoryPage lang="zh" category="forums" />) },
     statementCd(context) { return context.render(<StatementPage lang="zh" />) },
+    statementCdSolidarity(context) { return context.render(<StatementSolidarityPage lang="zh" />) },
+    statementCdPurple(context) { return context.render(<StatementPurplePage lang="zh" />) },
     about(context) { return context.render(<AboutPage lang="zh" />) },
     kinkSpace(context) { return context.render(<KinkSpacePage lang="zh" />) },
     kinkBasics(context) { return context.render(<KinkBasicsPage lang="zh" />) },
@@ -31,6 +35,8 @@ export default createController(routes, {
     linksWritingsEn(context) { return context.render(<CategoryPage lang="en" category="writings" />) },
     linksForumsEn(context) { return context.render(<CategoryPage lang="en" category="forums" />) },
     statementCdEn(context) { return context.render(<StatementPage lang="en" />) },
+    statementCdSolidarityEn(context) { return context.render(<StatementSolidarityPage lang="en" />) },
+    statementCdPurpleEn(context) { return context.render(<StatementPurplePage lang="en" />) },
     aboutEn(context) { return context.render(<AboutPage lang="en" />) },
     kinkSpaceEn(context) { return context.render(<KinkSpacePage lang="en" />) },
     kinkBasicsEn(context) { return context.render(<KinkBasicsPage lang="en" />) },

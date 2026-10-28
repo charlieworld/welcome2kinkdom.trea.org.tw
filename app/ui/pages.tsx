@@ -17,6 +17,8 @@ export const pageHrefs = {
   writings: { zh: routes.linksWritings.href(), en: routes.linksWritingsEn.href() },
   forums: { zh: routes.linksForums.href(), en: routes.linksForumsEn.href() },
   statementCd: { zh: routes.statementCd.href(), en: routes.statementCdEn.href() },
+  statementCdSolidarity: { zh: routes.statementCdSolidarity.href(), en: routes.statementCdSolidarityEn.href() },
+  statementCdPurple: { zh: routes.statementCdPurple.href(), en: routes.statementCdPurpleEn.href() },
   about: { zh: routes.about.href(), en: routes.aboutEn.href() },
   kinkSpace: { zh: routes.kinkSpace.href(), en: routes.kinkSpaceEn.href() },
   kinkBasics: { zh: routes.kinkBasics.href(), en: routes.kinkBasicsEn.href() },
@@ -146,7 +148,9 @@ export function StatementPage(handle: Handle<PageProps>) {
             </blockquote>
             <h2 className="eyebrow related-heading"><i></i><span>{dict.related}</span></h2>
             <div className="related">
-              {content.related.map((item) => <a href={item.url} key={item.url} target="_blank" rel="noopener noreferrer"><span>{item.label}</span><small>{item.meta}</small></a>)}
+              {content.related.map((item) => item.url.startsWith('/')
+                ? <a href={item.url} key={item.url}><span>{item.label}</span><small>{item.meta}</small></a>
+                : <a href={item.url} key={item.url} target="_blank" rel="noopener noreferrer"><span>{item.label}</span><small>{item.meta}</small></a>)}
             </div>
           </article>
           <a className="back-link" href={pageHrefs.home[lang]}>{dict.backToLinks}</a>
@@ -266,6 +270,8 @@ export function MenuSheet(handle: Handle<{ lang: Lang; page: PageKey }>) {
         <nav className="nav">
           {navLink(pageHrefs.kinkBasics[lang], dict.kinkBasics.nav, dict.kinkBasics.navSub)}
           {navLink(pageHrefs.statementCd[lang], dict.statementNav, <i className="dot" aria-hidden="true"></i>)}
+          {navLink(pageHrefs.statementCdSolidarity[lang], dict.solidarity.nav, '→')}
+          {navLink(pageHrefs.statementCdPurple[lang], dict.purple.nav, '→')}
           {navLink(pageHrefs.about[lang], dict.aboutNav, '→')}
           {navLink(pageHrefs[page][other], t(other).siteName, dict.switchLangLabel)}
         </nav>
