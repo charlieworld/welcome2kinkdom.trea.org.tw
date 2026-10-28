@@ -54,8 +54,12 @@ export function HomePage(handle: Handle<PageProps>) {
           <div className="kv phase-transition">
             <img className="kv-image kv-image-day" src="/kinkdom-hero-day.avif" alt={dict.kvDayAlt} width="1440" height="2560" />
             <img className="kv-image kv-image-night" src="/kinkdom-hero-night.avif" alt={dict.kvNightAlt} width="1440" height="2560" />
+            <a className="scroll-hint" href="#statement-notice" aria-label={dict.scrollHint}>
+              <span aria-hidden="true">{dict.scrollHintLabel}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </a>
           </div>
-          <a className="notice phase-transition" href={pageHrefs.statementCd[lang]}>
+          <a className="notice phase-transition" id="statement-notice" href={pageHrefs.statementCd[lang]}>
             <i aria-hidden="true"></i>
             <span><b>{dict.statementNotice.tag}</b>{dict.statementNotice.text}</span>
           </a>
