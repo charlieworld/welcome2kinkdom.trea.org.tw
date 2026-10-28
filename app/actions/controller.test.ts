@@ -132,7 +132,7 @@ describe('Chronicle page', () => {
     assert.match(html, /社群大紀事及年表/)
     assert.ok(!html.includes('台灣BDSM社群大紀事'))
     assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/chronicle"/)
-    assert.equal((html.match(/class="chron-event/g) ?? []).length, 38)
+    assert.equal((html.match(/class="chron-event/g) ?? []).length, 39)
     assert.match(html, /href="\/kink_space"/)
     const { html: enHtml } = await fetchHtml('/en/chronicle')
     assert.match(enHtml, /Taiwan BDSM Community Chronicle/)
@@ -169,7 +169,7 @@ describe('Chronicle page', () => {
   })
 
   it('has consistent chronicle data', () => {
-    assert.equal(events.length, 105)
+    assert.equal(events.length, 110)
     const shown = visibleEvents()
     assert.equal(shown.length, events.filter((e) => e.importance >= SHOW_THRESHOLD).length)
     assert.equal(shown.filter((e) => e.importance === HIGHLIGHT_IMPORTANCE).length, 12)
