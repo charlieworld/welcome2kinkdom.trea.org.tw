@@ -70,7 +70,7 @@ export const spaces: readonly KinkSpace[] = [
   { name: '吊點', kind: 'space', start: 2019, end: 2021, city: '台南市', district: '中西區' },
   { name: '縛室', kind: 'space', start: 2021, end: 2025, city: '台南市', district: '中西區' },
   { name: '底家', kind: 'space', start: 2022, end: 2026, city: '台南市', district: '北區' },
-  { name: '童心園', kind: 'space', start: 2024, end: 2026, city: '高雄市', district: '左營區' },
+  { name: '童心園', kind: 'space', start: 2023, end: 2026, city: '高雄市', district: '苓雅區' },
   { name: '羈人方舟', kind: 'space', start: 2021, end: 2026, city: '新北市', district: '新莊區' },
   { name: '弗蕊雅莊園', kind: 'space', start: 2020, end: 2026, city: '新竹縣', url: 'https://x.com/freyjasmanor/status/1309763972518653952' },
   { name: '魔女的蜜室', kind: 'space', start: 2021, end: 2026, city: '台北市', district: '中山區' },
