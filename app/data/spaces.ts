@@ -83,7 +83,7 @@ export const spaces: readonly KinkSpace[] = [
   { name: '隨心部屋', kind: 'space', start: 2021, end: 2026, city: '高雄市', district: '左營區', url: 'https://www.instagram.com/p/CRwb7S4JX24/?img_index=1' },
   { name: '晝縛夜畜', kind: 'space', start: 2024, end: 2026, city: '台南市', district: '永康區' },
   { name: '禁羈會社', kind: 'space', start: 2025, end: 2026, city: '新北市', district: '板橋區' },
-  { name: '史萊姆巢穴 StickySlime', kind: 'space', start: 2025, end: 2026, city: '台北市', district: '大安區' },
+  { name: '史萊姆巢穴 StickySlime', kind: 'space', start: 2024, end: 2026, city: '台北市', district: '大安區' },
   { name: '赤巢', kind: 'space', start: 2026, end: 2026, city: '新北市', district: '三重區' },
   { name: '玩壞bar', kind: 'space', start: 2025, end: 2026, city: '桃園市', district: '桃園區' },
   { name: '打結拍', kind: 'space', start: 2026, end: 2026, city: '新竹市', district: '東區' },
