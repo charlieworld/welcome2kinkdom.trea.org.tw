@@ -35,7 +35,7 @@ export const links: readonly SiteLink[] = [
   { category: 'resources', name: { zh: '禁羈友善助人工作者資源網', en: 'Kink-Aware Professionals in Taiwan' }, url: 'https://therapist.smer.today/' },
   { category: 'resources', name: { zh: '中文 BDSM 學術策展', en: 'Kink Reference' }, url: 'https://kinkref.org/' },
   { category: 'resources', name: { zh: 'BDSM 性向測驗', en: 'The Potion' }, url: 'https://the-potion.com/' },
-  { category: 'resources', name: { zh: 'Boundary Notes', en: 'Boundary Notes' }, url: 'https://boundarynotes.com' },
+  { category: 'resources', name: { zh: 'Boundary Notes 項目喜好測驗', en: 'Boundary Notes' }, url: 'https://boundarynotes.com' },
   { category: 'podcasts', name: { zh: '好色喔！禁羈相談室｜BDSM 故事集' }, url: 'https://hsokinky.capy.tw/index.html' },
   { category: 'podcasts', name: { zh: 'sub有一種sub味' }, url: 'https://open.firstory.fm/user/subontheway' },
   { category: 'podcasts', name: { zh: 'BDSM蹺蹺板：聊聊你的愉虐人生' }, url: 'https://open.firstory.fm/user/bdsmseesaw/' },
