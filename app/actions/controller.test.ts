@@ -51,7 +51,7 @@ describe('Navigator home page', () => {
 
   it('sorts Chinese names by stroke order and keeps Latin names after them', () => {
     assert.deepEqual(linksIn('events', 'zh').map((link) => link.name.zh), ['BDSM 小白板', 'BDSM 行事曆'])
-    assert.deepEqual(linksIn('resources', 'zh').map((link) => link.name.zh), ['中文 BDSM 學術策展', '禁羈友善助人工作者資源網', 'BDSM 性向測驗'])
+    assert.deepEqual(linksIn('resources', 'zh').map((link) => link.name.zh), ['中文 BDSM 學術策展', '禁羈友善助人工作者資源網', 'BDSM 性向測驗', 'Boundary Notes'])
     assert.deepEqual(linksIn('forums', 'zh').map((link) => link.name.zh), ['批踢踢實業坊(BDSM板)', 'Dcard(BDSM板)'])
     assert.equal(sortLinks(links, 'en').length, links.length)
   })
@@ -59,7 +59,7 @@ describe('Navigator home page', () => {
   it('has every category represented and no duplicate URLs', () => {
     for (const category of categories) assert.ok(linksIn(category.key, 'zh').length > 0, category.key)
     assert.equal(new Set(links.map((link) => link.url)).size, links.length)
-    assert.equal(links.length, 18)
+    assert.equal(links.length, 19)
   })
 })
 
