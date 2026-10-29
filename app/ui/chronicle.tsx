@@ -6,7 +6,7 @@ import type { Lang } from '../i18n/index.ts'
 import { t } from '../i18n/index.ts'
 import { hostOf } from '../data/links.ts'
 import { eventsByYear, formatDate, isHighlight, localizeEvent, visibleEvents, type ChronicleDate, type ChronicleEvent } from '../data/chronicle.ts'
-import { FEEDBACK_FORM, MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
+import { MenuSheet, SiteFooter, TopBar, otherLang, pageHrefs } from './pages.tsx'
 import { Icon } from './icons.tsx'
 
 const OG_IMAGE = { src: '/og-chronicle.jpg', alt: { zh: '社群大紀事及年表：2000 到 2026 的時間軸', en: 'Taiwan BDSM Community Chronicle: timeline 2000–2026' } }
@@ -67,7 +67,7 @@ export function ChroniclePage(handle: Handle<{ lang: Lang }>) {
           <div className="related">
             <a href={pageHrefs.kinkSpace[lang]}><span>{c.relatedKinkSpace.label}</span><small>{c.relatedKinkSpace.meta}<Icon name="arrow-right" size={14} className="icon-inline" /></small></a>
           </div>
-          <p className="source">{c.sourceNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{c.sourceNote.link}</a>{c.sourceNote.after}</p>
+          <p className="source">{c.sourceNote}</p>
           <a className="back-link" href={pageHrefs.home[lang]}><Icon name="arrow-left" size={16} className="back-icon" />{dict.backToLinks}</a>
           <SiteFooter lang={lang} />
         </main>

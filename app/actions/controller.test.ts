@@ -101,11 +101,13 @@ describe('Kink space page', () => {
     assert.match(html, /class="cartogram"/)
     assert.match(html, /class="chart"/)
     assert.match(html, /class="timeline"/)
-    assert.doesNotMatch(html, /虎斑|docs\.google\.com\/spreadsheets/)
+    assert.doesNotMatch(html, /docs\.google\.com\/spreadsheets/)
+    assert.match(html, /本頁內容由虎斑提供，如有建議歡迎與其聯繫討論。/)
     for (const space of spaces) assert.ok(html.includes(space.name), space.name)
     const { html: enHtml } = await fetchHtml('/en/kink_space')
     assert.match(enHtml, /Kink Spaces in Taiwan/)
     assert.match(enHtml, /New Taipei/)
+    assert.match(enHtml, /contributed by 虎斑/)
   })
 
   it('has consistent space data', () => {
@@ -135,7 +137,9 @@ describe('Chronicle page', () => {
     assert.match(html, /rel="canonical" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/chronicle"/)
     assert.equal((html.match(/class="chron-event/g) ?? []).length, 39)
     assert.match(html, /href="\/kink_space"/)
+    assert.match(html, /本頁內容由虎斑提供，如有建議歡迎與其聯繫討論。/)
     const { html: enHtml } = await fetchHtml('/en/chronicle')
+    assert.match(enHtml, /contributed by 虎斑/)
     assert.match(enHtml, /Taiwan BDSM Community Chronicle/)
     assert.match(enHtml, /More context coming/)
     // Event text and type tags are translated on the English page.
