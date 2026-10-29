@@ -51,7 +51,7 @@ describe('Navigator home page', () => {
 
   it('sorts Chinese names by stroke order and keeps Latin names after them', () => {
     assert.deepEqual(linksIn('events', 'zh').map((link) => link.name.zh), ['BDSM 小白板', 'BDSM 行事曆'])
-    assert.deepEqual(linksIn('resources', 'zh').map((link) => link.name.zh), ['中文 BDSM 學術策展', '禁羈友善助人工作者資源網', 'BDSM 性向測驗', 'Boundary Notes'])
+    assert.deepEqual(linksIn('resources', 'zh').map((link) => link.name.zh), ['中文 BDSM 學術策展', '禁羈友善助人工作者資源網', 'BDSM 性向測驗', 'Boundary Notes 項目喜好測驗'])
     assert.deepEqual(linksIn('forums', 'zh').map((link) => link.name.zh), ['批踢踢實業坊(BDSM板)', 'Dcard(BDSM板)'])
     assert.equal(sortLinks(links, 'en').length, links.length)
   })
