@@ -144,6 +144,7 @@ export const zh = {
   ],
   feedbackNote: { before: '如有勘誤、推薦資源連結、調整建議或任何回饋，歡迎', link: '填寫表單', after: '與我們聯繫。' },
   credits: { planning: '統籌規劃', initiated: '發起', design: '主視覺設計', site: '網頁設計 ・ 工程 ・ 維護' },
+  updatedAt: '資料更新',
   redirectTitle: '重新導向',
   redirectGo: '前往頁面',
 }
@@ -281,6 +282,7 @@ export const en: Dict = {
   ],
   feedbackNote: { before: 'For corrections, resource suggestions, adjustments or any other feedback, please ', link: 'fill in the form', after: ' to get in touch.' },
   credits: { planning: 'Planning', initiated: 'Initiated by', design: 'Key visual', site: 'Web design · engineering · maintenance' },
+  updatedAt: 'Updated',
   redirectTitle: 'Redirecting',
   redirectGo: 'Continue',
 }

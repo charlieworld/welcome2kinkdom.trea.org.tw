@@ -8,6 +8,7 @@ import { pick, t } from '../i18n/index.ts'
 import { categories, categoryInfo, hostOf, links, linksIn, type LinkCategory, type SiteLink } from '../data/links.ts'
 import type { IconName } from './icons.tsx'
 import { Icon } from './icons.tsx'
+import { formatUpdatedAt, siteUpdatedAt } from '../data/updated-at.ts'
 import { statementCd } from '../data/statement-cd.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
@@ -256,6 +257,7 @@ export function SiteFooter(handle: Handle<{ lang: Lang }>) {
             <p className="footer-feedback">{dict.feedbackNote.before}<a href={FEEDBACK_FORM} target="_blank" rel="noopener noreferrer">{dict.feedbackNote.link}</a>{dict.feedbackNote.after}</p>
           </div>
           <p className="footer-signature"><em>made with love</em><i aria-hidden="true"><Icon name="sparkle" size={11} /></i><span>2026</span></p>
+          <p className="footer-updated"><span>{dict.updatedAt}</span><time dateTime={siteUpdatedAt.toISOString()}>{formatUpdatedAt(siteUpdatedAt, handle.props.lang)}</time></p>
         </div>
       </footer>
     )
