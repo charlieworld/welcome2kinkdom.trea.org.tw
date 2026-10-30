@@ -17,7 +17,7 @@ export interface PurpleGroup {
 }
 
 /** Date of the sheet this file was synced from (YYYY.MM.DD). */
-export const purpleUpdated = '2026.10.30'
+export const purpleUpdated = '2026.10.31'
 
 // 同步來源：「CD事件聲明_2026-臺灣同志遊行紫色大隊宣講內容（持續更新）」表單回覆 V4。
 // 宣講全文僅中文；英文只翻譯單位介紹與聲援短語。英文單位名以 logo 或官網為準，無者為本站翻譯。
@@ -30,7 +30,20 @@ export const purple: PurpleGroup[] = [
     color: '#f28c3b',
     intro: { zh: '本樂團由一群友善於LGBTQ+族群且熱愛管樂的人士組成，自2015年10月底以來，我們積極參與每年的臺灣同志遊行，致力於為同志發聲並捍衛平權。儘管團員們並非職業樂手，他們仍願意犧牲假日時間，定期於周日晚間練習，以培養默契和演奏實力，力求藉由自我充實來積極發聲，邁向理想目標。 近年來，我們的指導老師非常專注於提升樂手的基本能力，透過系統化的訓練，團員們不斷挑戰自我，每年都追求更高的水平。我們樂團持續努力展現特色，目標是成為亞洲第一的LGBTQ+管樂團，讓更多人因我們的理念、特色和音樂感受到充沛的能量。', en: 'A wind band of LGBTQ+-friendly music lovers who have marched in every Taiwan LGBT+ Pride since October 2015, speaking up for the community and defending equal rights. None of the members are professional players, yet they give up their Sundays to rehearse together, building both ensemble and skill so that their playing can carry their message. In recent years their conductor has focused on fundamentals, pushing the band to a higher level every year. Their goal is to become Asia\'s leading LGBTQ+ wind band and to let more people feel the energy of their ideals, their character and their music.' },
     support: { zh: '雖然我平時沒有特別接觸或深入了解『台灣禁羈資訊導航站』，但我很認同這個平台存在的價值。 在一個多元開放的社會裡，每個人對於自我探索、身體自主，以及不同的生活風格或次文化，都應該擁有被尊重、被理解的空間。看到有這樣一個致力於提供安全對話、理性溝通與正確資訊的平台，我覺得是非常難得且值得肯定的事。', en: 'I don\'t usually engage much with the Taiwan Kink Navigator, but I fully recognise the value of a platform like this. In a plural, open society, everyone\'s self-exploration, bodily autonomy and different lifestyles or subcultures deserve space to be respected and understood. Seeing a platform dedicated to safe conversation, reasoned dialogue and accurate information is rare and worth affirming.' },
-    speech: [],
+    speech: [
+      '大家好！我們是彩虹城市管樂團 (Rainbow City Symphonic Band, RCSB)！',
+      '首先，要特別感謝主辦單位——台灣彩虹公民行動協會以及台灣情感教育協會，讓我們有機會站上這個舞台！算一算，我們樂團也已經一起走了 11 年了，非常開心今天能上來和大家說說話。',
+      '這陣子，大家是不是也感受到各種政治操作、試圖撕裂社會、引起仇恨？',
+      '但不好意思，我們更團結了！',
+      '我們其實就和現場的大家一樣，來自各行各業。我們可能是你的同事、隔壁鄰居、或是每天跟你擦身而過的路人。雖然我們背景不同，但我們都有一樣的理想跟目標——那就是在社會上，能做最真實的自己！不用再因為老闆、家人的不理解而選擇隱藏、選擇妥協。',
+      '常常有人會問，甚至有些冷言冷語說：「同婚都過了，為什麼還要遊行？」',
+      '不好意思，歧視還是在！ 那些無謂的框架和異樣眼光，依然綁架著許多人。',
+      '人生已經夠難了，為什麼我們還要辛苦地面對這些不理解？',
+      '正因為人生很難，我們才更需要彼此。音樂對我們來說是這樣，現場的大家對彼此也是這樣。我們每一個人在社會的角落裡努力生活、努力發聲，就像樂器裡不同的音符，或許高亢、或許低沉，但少了誰都不行。',
+      '今天，我們在這裡吹著樂器、踏著步伐，不只是為了我們自己，更是為了每一個在平權路上努力的你、你、還有你！',
+      '大家，我們一起繼續努力遊行、一起打破這些無謂的框架！讓大家看看，我們有權利在陽光下用最舒服、最真實的姿態活著！',
+      '謝謝大家！今天我們一起走到底！',
+    ],
   },
   {
     slug: 'yonghe-home-care',
