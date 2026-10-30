@@ -30,6 +30,11 @@ function tick() {
   if (!manuallySelected && phase !== phaseByHour(date.getHours())) { phase = phaseByHour(date.getHours()); apply() }
 }
 
+// The live card closes for this page view only; it comes back on the next visit.
+document.querySelector('[data-live-close]')?.addEventListener('click', (event) => {
+  (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-live]')?.setAttribute('hidden', '')
+})
+
 const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]')
 const sheet = document.querySelector<HTMLElement>('[data-sheet]')
 let lastFocused: HTMLElement | null = null

@@ -10,6 +10,7 @@ import type { IconName } from './icons.tsx'
 import { Icon } from './icons.tsx'
 import { formatUpdatedAt, siteUpdatedAt } from '../data/updated-at.ts'
 import { statementCd } from '../data/statement-cd.ts'
+import { liveStream } from '../data/live.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
 export const pageHrefs = {
@@ -97,6 +98,18 @@ export function HomePage(handle: Handle<PageProps>) {
           })}
           <SiteFooter lang={lang} />
         </main>
+        {liveStream
+          ? (
+            <aside className="live-pop phase-transition" data-live={liveStream.url} aria-label={dict.live.title}>
+              <a className="live-link" href={liveStream.url} target="_blank" rel="noopener noreferrer">
+                <b><i aria-hidden="true"></i>{dict.live.tag}</b>
+                <span>{dict.live.title}</span>
+                <small>{dict.live.cta}<Icon name="arrow-up-right" size={12} className="icon-inline" /></small>
+              </a>
+              <button className="live-close" type="button" data-live-close aria-label={dict.live.close}><Icon name="x" size={16} /></button>
+            </aside>
+          )
+          : null}
         <MenuSheet lang={lang} page="home" />
         <script type="module" src={kinkdomHref}></script>
       </Document>
