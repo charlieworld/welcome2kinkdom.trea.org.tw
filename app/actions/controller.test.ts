@@ -7,11 +7,22 @@ import { categories, links, linksIn, sortLinks } from '../data/links.ts'
 import { dict, en, zh } from '../i18n/index.ts'
 import { activePerYear, cities, countsByCity, isOngoing, spaces } from '../data/spaces.ts'
 import { HIGHLIGHT_IMPORTANCE, SHOW_THRESHOLD, events, visibleEvents } from '../data/chronicle.ts'
+import { SHOW_LIVE_POPUP, liveStream } from '../data/live.ts'
 import { eventsEn, typeNamesEn } from '../data/chronicle-en.ts'
 
 async function fetchHtml(path: string) {
   const response = await router.fetch(new Request(`http://kinkdom.test${path}`))
   return { response, html: await response.text() }
+}
+
+function assertHomeLivePopup(html: string) {
+  if (SHOW_LIVE_POPUP && liveStream) {
+    assert.match(html, /class="live-pop /)
+    assert.match(html, /data-live-close/)
+  } else {
+    assert.doesNotMatch(html, /class="live-pop/)
+    assert.doesNotMatch(html, /data-live-close/)
+  }
 }
 
 describe('Navigator home page', () => {
@@ -35,6 +46,7 @@ describe('Navigator home page', () => {
       assert.match(html, new RegExp(`href="${link.url.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}"`), link.url)
       assert.ok(html.includes(link.name.zh), link.name.zh)
     }
+    assertHomeLivePopup(html)
   })
 
   it('renders the English home page with English names where available', async () => {
@@ -47,6 +59,7 @@ describe('Navigator home page', () => {
     assert.match(html, /hreflang="zh-Hant" href="https:\/\/welcome2kinkdom\.trea\.org\.tw\/"/)
     // Links without an English name fall back to the Chinese original.
     assert.ok(html.includes('底層慾望'))
+    assertHomeLivePopup(html)
   })
 
   it('sorts Chinese names by stroke order and keeps Latin names after them', () => {

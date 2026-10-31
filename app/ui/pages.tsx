@@ -10,7 +10,7 @@ import type { IconName } from './icons.tsx'
 import { Icon } from './icons.tsx'
 import { formatUpdatedAt, siteUpdatedAt } from '../data/updated-at.ts'
 import { statementCd } from '../data/statement-cd.ts'
-import { liveStream } from '../data/live.ts'
+import { SHOW_LIVE_POPUP, liveStream } from '../data/live.ts'
 
 /** Localized hrefs for every page, so the language switch can point at the same page in the other language. */
 export const pageHrefs = {
@@ -98,7 +98,7 @@ export function HomePage(handle: Handle<PageProps>) {
           })}
           <SiteFooter lang={lang} />
         </main>
-        {liveStream
+        {SHOW_LIVE_POPUP && liveStream
           ? (
             <aside className="live-pop phase-transition" data-live={liveStream.url} aria-label={dict.live.title}>
               <a className="live-link" href={liveStream.url} target="_blank" rel="noopener noreferrer">
